@@ -1,4 +1,10 @@
-sup-projects
+SupMessaging
 ============
 
-Supinfo group projects repository
+Supinfo JEE Project
+
+Group : 
+ * Martin
+ * Adrien
+ * Mathieu
+ * Julien
