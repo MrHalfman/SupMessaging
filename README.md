@@ -5,18 +5,18 @@ Supinfo JEE Project
 
 Group : 
  * Martin
- * Adrien
+ * Adrien 158113
  * Mathieu
  * Julien
 
-Comment réaliser son commit avec NetBeans ?
+Comment rÃ©aliser son commit avec NetBeans ?
 ===========================================
 
  * Commencer par tester vos modifications
- * Une fois que ces modifications sont approuvés, faire le commit des modifications **/!\ NE PAS FAIRE DE PUSH MAINTENANT**
+ * Une fois que ces modifications sont approuvÃ©s, faire le commit des modifications **/!\ NE PAS FAIRE DE PUSH MAINTENANT**
  * Une fois cela fait, syncroniser le repos
- * Si aucun conflit n'apparaît, lancer le push (syncronisation)
- * Dans le cas échéant, résoudre les conflits puis relancer le push
+ * Si aucun conflit n'apparaÃ®t, lancer le push (syncronisation)
+ * Dans le cas Ã©chÃ©ant, rÃ©soudre les conflits puis relancer le push
  
 
-Maintenant vous pouvez ouvrir de nouveau NetBeans et continuer à travailler!
+Maintenant vous pouvez ouvrir de nouveau NetBeans et continuer Ã  travailler!
