@@ -5,6 +5,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 version="3.0">
+    
     <servlet> <!-- Servlet pour la page d'accueil une fois connecté -->
         <servlet-name>Dashboard</servlet-name>
         <servlet-class>com.supmessaging.servlets.Dashboard</servlet-class>
@@ -12,5 +13,14 @@ version="3.0">
     <servlet-mapping>
         <servlet-name>Dashboard</servlet-name>
         <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
+    
+    <servlet> <!-- Servlet de la page de connexion -->
+        <servlet-name>Connection</servlet-name>
+        <servlet-class>com.supmessaging.servlets.Connection</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Connection</servlet-name>
+        <url-pattern>/connect</url-pattern>
     </servlet-mapping>
 </web-app>
