@@ -14,17 +14,17 @@
         <link href="${pageContext.request.contextPath}/js/bootstrap.min.js" rel="stylesheet"/>
         <title>Contact</title>
     </head>
-    <body>
-        
+    <body>       
         <div class="panel panel-primary form-style">
             <div class="panel-heading">
                 <h5> Welcome on the Contact page, here you can send a message to the SupMessaging's admin. </h5>
             </div>
             <div class="panel-body">
+                <form method="post" action="contact">
                 <div class="form-group">
                         <label>Mail :</label>
                         <div>
-                            <input type="text" name="mail" class="form-control" placeholder="12345@supinfo.com">
+                            <input type="text" name="email" class="form-control" placeholder="12345@supinfo.com">                          
                         </div>
                 </div>
                 <div class="form-group">
@@ -33,7 +33,8 @@
                             <textarea type="text" name="message" rows=10 class="form-control" placeholder="Hi admin..."></textarea>
                         </div>
                 </div>
-                <button type="button" class="btn btn-default navbar-btn pull-right">Send Message</button>
+                <button type="submit" class="btn btn-default navbar-btn pull-right" >Send Message</button>
+                </form>
             </div>
         </div>
     </body>
