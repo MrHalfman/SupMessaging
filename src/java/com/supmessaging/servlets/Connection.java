@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Martin
  */
-@WebServlet(name = "Connection", urlPatterns = {"/Connection"})
 public class Connection extends HttpServlet {
     
     public static final String jspView = "/WEB-INF/Connection.jsp";
