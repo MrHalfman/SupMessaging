@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,22 +21,24 @@
                 <h3 class="panel-title">Connection</h3>
             </div>
             <div class="panel-body">
-                <form method="post" action="inscription">
+                <form method="post" action="connect">
                     <div class="form-group">
                         <label>Username :</label>
                         <div>
-                            <input type="text" name="username" class="form-control" placeholder="KevinBG14">
+                            <input type="text" name="username" class="form-control" placeholder="KevinBG14" value="<c:out value="${username}"/>">
+                            <span class="error-field text-right">${error['username']}</span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Password :</label>
                         <div> 
                             <input type="password" name="password" class="form-control" id="pwd" placeholder="Enter password">
+                            <span class="error-field text-right">${error['password']}</span>
                         </div>
                     </div>
                     <div class="form-group"> 
                         <div>
-                            <button type="submit" class="btn btn-default pull-right">Submit</button>
+                            <button type="submit" value="connect" class="btn btn-default pull-right">Submit</button>
                         </div>
                     </div>
                 </form>
