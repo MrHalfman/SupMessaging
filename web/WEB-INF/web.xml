@@ -23,4 +23,14 @@ version="3.0">
         <servlet-name>Connection</servlet-name>
         <url-pattern>/connect</url-pattern>
     </servlet-mapping>
+    
+    
+    <servlet> <!-- Servlet de la page de contact -->
+        <servlet-name>Contact</servlet-name>
+        <servlet-class>com.supmessaging.servlets.Contact</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Contact</servlet-name>
+        <url-pattern>/contact</url-pattern>
+    </servlet-mapping>
 </web-app>
