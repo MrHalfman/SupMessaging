@@ -39,9 +39,11 @@ public class Connection extends HttpServlet {
         String password = request.getParameter(usernamePassword);
         
         errors.clear();
+        request.setAttribute(usernameField, username);
         
         if(!"".equals(checkInput.validateUsername(username))) {
             errors.put( usernameField, checkInput.validateUsername(username) );
+            request.removeAttribute(usernameField);
         }
         
         if(!"".equals(checkInput.validateUsername(password))) {
