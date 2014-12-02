@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -22,6 +23,9 @@ public class Dashboard extends HttpServlet {
     @Override
     public void doGet( HttpServletRequest request, HttpServletResponse response )	throws ServletException, IOException {
             this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );
+            
+            HttpSession session = request.getSession();
+            String username = (String) session.getAttribute("username");
     }
 
     

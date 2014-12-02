@@ -12,6 +12,6 @@
         <title>My dashboard</title>
     </head>
     <body>
-        <h1>Welcome to your dashobard!</h1>
+        <h1>Welcome to your dashobard ${username}!</h1>
     </body>
 </html>
