@@ -5,7 +5,10 @@
  */
 package com.supmessaging.servlets;
 
+import com.supmessaging.managementclass.CheckInput;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +19,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class Contact extends HttpServlet {
     public static final String jspView = "/WEB-INF/Contact.jsp";
-    public static final String mail = "email";
-    public static final String message = "message";
+    public static final String mailField = "email";
+    public static final String textarea = "message";
+    
+    CheckInput checkInput = new CheckInput();
     
     @Override
     public void doGet( HttpServletRequest request, HttpServletResponse response )	throws ServletException, IOException {
@@ -25,16 +30,35 @@ public class Contact extends HttpServlet {
     }
     
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //on récupere les parametre de POST du JSP
-        String emailFinal = req.getParameter(mail); 
-        String messageFinal = req.getParameter(message);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        Map<String, String> errors = new HashMap<>();
+        String emailData = request.getParameter(mailField); 
+        String messageData = request.getParameter(textarea);
         
-        //on affiche dans les log
-        System.out.println(emailFinal); 
-        System.out.println(messageFinal);
+        System.out.print(emailData);
+        System.out.print(messageData);
         
-        //ça reaffiche mon formulaire après le POST
-        this.getServletContext().getRequestDispatcher( jspView ).forward( req, resp ); 
+        errors.clear();
+        request.setAttribute("email", emailData);
+        request.setAttribute("message", messageData);
+        
+        if(!"".equals(checkInput.validateMail(emailData))) {
+            errors.put( mailField, checkInput.validateMail(emailData) );
+            request.removeAttribute("email");
+        }
+        
+        if(!"".equals(checkInput.nonEmpty(messageData))) {
+            errors.put( textarea, checkInput.nonEmpty(messageData) );
+            request.removeAttribute("message");
+        }
+        
+        if(!errors.isEmpty()) {
+            request.setAttribute("error", errors);
+            this.getServletContext().getRequestDispatcher(jspView).forward( request, response );
+        }
+        else {
+            response.sendRedirect("/SupMessaging");
+        }
     }   
 }
