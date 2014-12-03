@@ -51,4 +51,14 @@ version="3.0">
         <servlet-name>Toolbar</servlet-name>
         <url-pattern></url-pattern>
     </servlet-mapping>
+    
+    <servlet> <!-- Servlet de la page de toolbarConnected -->
+        <servlet-name>ToolbarConnected</servlet-name>
+        <servlet-class>com.supmessaging.servlets.ToolbarConnected</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>ToolbarConnected</servlet-name>
+        <url-pattern></url-pattern>
+    </servlet-mapping>
 </web-app>
