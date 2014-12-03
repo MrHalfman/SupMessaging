@@ -15,7 +15,7 @@
         <title>My dashboard</title>
     </head>
     <body>
-        <%@ include file="/WEB-INF/includes/Toolbar.jsp" %>
+        <%@ include file="/WEB-INF/includes/ToolbarConnected.jsp" %>
         <h1>Welcome to your dashboard ${username}!</h1>
     </body>
 </html>
