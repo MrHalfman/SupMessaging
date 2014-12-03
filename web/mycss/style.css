@@ -16,6 +16,10 @@
     max-width : 800px;
 }
 
+.space-between {
+    margin : 8px;
+}
+
 
 // ----------------------------------
 //         MEDIA QUERIES
