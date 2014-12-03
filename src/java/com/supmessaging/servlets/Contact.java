@@ -35,10 +35,7 @@ public class Contact extends HttpServlet {
         Map<String, String> errors = new HashMap<>();
         String emailData = request.getParameter(mailField); 
         String messageData = request.getParameter(textarea);
-        
-        System.out.print(emailData);
-        System.out.print(messageData);
-        
+               
         errors.clear();
         request.setAttribute("email", emailData);
         request.setAttribute("message", messageData);
@@ -58,7 +55,7 @@ public class Contact extends HttpServlet {
             this.getServletContext().getRequestDispatcher(jspView).forward( request, response );
         }
         else {
-            response.sendRedirect("/SupMessaging");
+            response.sendRedirect("/SupMessaging"); 
         }
     }   
 }
