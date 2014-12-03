@@ -9,9 +9,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="${pageContext.request.contextPath}/mycss/style.css" rel="stylesheet"/>
+        <link href="${pageContext.request.contextPath}/js/bootstrap.min.js" rel="stylesheet"/>
         <title>My dashboard</title>
     </head>
     <body>
+        <%@ include file="includes/Toolbar.jsp" %>
         <h1>Welcome to your dashobard ${username}!</h1>
     </body>
 </html>

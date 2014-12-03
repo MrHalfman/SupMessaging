@@ -15,7 +15,8 @@
         <link href="${pageContext.request.contextPath}/js/bootstrap.min.js" rel="stylesheet"/>
         <title>Contact</title>
     </head>
-    <body>       
+    <body>   
+        <%@ include file="includes/Toolbar.jsp" %>
         <div class="panel panel-primary form-style">
             <div class="panel-heading">
                 <h5> Welcome on the Contact page, here you can send a message to the SupMessaging's admin. </h5>
