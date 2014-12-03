@@ -5,7 +5,7 @@
  */
 package com.supmessaging.servlets;
 
-import com.supmessaging.managementclass.CheckInput;
+import com.supmessaging.tools.CheckInput;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
