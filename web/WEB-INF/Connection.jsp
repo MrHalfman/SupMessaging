@@ -43,7 +43,23 @@
                         </div>
                     </div>
                 </form>
-            </div>
+            </div>                 
         </div>
-    </body>
+        
+        <a href="registration">                
+            <div class="form-alert">                           
+                <div class="panel-body">
+                    <form method="post" action="registration">
+                        <div class="form-group">
+                            <div class="form-group">                       
+                                <div class="alert alert-danger" role="alert">
+                                    <p>If you're not registered please do it</p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>  
+        </a>                 
+</body>
 </html>

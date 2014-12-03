@@ -5,12 +5,24 @@
     max-width : 800px;
 }
 
-@media all and (max-width: 800px) {
-  .form-style {
-    max-width : 95%;
-  }
-}
-
 .error-field {
     color: #C12E2A;
+}
+
+.form-alert {
+    margin-left : auto;
+    margin-right : auto;
+    margin-top : 10px;
+    max-width : 800px;
+}
+
+
+// ----------------------------------
+//         MEDIA QUERIES
+// ----------------------------------
+
+@media all and (max-width: 800px) {
+  .form-style, .form-alert {
+    max-width : 95%;
+  }
 }
