@@ -33,12 +33,23 @@ version="3.0">
         <url-pattern>/contact</url-pattern>
     </servlet-mapping>
     
-    <servlet> <!-- Servlet de la page de contact -->
+    <servlet> <!-- Servlet de la page de Registration -->
         <servlet-name>Registration</servlet-name>
         <servlet-class>com.supmessaging.servlets.Registration</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Registration</servlet-name>
         <url-pattern>/registration</url-pattern>
+    </servlet-mapping>
+    
+    
+    
+   <servlet> <!-- Servlet de la page de toolbar -->
+        <servlet-name>Toolbar</servlet-name>
+        <servlet-class>com.supmessaging.servlets.Toolbar</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Toolbar</servlet-name>
+        <url-pattern></url-pattern>
     </servlet-mapping>
 </web-app>
