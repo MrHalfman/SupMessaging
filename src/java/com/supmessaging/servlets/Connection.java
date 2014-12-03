@@ -6,6 +6,7 @@
 package com.supmessaging.servlets;
 
 import com.supmessaging.tools.CheckInput;
+import com.supmessaging.tools.SessionCreator;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +38,7 @@ public class Connection extends HttpServlet {
         Map<String, String> errors = new HashMap<>();
         String username = request.getParameter(usernameField);
         String password = request.getParameter(usernamePassword);
+        SessionCreator sessionCreator = new SessionCreator(request);
         
         errors.clear();
         request.setAttribute(usernameField, username);
@@ -52,14 +54,11 @@ public class Connection extends HttpServlet {
         
         if(!errors.isEmpty()) {
             request.setAttribute("error", errors);
-            this.getServletContext().getRequestDispatcher(jspView ).forward( request, response );
+            this.getServletContext().getRequestDispatcher(jspView).forward( request, response );
         }
         else {
-            HttpSession session = request.getSession();
-            session.setAttribute("username", username);
-            session.setAttribute("password", password);
-
-            response.sendRedirect("dashboard");
+            sessionCreator.createSession(username, 1);            
+            response.sendRedirect("home/dashboard");
         }
     }
 }
