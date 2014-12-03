@@ -16,7 +16,7 @@
         <title>Registration</title>
     </head>
     <body>
-        <%@ include file="includes/Toolbar.jsp" %>
+        <%@ include file="/WEB-INF/includes/Toolbar.jsp" %>
         <div class="panel panel-primary form-style">
             <div class="panel-heading">
                 <h3 class="panel-title">Connection</h3>
