@@ -16,6 +16,6 @@
     </head>
     <body>
         <%@ include file="/WEB-INF/includes/Toolbar.jsp" %>
-        <h1>Welcome to your dashobard ${username}!</h1>
+        <h1>Welcome to your dashboard ${username}!</h1>
     </body>
 </html>

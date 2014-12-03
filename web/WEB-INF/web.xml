@@ -12,7 +12,7 @@ version="3.0">
     </servlet>
     <servlet-mapping>
         <servlet-name>Dashboard</servlet-name>
-        <url-pattern>/dashboard</url-pattern>
+        <url-pattern>/home/dashboard</url-pattern>
     </servlet-mapping>
     
     <servlet> <!-- Servlet de la page de connexion -->
@@ -42,12 +42,11 @@ version="3.0">
         <url-pattern>/registration</url-pattern>
     </servlet-mapping>
     
-    
-    
    <servlet> <!-- Servlet de la page de toolbar -->
         <servlet-name>Toolbar</servlet-name>
         <servlet-class>com.supmessaging.servlets.Toolbar</servlet-class>
     </servlet>
+    
     <servlet-mapping>
         <servlet-name>Toolbar</servlet-name>
         <url-pattern></url-pattern>

@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
  */
 public class Dashboard extends HttpServlet {
 
-    public static final String jspView = "/WEB-INF/connected/Dashboard.jsp";
+    public static final String jspView = "/WEB-INF/home/Dashboard.jsp";
     
     @Override
     public void doGet( HttpServletRequest request, HttpServletResponse response )	throws ServletException, IOException {
