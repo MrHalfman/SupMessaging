@@ -14,7 +14,7 @@
     <body>
         <ul class="nav nav-tabs">
             <li role="presentation" class="active"><a href="#">
-                    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a></li> 
+                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span></a></li> 
             <li role="presentation"><a href="/SupMessaging">Home</a></li>
             <li role="presentation"><a href="dashboard">Dashboard</a></li>           
             <li role="presentation"><a href="/SupMessaging">Logout</a></li>           
