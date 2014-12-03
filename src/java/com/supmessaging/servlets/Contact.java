@@ -32,13 +32,13 @@ public class Contact extends HttpServlet {
         request.setAttribute("email", emailData);
         request.setAttribute("message", messageData);
         
-        if(!"".equals(checkInput.validateMail(emailData))) {
-            errors.put( mailField, checkInput.validateMail(emailData) );
+        if(!"".equals(checkInput.validateMail(emailData, true))) {
+            errors.put( mailField, checkInput.validateMail(emailData, true) );
             request.removeAttribute("email");
         }
         
-        if(!"".equals(checkInput.nonEmpty(messageData))) {
-            errors.put( textarea, checkInput.nonEmpty(messageData) );
+        if(!"".equals(checkInput.nonEmpty(messageData, true))) {
+            errors.put( textarea, checkInput.nonEmpty(messageData, true) );
             request.removeAttribute("message");
         }
         
