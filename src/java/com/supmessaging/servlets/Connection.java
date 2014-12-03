@@ -14,7 +14,7 @@ public class Connection extends HttpServlet {
     
     public static final String jspView = "/WEB-INF/Connection.jsp";
     public static final String usernameField = "username";
-    public static final String usernamePassword = "password";
+    public static final String passwordField = "password";
     
     CheckInput checkInput = new CheckInput();
     
@@ -27,7 +27,7 @@ public class Connection extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, String> errors = new HashMap<>();
         String username = request.getParameter(usernameField);
-        String password = request.getParameter(usernamePassword);
+        String password = request.getParameter(passwordField);
         SessionCreator sessionCreator = new SessionCreator(request);
         
         errors.clear();
@@ -38,8 +38,8 @@ public class Connection extends HttpServlet {
             request.removeAttribute(usernameField);
         }
         
-        if(!"".equals(checkInput.validateUsername(password))) {
-            errors.put( usernamePassword, checkInput.validatePassword(password) );
+        if(!"".equals(checkInput.validatePassword(password))) {
+            errors.put(passwordField, checkInput.validatePassword(password) );
         }
         
         if(!errors.isEmpty()) {
