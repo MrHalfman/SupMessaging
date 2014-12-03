@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.supmessaging.tools;
 
 /**
@@ -33,10 +28,15 @@ public class CheckInput {
         return error;
     }
     
-    public String validateMail(String email) {
+    public String validateMail(String email, boolean isAnonymousMessage) {
         String error = "";
         if (email == null || email.trim().length() == 0) {
-            error = "Please, if you want a response to your message, we need a email";
+            if (!isAnonymousMessage) {
+                error = "We need a email to validate the field";
+            }
+            else {
+                error = "Please, if you want a response to your message, we need a email";
+            }
             return error;
         }
         if (!email.matches( "([a-zA-Z0-9-_+\\/=]+\\.?[a-zA-Z0-9-_+\\/=])+@[a-zA-Z]+\\.[a-zA-Z]{0,4}" )) {
@@ -46,10 +46,16 @@ public class CheckInput {
         return error;
     }
     
-    public String nonEmpty(String text) {
+    public String nonEmpty(String text, boolean isTextarea) {
         String error = "";
         if (text == null || text.trim().length() == 0) {
-            error = "Are you trying to communicate ?";
+            
+            if (isTextarea) {
+                error = "Are you trying to communicate ?";
+            }
+            else {
+                error = "Sorry, you have to fill the field";
+            }
         }
         return error;
     }

@@ -1,9 +1,3 @@
-<%-- 
-    Document   : Contact
-    Created on : 2 déc. 2014, 09:16:11
-    Author     : adrienxp3
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>

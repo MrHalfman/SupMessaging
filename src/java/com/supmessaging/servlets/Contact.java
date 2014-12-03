@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.supmessaging.servlets;
 
 import com.supmessaging.tools.CheckInput;
@@ -13,10 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-/**
- *
- * @author adrienxp3
- */
+
 public class Contact extends HttpServlet {
     public static final String jspView = "/WEB-INF/Contact.jsp";
     public static final String mailField = "email";
@@ -40,13 +32,13 @@ public class Contact extends HttpServlet {
         request.setAttribute("email", emailData);
         request.setAttribute("message", messageData);
         
-        if(!"".equals(checkInput.validateMail(emailData))) {
-            errors.put( mailField, checkInput.validateMail(emailData) );
+        if(!"".equals(checkInput.validateMail(emailData, true))) {
+            errors.put( mailField, checkInput.validateMail(emailData, true) );
             request.removeAttribute("email");
         }
         
-        if(!"".equals(checkInput.nonEmpty(messageData))) {
-            errors.put( textarea, checkInput.nonEmpty(messageData) );
+        if(!"".equals(checkInput.nonEmpty(messageData, true))) {
+            errors.put( textarea, checkInput.nonEmpty(messageData, true) );
             request.removeAttribute("message");
         }
         
