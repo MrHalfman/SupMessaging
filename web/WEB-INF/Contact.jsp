@@ -33,7 +33,7 @@
                     <div class="form-group">
                         <label>Message :</label>
                         <div>
-                            <textarea type="text" name="message" rows=10 class="form-control" placeholder="Hi admin..." value="<c:out value="${message}"/>"></textarea>
+                            <textarea type="text" name="message" rows=10 class="form-control" placeholder="Hi admin...">${message}</textarea>
                             <span class="error-field text-right">${error['message']}</span>
                         </div>
                     </div>
