@@ -1,9 +1,3 @@
-<%-- 
-    Document   : Connection
-    Created on : 1 déc. 2014, 22:11:29
-    Author     : Martin
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>

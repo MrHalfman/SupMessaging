@@ -1,9 +1,3 @@
-<%-- 
-    Document   : Registration
-    Created on : 2 déc. 2014, 18:59:51
-    Author     : Martin
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>

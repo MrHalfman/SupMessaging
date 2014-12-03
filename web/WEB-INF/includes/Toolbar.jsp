@@ -1,9 +1,3 @@
-<%-- 
-    Document   : Toolbar
-    Created on : 3 déc. 2014, 10:46:27
-    Author     : adrienxp3
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

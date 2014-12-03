@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.supmessaging.servlets;
 
 import com.supmessaging.tools.CheckInput;
@@ -14,12 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Martin
- */
 public class Connection extends HttpServlet {
     
     public static final String jspView = "/WEB-INF/Connection.jsp";
