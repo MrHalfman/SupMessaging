@@ -15,8 +15,9 @@
         
         <ul class="nav nav-tabs">
             <li role="presentation" class="active"><a href="/SupMessaging">Home</a></li>
-            <li role="presentation"><a href="connect">Register</a></li>
-            <li role="presentation"><a href="#">Messages</a></li>
+            <li role="presentation"><a href="connect">Sign in</a></li>
+            <li role="presentation"><a href="registration">Sign up</a></li>
+            <li role="presentation"><a href="dashboard">Dashboard</a></li>
             <li role="presentation"><a href="#">Logout</a></li>
         </ul>
         
