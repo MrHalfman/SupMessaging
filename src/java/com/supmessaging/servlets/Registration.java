@@ -81,7 +81,6 @@ public class Registration extends HttpServlet {
             response.sendRedirect("home/dashboard");
         }
         
-        
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session session = sf.openSession();
         
@@ -101,19 +100,5 @@ public class Registration extends HttpServlet {
         
         session.flush();
         session.close();
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-    }
-    
-    
+    }   
 }

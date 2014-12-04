@@ -1,13 +1,21 @@
 package com.supmessaging.servlets;
 
+import com.supmessaging.persistence.HibernateUtil;
 import com.supmessaging.tools.CheckInput;
+import com.supmessaging.persistence.Messages;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 public class Contact extends HttpServlet {
     public static final String jspView = "/WEB-INF/Contact.jsp";
@@ -19,6 +27,10 @@ public class Contact extends HttpServlet {
     @Override
     public void doGet( HttpServletRequest request, HttpServletResponse response )	throws ServletException, IOException {
         this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );
+        
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        System.out.println(dateFormat.format(date));
     }
     
     @Override
@@ -49,5 +61,34 @@ public class Contact extends HttpServlet {
         else {
             response.sendRedirect("/SupMessaging"); 
         }
+        
+        /*
+       //on format la date et l'heure pour l'envoyer en BDD
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        String currentDate = dateFormat.format(date);
+        
+        //transmission avec la BDD
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session session = sf.openSession();
+        
+        Messages contactAdmin = new Messages();
+        
+        contactAdmin.setCorpus(textarea);
+        contactAdmin.setMail(mailField);
+        contactAdmin.setDate(currentDate);
+        contactAdmin.setIdUserReceiver(1); // ça sera toujours 1 ici car c'est l'id de l'admin
+        contactAdmin.setIdUserAuthor(0); //0 c'est l'id dans le table pour l'anonyme 
+        contactAdmin.setRead(0); //toujours 0 car pas encore lu
+        
+        Transaction tx = session.beginTransaction();
+        session.saveOrUpdate(contactAdmin);
+        
+        tx.commit();
+        
+        session.flush();
+        session.close();*/
+        
+        
     }   
 }
