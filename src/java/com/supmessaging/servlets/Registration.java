@@ -1,5 +1,7 @@
 package com.supmessaging.servlets;
 
+import com.supmessaging.persistence.HibernateUtil;
+import com.supmessaging.persistence.Users;
 import com.supmessaging.tools.CheckInput;
 import com.supmessaging.tools.SessionCreator;
 import java.io.IOException;
@@ -9,6 +11,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 public class Registration extends HttpServlet {
     public static final String jspView = "/WEB-INF/Registration.jsp";
@@ -29,7 +34,7 @@ public class Registration extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, String> errors = new HashMap<>();
-        String username = request.getParameter(usernameField);
+        String userName = request.getParameter(usernameField);
         String firstName = request.getParameter(firstNameField);
         String lastName = request.getParameter(lastNameField);
         String email = request.getParameter(emailField);
@@ -38,13 +43,13 @@ public class Registration extends HttpServlet {
         SessionCreator sessionCreator = new SessionCreator(request);
         
         errors.clear();
-        request.setAttribute(usernameField, username);
+        request.setAttribute(usernameField, userName);
         request.setAttribute(firstNameField, firstName);
         request.setAttribute(lastNameField, lastName);
         request.setAttribute(emailField, email);
         
-        if(!"".equals(checkInput.validateUsername(username))) {
-            errors.put(usernameField, checkInput.validateUsername(username));
+        if(!"".equals(checkInput.validateUsername(userName))) {
+            errors.put(usernameField, checkInput.validateUsername(userName));
             request.removeAttribute(usernameField);
         }
         
@@ -72,9 +77,42 @@ public class Registration extends HttpServlet {
             this.getServletContext().getRequestDispatcher(jspView).forward( request, response );
         }
         else {
-            sessionCreator.createSession(username, 1);            
+            sessionCreator.createSession(userName, 1);            
             response.sendRedirect("home/dashboard");
         }
+        
+        
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session session = sf.openSession();
+        
+        Users toto = new Users();
+        
+        toto.setFirstname(firstName);
+        toto.setMail(email);
+        toto.setName(lastName);
+        toto.setPseudo(userName);
+        toto.setPassword(passwordTwo);
+        toto.setRole(1);
+        
+        Transaction tx = session.beginTransaction();
+        session.saveOrUpdate(toto);
+        
+        tx.commit();
+        
+        session.flush();
+        session.close();
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
     
     
