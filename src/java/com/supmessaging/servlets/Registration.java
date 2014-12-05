@@ -3,10 +3,16 @@ package com.supmessaging.servlets;
 import com.supmessaging.persistence.HibernateUtil;
 import com.supmessaging.persistence.Users;
 import com.supmessaging.tools.CheckInput;
+import com.supmessaging.tools.Encryption;
 import com.supmessaging.tools.SessionCreator;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +31,10 @@ public class Registration extends HttpServlet {
     public static final String passwordFieldTwo = "passwordTwo";
     
     CheckInput checkInput = new CheckInput();
+    SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    Session sessionHibernate = sessionFactory.openSession();
+    Users secretary = new Users();
+    Encryption encryption = new Encryption();
 
     @Override
     public void doGet( HttpServletRequest request, HttpServletResponse response )	throws ServletException, IOException {
@@ -77,29 +87,35 @@ public class Registration extends HttpServlet {
             this.getServletContext().getRequestDispatcher(jspView).forward( request, response );
         }
         else {
+            
+            byte[] salt = encryption.generateSalt();
+            String encryptedPassword = null;
+            try {
+                encryptedPassword = encryption.encryptionPassword(salt, passwordTwo);
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvalidKeySpecException ex) {
+                Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            secretary.setFirstname(firstName);
+            secretary.setMail(email);
+            secretary.setName(lastName);
+            secretary.setPseudo(userName);
+            secretary.setPassword(encryptedPassword);
+            secretary.setSalt(new BigInteger(1, salt).toString(16));
+            secretary.setRoleUser(1);
+
+            Transaction tx = sessionHibernate.beginTransaction();
+            sessionHibernate.saveOrUpdate(secretary);
+
+            tx.commit();
+
+            sessionHibernate.flush();
+            sessionHibernate.close();
+            
             sessionCreator.createSession(userName, 1);            
             response.sendRedirect("home/dashboard");
         }
-        
-        SessionFactory sf = HibernateUtil.getSessionFactory();
-        Session session = sf.openSession();
-        
-        Users toto = new Users();
-        
-        toto.setFirstname(firstName);
-        toto.setMail(email);
-        toto.setName(lastName);
-        toto.setPseudo(userName);
-        toto.setPassword(passwordTwo);
-        //toto.setSalt();
-        toto.setRoleUser(1);
-        
-        Transaction tx = session.beginTransaction();
-        session.saveOrUpdate(toto);
-        
-        tx.commit();
-        
-        session.flush();
-        session.close();
     }   
 }
