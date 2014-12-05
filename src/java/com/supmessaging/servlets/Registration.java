@@ -92,7 +92,7 @@ public class Registration extends HttpServlet {
         toto.setPseudo(userName);
         toto.setPassword(passwordTwo);
         //toto.setSalt();
-        toto.setRole(1);
+        toto.setRoleUser(1);
         
         Transaction tx = session.beginTransaction();
         session.saveOrUpdate(toto);

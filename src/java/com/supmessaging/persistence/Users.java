@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByPseudo", query = "SELECT u FROM Users u WHERE u.pseudo = :pseudo"),
     @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"),
     @NamedQuery(name = "Users.findBySalt", query = "SELECT u FROM Users u WHERE u.salt = :salt"),
-    @NamedQuery(name = "Users.findByRole", query = "SELECT u FROM Users u WHERE u.role = :role")})
+    @NamedQuery(name = "Users.findByRoleUser", query = "SELECT u FROM Users u WHERE u.roleUser = :roleUser")})
 public class Users implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -80,8 +80,8 @@ public class Users implements Serializable {
     private String salt;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "role")
-    private int role;
+    @Column(name = "roleUser")
+    private int roleUser;
     @JoinTable(name = "user_friendship", joinColumns = {
         @JoinColumn(name = "id_users1", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "id_users2", referencedColumnName = "id")})
@@ -97,7 +97,7 @@ public class Users implements Serializable {
         this.id = id;
     }
 
-    public Users(Integer id, String name, String firstname, String mail, String pseudo, String password, String salt, int role) {
+    public Users(Integer id, String name, String firstname, String mail, String pseudo, String password, String salt, int roleUser) {
         this.id = id;
         this.name = name;
         this.firstname = firstname;
@@ -105,7 +105,7 @@ public class Users implements Serializable {
         this.pseudo = pseudo;
         this.password = password;
         this.salt = salt;
-        this.role = role;
+        this.roleUser = roleUser;
     }
 
     public Integer getId() {
@@ -164,12 +164,12 @@ public class Users implements Serializable {
         this.salt = salt;
     }
 
-    public int getRole() {
-        return role;
+    public int getRoleUser() {
+        return roleUser;
     }
 
-    public void setRole(int role) {
-        this.role = role;
+    public void setRoleUser(int roleUser) {
+        this.roleUser = roleUser;
     }
 
     @XmlTransient

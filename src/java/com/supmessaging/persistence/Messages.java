@@ -30,11 +30,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Messages.findAll", query = "SELECT m FROM Messages m"),
     @NamedQuery(name = "Messages.findById", query = "SELECT m FROM Messages m WHERE m.id = :id"),
-    @NamedQuery(name = "Messages.findByDate", query = "SELECT m FROM Messages m WHERE m.date = :date"),
+    @NamedQuery(name = "Messages.findByDateMessage", query = "SELECT m FROM Messages m WHERE m.dateMessage = :dateMessage"),
     @NamedQuery(name = "Messages.findByIdUserAuthor", query = "SELECT m FROM Messages m WHERE m.idUserAuthor = :idUserAuthor"),
     @NamedQuery(name = "Messages.findByIdUserReceiver", query = "SELECT m FROM Messages m WHERE m.idUserReceiver = :idUserReceiver"),
     @NamedQuery(name = "Messages.findByMail", query = "SELECT m FROM Messages m WHERE m.mail = :mail"),
-    @NamedQuery(name = "Messages.findByRead", query = "SELECT m FROM Messages m WHERE m.read = :read")})
+    @NamedQuery(name = "Messages.findByReadMessage", query = "SELECT m FROM Messages m WHERE m.readMessage = :readMessage")})
 public class Messages implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,9 +44,9 @@ public class Messages implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "date")
-    private String date;
+    @Size(min = 1, max = 500)
+    @Column(name = "dateMessage")
+    private String dateMessage;
     @Basic(optional = false)
     @NotNull
     @Lob
@@ -68,8 +68,8 @@ public class Messages implements Serializable {
     private String mail;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "read")
-    private int read;
+    @Column(name = "readMessage")
+    private int readMessage;
 
     public Messages() {
     }
@@ -78,14 +78,14 @@ public class Messages implements Serializable {
         this.id = id;
     }
 
-    public Messages(Integer id, String date, String corpus, int idUserAuthor, int idUserReceiver, String mail, int read) {
+    public Messages(Integer id, String dateMessage, String corpus, int idUserAuthor, int idUserReceiver, String mail, int readMessage) {
         this.id = id;
-        this.date = date;
+        this.dateMessage = dateMessage;
         this.corpus = corpus;
         this.idUserAuthor = idUserAuthor;
         this.idUserReceiver = idUserReceiver;
         this.mail = mail;
-        this.read = read;
+        this.readMessage = readMessage;
     }
 
     public Integer getId() {
@@ -96,12 +96,12 @@ public class Messages implements Serializable {
         this.id = id;
     }
 
-    public String getDate() {
-        return date;
+    public String getDateMessage() {
+        return dateMessage;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDateMessage(String dateMessage) {
+        this.dateMessage = dateMessage;
     }
 
     public String getCorpus() {
@@ -136,12 +136,12 @@ public class Messages implements Serializable {
         this.mail = mail;
     }
 
-    public int getRead() {
-        return read;
+    public int getReadMessage() {
+        return readMessage;
     }
 
-    public void setRead(int read) {
-        this.read = read;
+    public void setReadMessage(int readMessage) {
+        this.readMessage = readMessage;
     }
 
     @Override
