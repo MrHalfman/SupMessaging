@@ -76,7 +76,7 @@ public class Contact extends HttpServlet {
         
         contactAdmin.setDateMessage(currentDate);
         contactAdmin.setCorpus(messageData);
-        contactAdmin.setIdUserAuthor(0); //0 c'est l'id dans le table pour l'anonyme
+        contactAdmin.setIdUserAuthor(0); //0 c'est l'id dans le table users pour l'anonyme
         contactAdmin.setIdUserReceiver(1); // ça sera toujours 1 ici car c'est l'id de l'admin        
         contactAdmin.setMail(emailData);
         contactAdmin.setReadMessage(0); //toujours 0 car pas encore lu
