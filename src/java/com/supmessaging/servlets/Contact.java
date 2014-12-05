@@ -74,12 +74,12 @@ public class Contact extends HttpServlet {
         
         Messages contactAdmin = new Messages();
         
-        contactAdmin.setDate(currentDate);
+        contactAdmin.setDateMessage(currentDate);
         contactAdmin.setCorpus(messageData);
         contactAdmin.setIdUserAuthor(0); //0 c'est l'id dans le table pour l'anonyme
         contactAdmin.setIdUserReceiver(1); // ça sera toujours 1 ici car c'est l'id de l'admin        
         contactAdmin.setMail(emailData);
-        contactAdmin.setRead(0); //toujours 0 car pas encore lu
+        contactAdmin.setReadMessage(0); //toujours 0 car pas encore lu
         
         Transaction tx = session.beginTransaction();
         session.saveOrUpdate(contactAdmin);
