@@ -2,13 +2,13 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://37.187.107.13:3306/supmessaging?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">supinfo</property>
     <property name="hibernate.connection.password">sup14,</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
-    <mapping class="com.supmessaging.persistence.Users" file="" jar="" package="" resource=""/>
+    <property name="hibernate.dialect">org.hibernate.dialect.DB2Dialect</property>
     <mapping class="com.supmessaging.persistence.Messages"/>
+    <mapping class="com.supmessaging.persistence.Users"/>
   </session-factory>
 </hibernate-configuration>
