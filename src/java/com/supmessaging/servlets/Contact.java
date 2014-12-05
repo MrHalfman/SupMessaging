@@ -62,7 +62,7 @@ public class Contact extends HttpServlet {
             response.sendRedirect("/SupMessaging"); 
         }
         
-        /*
+        
        //on format la date et l'heure pour l'envoyer en BDD
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
@@ -74,11 +74,11 @@ public class Contact extends HttpServlet {
         
         Messages contactAdmin = new Messages();
         
-        contactAdmin.setCorpus(textarea);
-        contactAdmin.setMail(mailField);
         contactAdmin.setDate(currentDate);
-        contactAdmin.setIdUserReceiver(1); // ça sera toujours 1 ici car c'est l'id de l'admin
-        contactAdmin.setIdUserAuthor(0); //0 c'est l'id dans le table pour l'anonyme 
+        contactAdmin.setCorpus(messageData);
+        contactAdmin.setIdUserAuthor(0); //0 c'est l'id dans le table pour l'anonyme
+        contactAdmin.setIdUserReceiver(1); // ça sera toujours 1 ici car c'est l'id de l'admin        
+        contactAdmin.setMail(emailData);
         contactAdmin.setRead(0); //toujours 0 car pas encore lu
         
         Transaction tx = session.beginTransaction();
@@ -87,7 +87,7 @@ public class Contact extends HttpServlet {
         tx.commit();
         
         session.flush();
-        session.close();*/
+        session.close();
         
         
     }   
