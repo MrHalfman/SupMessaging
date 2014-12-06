@@ -13,14 +13,14 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class ActionToolBar {
     public void getAdaptedToolbar(SessionCreator sessionCreator, HttpServletRequest request) {
-        String home = "dashboard";
-        String contact = "<li role=\"presentation\"><a href=\"contact\">Contact</a></li>";
-        String connect = "<li role=\"presentation\"><a href=\"connect\">Sign in</a></li>";
-        String registration = "<li role=\"presentation\"><a href=\"registration\">Sign up</a></li>";
-        String logOut = "<li role=\"presentation\"><a href=\"/SupMessaging\">Logout</a></li>";
+        String home = "/SupMessaging/dashboard";
+        String contact = "<li role=\"presentation\"><a href=\"/SupMessaging/contact\">Contact</a></li>";
+        String connect = "<li role=\"presentation\"><a href=\"/SupMessaging/connect\">Sign in</a></li>";
+        String registration = "<li role=\"presentation\"><a href=\"/SupMessaging/registration\">Sign up</a></li>";
+        String logOut = "<li role=\"presentation\"><a href=\"/SupMessaging/goodbye\">Logout</a></li>";
         
         if (!sessionCreator.checkSessionExist()) {
-            home = "/SupMessaging";
+            home = "/SupMessaging/";
             request.setAttribute("contact", contact);
             request.setAttribute("connect", connect);
             request.setAttribute("registration", registration);
