@@ -51,4 +51,13 @@ version="3.0">
         <servlet-name>Registration</servlet-name>
         <url-pattern>/registration</url-pattern>
     </servlet-mapping>
+    
+    <servlet> <!-- Servlet de déconnexion -->
+        <servlet-name>LogOut</servlet-name>
+        <servlet-class>com.supmessaging.servlets.LogOut</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogOut</servlet-name>
+        <url-pattern>/goodbye</url-pattern>
+    </servlet-mapping>
 </web-app>
