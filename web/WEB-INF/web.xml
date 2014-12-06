@@ -51,24 +51,4 @@ version="3.0">
         <servlet-name>Registration</servlet-name>
         <url-pattern>/registration</url-pattern>
     </servlet-mapping>
-    
-   <servlet> <!-- Servlet de la page de toolbar -->
-        <servlet-name>Toolbar</servlet-name>
-        <servlet-class>com.supmessaging.servlets.Toolbar</servlet-class>
-    </servlet>
-    
-    <servlet-mapping>
-        <servlet-name>Toolbar</servlet-name>
-        <url-pattern></url-pattern>
-    </servlet-mapping>
-    
-    <servlet> <!-- Servlet de la page de toolbarConnected -->
-        <servlet-name>ToolbarConnected</servlet-name>
-        <servlet-class>com.supmessaging.servlets.ToolbarConnected</servlet-class>
-    </servlet>
-    
-    <servlet-mapping>
-        <servlet-name>ToolbarConnected</servlet-name>
-        <url-pattern></url-pattern>
-    </servlet-mapping>
 </web-app>

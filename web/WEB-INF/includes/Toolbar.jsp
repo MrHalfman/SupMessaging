@@ -1,18 +1,23 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>TOOLBAR</title>
     </head>
     <body>    
         <ul class="nav nav-tabs">
-            <li role="presentation" class="active"><a href="#">
-                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span></a></li> 
-            <li role="presentation"><a href="/SupMessaging">Home</a></li>
-            <li role="presentation"><a href="contact">Contact</a></li>
-            <li role="presentation"><a href="connect">Sign in</a></li>
-            <li role="presentation"><a href="registration">Sign up</a></li>                   
+            
+            <li role="presentation" class="active">
+                <a href="${home}">
+                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                </a>
+            </li>
+            ${contact}
+            ${connect}
+            ${registration}
+            ${logOut}
        </ul>
    </body>
 </html>
