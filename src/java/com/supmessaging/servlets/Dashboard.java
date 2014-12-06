@@ -1,5 +1,6 @@
 package com.supmessaging.servlets;
 
+import com.supmessaging.tools.ActionToolBar;
 import com.supmessaging.tools.SessionCreator;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -14,6 +15,9 @@ public class Dashboard extends HttpServlet {
     @Override
     public void doGet( HttpServletRequest request, HttpServletResponse response )	throws ServletException, IOException {            
         SessionCreator sessionCreator = new SessionCreator(request);
+        ActionToolBar myBeautifulToolbar = new ActionToolBar();
+        
+        myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
 
         if(sessionCreator.checkSessionExist()) {
             this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );

@@ -2,6 +2,7 @@ package com.supmessaging.servlets;
 
 import com.supmessaging.persistence.HibernateUtil;
 import com.supmessaging.persistence.Users;
+import com.supmessaging.tools.ActionToolBar;
 import com.supmessaging.tools.CheckInput;
 import com.supmessaging.tools.Encryption;
 import com.supmessaging.tools.SessionCreator;
@@ -39,6 +40,10 @@ public class Registration extends HttpServlet {
     @Override
     public void doGet( HttpServletRequest request, HttpServletResponse response )	throws ServletException, IOException {
         SessionCreator sessionCreator = new SessionCreator(request);
+        ActionToolBar myBeautifulToolbar = new ActionToolBar();
+        
+        myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
+        
         if(!sessionCreator.checkSessionExist()) {
             this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );
         }

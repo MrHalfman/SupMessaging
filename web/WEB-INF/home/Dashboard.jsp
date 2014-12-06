@@ -1,9 +1,3 @@
-<%-- 
-    Document   : dashboard
-    Created on : 1 déc. 2014, 19:50:44
-    Author     : Martin
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,7 +9,7 @@
         <title>My dashboard</title>
     </head>
     <body>
-        <%@ include file="/WEB-INF/includes/ToolbarConnected.jsp" %>
+        <%@ include file="/WEB-INF/includes/Toolbar.jsp" %>
         <h1>Welcome to your dashboard ${username}!</h1>
     </body>
 </html>
