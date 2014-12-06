@@ -90,6 +90,7 @@ public class Registration extends HttpServlet {
             
             byte[] salt = encryption.generateSalt();
             String encryptedPassword = null;
+            
             try {
                 encryptedPassword = encryption.encryptionPassword(salt, passwordTwo);
             } catch (NoSuchAlgorithmException ex) {

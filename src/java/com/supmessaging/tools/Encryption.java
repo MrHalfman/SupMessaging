@@ -32,11 +32,19 @@ public class Encryption {
         KeySpec spec = new PBEKeySpec("password".toCharArray(), salt, 65536, 128);
         SecretKeyFactory f = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
         byte[] hash = f.generateSecret(spec).getEncoded();
-        System.out.println("salt: " + new BigInteger(1, salt).toString(16));
-        System.out.println("hash: " + new BigInteger(1, hash).toString(16));
-        
         String encryptedPassword = new BigInteger(1, hash).toString(16);
         
         return encryptedPassword;
+    }
+    
+    public boolean checkPasswordEqual(byte[] salt, String password, String hash) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        String encryptedPassword = this.encryptionPassword(salt, password);
+        boolean isEqual = true;
+        
+        if(!hash.equals(encryptedPassword)) {
+            isEqual = false;
+        }
+        
+        return isEqual;
     }
 }
