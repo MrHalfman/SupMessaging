@@ -23,14 +23,15 @@ public class Contact extends HttpServlet {
     public static final String textarea = "message";
     
     CheckInput checkInput = new CheckInput();
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    Date date = new Date();
+    
+    //transmission avec la BDD
+    SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     
     @Override
     public void doGet( HttpServletRequest request, HttpServletResponse response )	throws ServletException, IOException {
         this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );
-        
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        System.out.println(dateFormat.format(date));
     }
     
     @Override
@@ -59,36 +60,27 @@ public class Contact extends HttpServlet {
             this.getServletContext().getRequestDispatcher(jspView).forward( request, response );
         }
         else {
+            //on formate la date et l'heure pour l'envoyer en BDD
+            String currentDate = dateFormat.format(date);
+            Session sessionHibernate = sessionFactory.openSession();
+
+            Messages contactAdmin = new Messages();
+
+            contactAdmin.setDateMessage(currentDate);
+            contactAdmin.setCorpus(messageData);
+            contactAdmin.setIdUserAuthor(0);    // 0 c'est l'id dans le table users pour l'anonyme
+            contactAdmin.setIdUserReceiver(1);  // Ca sera toujours 1 ici car c'est l'id de l'admin        
+            contactAdmin.setMail(emailData);
+            contactAdmin.setReadMessage(0);     // Toujours 0 car pas encore lu
+
+            Transaction tx = sessionHibernate.beginTransaction();
+            sessionHibernate.saveOrUpdate(contactAdmin);
+
+            tx.commit();
+            sessionHibernate.flush();
+            sessionHibernate.close();
+            
             response.sendRedirect("/SupMessaging"); 
         }
-        
-        
-       //on format la date et l'heure pour l'envoyer en BDD
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        String currentDate = dateFormat.format(date);
-        
-        //transmission avec la BDD
-        SessionFactory sf = HibernateUtil.getSessionFactory();
-        Session session = sf.openSession();
-        
-        Messages contactAdmin = new Messages();
-        
-        contactAdmin.setDateMessage(currentDate);
-        contactAdmin.setCorpus(messageData);
-        contactAdmin.setIdUserAuthor(0); //0 c'est l'id dans le table users pour l'anonyme
-        contactAdmin.setIdUserReceiver(1); // ça sera toujours 1 ici car c'est l'id de l'admin        
-        contactAdmin.setMail(emailData);
-        contactAdmin.setReadMessage(0); //toujours 0 car pas encore lu
-        
-        Transaction tx = session.beginTransaction();
-        session.saveOrUpdate(contactAdmin);
-        
-        tx.commit();
-        
-        session.flush();
-        session.close();
-        
-        
     }   
 }
