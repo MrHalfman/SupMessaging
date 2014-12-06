@@ -5,7 +5,17 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 version="3.0">
-    
+    <filter> 
+        <filter-name>UTF-8 Encoding Filter</filter-name>
+        <filter-class>com.supmessaging.persistence.Utf8EncodingFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+      <filter-name>UTF-8 Encoding Filter</filter-name>
+      <url-pattern>/*</url-pattern>
+    </filter-mapping>
+  
+  
     <servlet> <!-- Servlet pour la page d'accueil une fois connecté -->
         <servlet-name>Dashboard</servlet-name>
         <servlet-class>com.supmessaging.servlets.Dashboard</servlet-class>
