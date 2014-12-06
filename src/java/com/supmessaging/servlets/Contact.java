@@ -3,6 +3,7 @@ package com.supmessaging.servlets;
 import com.supmessaging.persistence.HibernateUtil;
 import com.supmessaging.tools.CheckInput;
 import com.supmessaging.persistence.Messages;
+import com.supmessaging.tools.SessionCreator;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -31,7 +32,13 @@ public class Contact extends HttpServlet {
     
     @Override
     public void doGet( HttpServletRequest request, HttpServletResponse response )	throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );
+        SessionCreator sessionCreator = new SessionCreator(request);
+        if(!sessionCreator.checkSessionExist()) {
+            this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );
+        }
+        else {
+            response.sendRedirect("home/dashboard");
+        }
     }
     
     @Override

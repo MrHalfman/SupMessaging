@@ -20,7 +20,13 @@ public class Connection extends HttpServlet {
     
     @Override
     public void doGet( HttpServletRequest request, HttpServletResponse response )	throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );
+        SessionCreator sessionCreator = new SessionCreator(request);
+        if(!sessionCreator.checkSessionExist()) {
+            this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );
+        }
+        else {
+            response.sendRedirect("home/dashboard");
+        }
     }
 
     @Override
