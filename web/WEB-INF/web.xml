@@ -1,22 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app
-xmlns="http://java.sun.com/xml/ns/javaee"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-version="3.0">
-    <filter> 
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <filter>
         <filter-name>UTF-8 Encoding Filter</filter-name>
         <filter-class>com.supmessaging.persistence.Utf8EncodingFilter</filter-class>
     </filter>
-
     <filter-mapping>
-      <filter-name>UTF-8 Encoding Filter</filter-name>
-      <url-pattern>/*</url-pattern>
+        <filter-name>UTF-8 Encoding Filter</filter-name>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
-  
-  
-    <servlet> <!-- Servlet pour la page d'accueil une fois connecté -->
+    
+    <servlet>
+        <servlet-name>FileServlet</servlet-name>
+        <servlet-class>com.supmessaging.servlets.FileServlet</servlet-class>
+        <init-param>
+            <param-name>basePath</param-name>
+            <param-value>/WEB-INF/static</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileServlet</servlet-name>
+        <url-pattern>/static/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Home</servlet-name>
+        <servlet-class>com.supmessaging.servlets.Home</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Home</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <!-- Servlet pour la page d'accueil une fois connecté -->
         <servlet-name>Dashboard</servlet-name>
         <servlet-class>com.supmessaging.servlets.Dashboard</servlet-class>
     </servlet>
@@ -24,8 +40,8 @@ version="3.0">
         <servlet-name>Dashboard</servlet-name>
         <url-pattern>/home/dashboard</url-pattern>
     </servlet-mapping>
-    
-    <servlet> <!-- Servlet de la page de connexion -->
+    <servlet>
+        <!-- Servlet de la page de connexion -->
         <servlet-name>Connection</servlet-name>
         <servlet-class>com.supmessaging.servlets.Connection</servlet-class>
     </servlet>
@@ -33,8 +49,8 @@ version="3.0">
         <servlet-name>Connection</servlet-name>
         <url-pattern>/connect</url-pattern>
     </servlet-mapping>
-    
-    <servlet> <!-- Servlet de la page de contact -->
+    <servlet>
+        <!-- Servlet de la page de contact -->
         <servlet-name>Contact</servlet-name>
         <servlet-class>com.supmessaging.servlets.Contact</servlet-class>
     </servlet>
@@ -42,8 +58,8 @@ version="3.0">
         <servlet-name>Contact</servlet-name>
         <url-pattern>/contact</url-pattern>
     </servlet-mapping>
-    
-    <servlet> <!-- Servlet de la page de Registration -->
+    <servlet>
+        <!-- Servlet de la page de Registration -->
         <servlet-name>Registration</servlet-name>
         <servlet-class>com.supmessaging.servlets.Registration</servlet-class>
     </servlet>
@@ -51,8 +67,8 @@ version="3.0">
         <servlet-name>Registration</servlet-name>
         <url-pattern>/registration</url-pattern>
     </servlet-mapping>
-    
-    <servlet> <!-- Servlet de déconnexion -->
+    <servlet>
+        <!-- Servlet de déconnexion -->
         <servlet-name>LogOut</servlet-name>
         <servlet-class>com.supmessaging.servlets.LogOut</servlet-class>
     </servlet>
@@ -60,4 +76,5 @@ version="3.0">
         <servlet-name>LogOut</servlet-name>
         <url-pattern>/goodbye</url-pattern>
     </servlet-mapping>
+
 </web-app>

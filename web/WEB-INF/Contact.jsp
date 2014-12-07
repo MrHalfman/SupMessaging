@@ -1,16 +1,7 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"/>
-        <link href="${pageContext.request.contextPath}/mycss/style.css" rel="stylesheet"/>
-        <link href="${pageContext.request.contextPath}/js/bootstrap.min.js" rel="stylesheet"/>
-        <title>Contact</title>
-    </head>
-    <body>   
-        <%@ include file="/WEB-INF/includes/Toolbar.jsp" %>
+<jsp:include page="/WEB-INF/includes/headers.jsp">
+    <jsp:param name="title" value="Contact" />
+</jsp:include>
+<%@ include file="/WEB-INF/includes/Toolbar.jsp" %>
         <div class="panel panel-primary form-style">
             <div class="panel-heading">
                 <h5> Welcome on the Contact page, here you can send a message to the SupMessaging's admin. </h5>
@@ -36,4 +27,5 @@
             </div>
         </div>
     </body>
-</html>
+        
+<%@ include file="/WEB-INF/includes/footer.jsp" %>

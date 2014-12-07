@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Dashboard extends HttpServlet {
 
-    public static final String jspView = "/WEB-INF/home/Dashboard.jsp";
+    public static final String jspView = "/WEB-INF/Dashboard.jsp";
     
     @Override
     public void doGet( HttpServletRequest request, HttpServletResponse response )	throws ServletException, IOException {            
