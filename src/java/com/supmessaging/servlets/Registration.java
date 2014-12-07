@@ -24,14 +24,6 @@ import org.hibernate.Transaction;
 
 public class Registration extends HttpServlet {
     public static final String jspView = "/WEB-INF/Registration.jsp";
-    public static final String usernameField = "username";
-    public static final String firstNameField = "firstName";
-    public static final String lastNameField = "lastName";
-    public static final String emailField = "email";
-    public static final String passwordField0ne = "passwordOne";
-    public static final String passwordFieldTwo = "passwordTwo";
-    
-    CheckInput checkInput = new CheckInput();
     SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     Session sessionHibernate = sessionFactory.openSession();
     Users secretary = new Users();
@@ -54,48 +46,33 @@ public class Registration extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
         Map<String, String> errors = new HashMap<>();
-        String userName = request.getParameter(usernameField);
-        String firstName = request.getParameter(firstNameField);
-        String lastName = request.getParameter(lastNameField);
-        String email = request.getParameter(emailField);
-        String passwordOne = request.getParameter(passwordField0ne);
-        String passwordTwo = request.getParameter(passwordFieldTwo);
+        CheckInput checkInput = new CheckInput(request, errors);
         SessionCreator sessionCreator = new SessionCreator(request);
         
-        errors.clear();
-        request.setAttribute(usernameField, userName);
-        request.setAttribute(firstNameField, firstName);
-        request.setAttribute(lastNameField, lastName);
-        request.setAttribute(emailField, email);
+        String userName = request.getParameter("username");
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String email = request.getParameter("email");
+        String passwordOne = request.getParameter("passwordOne");
+        String passwordTwo = request.getParameter("passwordTwo");
         
-        if(!"".equals(checkInput.validateUsername(userName))) {
-            errors.put(usernameField, checkInput.validateUsername(userName));
-            request.removeAttribute(usernameField);
-        }
+        request.setAttribute("username", userName);
+        request.setAttribute("firstName", firstName);
+        request.setAttribute("lastName", lastName);
+        request.setAttribute("email", email);
         
-        if(!"".equals(checkInput.nonEmpty(firstName, false))) {
-            errors.put(firstNameField, checkInput.nonEmpty(firstName, false));
-            request.removeAttribute(firstNameField);
-        }
-        
-        if(!"".equals(checkInput.nonEmpty(firstName, false))) {
-            errors.put(lastNameField, checkInput.nonEmpty(firstName, false));
-            request.removeAttribute(lastNameField);
-        }
-        
-        if(!"".equals(checkInput.validateMail(email, false))) {
-            errors.put(emailField, checkInput.validateMail(email, false));
-            request.removeAttribute(emailField);
-        }
-        
-        if(!"".equals(checkInput.equalizationField(passwordOne, passwordTwo))) {
-            errors.put("password", checkInput.equalizationField(passwordOne, passwordTwo));
-        }
-        
+        checkInput.validateUsername(userName, "username");
+        checkInput.nonEmpty(firstName, "firstName", false);
+        checkInput.nonEmpty(firstName, "lastName", false);
+        checkInput.validateMail(email, "email", false);
+        checkInput.equalizationField(passwordOne, passwordTwo, "password");
+ 
         if(!errors.isEmpty()) {
             request.setAttribute("error", errors);
             this.getServletContext().getRequestDispatcher(jspView).forward( request, response );
+            errors.clear();
         }
         else {
             
