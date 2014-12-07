@@ -76,5 +76,13 @@
         <servlet-name>LogOut</servlet-name>
         <url-pattern>/goodbye</url-pattern>
     </servlet-mapping>
-
+    
+    <servlet> <!-- Servlet de modification des informations du compte -->
+        <servlet-name>Profile</servlet-name>
+        <servlet-class>com.supmessaging.servlets.Profile</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Profile</servlet-name>
+        <url-pattern>/home/myProfile</url-pattern>
+    </servlet-mapping>
 </web-app>

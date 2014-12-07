@@ -1,5 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <ul class="nav nav-tabs">
 
     <li role="presentation" class="active">
@@ -10,5 +10,6 @@
     ${contact}
     ${connect}
     ${registration}
+    ${editProfile}
     ${logOut}
 </ul>
