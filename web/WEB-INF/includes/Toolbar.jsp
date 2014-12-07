@@ -17,6 +17,7 @@
             ${contact}
             ${connect}
             ${registration}
+            ${editProfile}
             ${logOut}
        </ul>
    </body>
