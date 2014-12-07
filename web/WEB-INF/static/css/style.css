@@ -1,8 +1,5 @@
-.form-style {
-    margin-left : auto;
-    margin-right : auto;
-    margin-top : 5%;
-    max-width : 800px;
+body {
+    padding-top: 50px;
 }
 
 .error-field {
@@ -18,6 +15,13 @@
 
 .space-between {
     margin : 8px;
+}
+
+.box {
+    padding: 5px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    height: 320px;
 }
 
 
