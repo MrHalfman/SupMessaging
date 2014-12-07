@@ -30,14 +30,12 @@ public class Profile extends HttpServlet {
         
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
 
-        /*if(sessionCreator.checkSessionExist()) {
+        if(sessionCreator.checkSessionExist()) {
             this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );
         }
         else {
             response.sendRedirect("/SupMessaging");
-        }*/
-        
-        this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );
+        }
     }
 
     @Override
