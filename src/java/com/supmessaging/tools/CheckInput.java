@@ -1,34 +1,41 @@
 package com.supmessaging.tools;
 
-/**
- *
- * @author Martin
- */
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+
 public class CheckInput {
-    public String validateUsername(String username) {
+    
+    private final HttpServletRequest request;
+    private final Map<String, String> errors;
+    
+    
+    public CheckInput(HttpServletRequest request, Map<String, String> errors) {
+        this.request = request;
+        this.errors = errors;
+    }
+    
+    public void configureError(String name, String error) {
+        errors.put(name, error);
+        request.removeAttribute(name);
+    }
+    
+    public void validateUsername(String username, String name) {
         String error = "";
         if (username == null || username.trim().length() == 0) {
             error = "Please, enter a valid username";
+            configureError(name, error);
         }
-        return error;
     }
     
-    public String validatePassword(String password) {
+    public void validatePassword(String password, String name) {
         String error = "";
         if (password == null || password.trim().length() == 0) {
             error = "Please, enter a valid password";
-            return error;
+            configureError(name, error);
         }
-        if (password.trim().length() < 4) {
-            error += "Please enter a new one with 5 caracter or more. ";
-        }
-        if (password.equals(password.toLowerCase())) {
-            error += "It must contain both uppercase and lowercase characters";
-        }
-        return error;
     }
     
-    public String validateMail(String email, boolean isAnonymousMessage) {
+    public void validateMail(String email, String name, boolean isAnonymousMessage) {
         String error = "";
         if (email == null || email.trim().length() == 0) {
             if (!isAnonymousMessage) {
@@ -37,16 +44,15 @@ public class CheckInput {
             else {
                 error = "Please, if you want a response to your message, we need a email";
             }
-            return error;
+            configureError(name, error);
         }
-        if (!email.matches( "([a-zA-Z0-9-_+\\/=]+\\.?[a-zA-Z0-9-_+\\/=])+@[a-zA-Z]+\\.[a-zA-Z]{0,4}" )) {
+        else if (!email.matches( "([a-zA-Z0-9-_+\\/=]+\\.?[a-zA-Z0-9-_+\\/=])+@[a-zA-Z]+\\.[a-zA-Z]{0,4}" )) {
             error = "Please give us a valide email";
+            configureError(name, error);
         }
-        
-        return error;
     }
     
-    public String nonEmpty(String text, boolean isTextarea) {
+    public void nonEmpty(String text, String name, boolean isTextarea) {
         String error = "";
         if (text == null || text.trim().length() == 0) {
             
@@ -56,24 +62,45 @@ public class CheckInput {
             else {
                 error = "Sorry, you have to fill the field";
             }
+            configureError(name, error);
         }
-        return error;
     }
     
-    public String equalizationField(String fieldOne, String fieldTwo) {
+    public void equalizationField(String fieldOne, String fieldTwo, String name) {
         String error = "";
+        boolean fieldMissing = false;
+        boolean passwordStandard = true;
         String[] fields = {fieldOne, fieldTwo};
         
         for (int i = 0; i < fields.length; i++) {
             if (fields[i] == null || fields[i].trim().length() == 0) {
                 error = "Sorry, you have to fill the two fields";
-                return error;
+                configureError(name, error);
+                fieldMissing = true;
+                break;
             }
         }
         
-        if (!fieldOne.equals(fieldTwo)) {
-            error = "Sorry, the fields aren't equals";
+        if (!fieldMissing) {
+            if (!fieldOne.equals(fieldTwo)) {
+                error = "Sorry, the fields aren't equals";
+                configureError(name, error);
+            }
+
+            else {
+                if (fieldOne.trim().length() < 4) {
+                    error += "Please enter a new one with 5 caracter or more. ";
+                    passwordStandard = false;
+                }
+                if (fieldOne.equals(fieldOne.toLowerCase())) {
+                    error += "It must contain both uppercase and lowercase characters";
+                    passwordStandard = false;
+                }
+
+                if (!passwordStandard) {
+                    configureError(name, error);
+                }
+            }
         }
-        return error;
     }
 }
