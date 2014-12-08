@@ -5,10 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Martin
- */
 public class SessionCreator {
     
     private final HttpServletRequest request;

@@ -6,9 +6,8 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
-public class ActionToolBar {
+public class ActionToolbar {
     public void getAdaptedToolbar(SessionCreator sessionCreator, HttpServletRequest request) {
-        // Template : <id, <isActive, link, text>>
         Map<String, List<String> > links = new HashMap<>();
 
         links.put("home", Arrays.asList("", "/SupMessaging", " <span class=\"glyphicon glyphicon-home\" aria-hidden=\"true\"></span>"));

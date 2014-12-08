@@ -1,9 +1,7 @@
 package com.supmessaging.tools;
 
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 
 public class Encryption {
     
@@ -28,7 +26,7 @@ public class Encryption {
         return encryptedPassword;*/
     }
     
-    public boolean checkPasswordEqual(String password, String hash) throws NoSuchAlgorithmException, InvalidKeySpecException, UnsupportedEncodingException {
+    public boolean checkPasswordEqual(String password, String hash) throws NoSuchAlgorithmException{
         
         String encryptedPassword = this.encryptionPassword(password);
         boolean isEqual = true;

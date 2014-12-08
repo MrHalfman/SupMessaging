@@ -3,7 +3,7 @@ package com.supmessaging.servlets;
 import com.supmessaging.persistence.HibernateUtil;
 import com.supmessaging.tools.CheckInput;
 import com.supmessaging.persistence.Messages;
-import com.supmessaging.tools.ActionToolBar;
+import com.supmessaging.tools.ActionToolbar;
 import com.supmessaging.tools.SessionCreator;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -32,7 +32,7 @@ public class Contact extends HttpServlet {
     @Override
     public void doGet( HttpServletRequest request, HttpServletResponse response )	throws ServletException, IOException {
         SessionCreator sessionCreator = new SessionCreator(request);
-        ActionToolBar myBeautifulToolbar = new ActionToolBar();
+        ActionToolbar myBeautifulToolbar = new ActionToolbar();
         
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
         

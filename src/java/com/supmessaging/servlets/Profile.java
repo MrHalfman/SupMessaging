@@ -1,6 +1,6 @@
 package com.supmessaging.servlets;
 
-import com.supmessaging.tools.ActionToolBar;
+import com.supmessaging.tools.ActionToolbar;
 import com.supmessaging.tools.CheckInput;
 import com.supmessaging.tools.SessionCreator;
 import java.io.IOException;
@@ -10,10 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.supmessaging.persistence.Users;
-import com.supmessaging.persistence.Messages;
 import com.supmessaging.persistence.HibernateUtil;
-import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -29,7 +26,7 @@ public class Profile extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         SessionCreator sessionCreator = new SessionCreator(request);
-        ActionToolBar myBeautifulToolbar = new ActionToolBar();
+        ActionToolbar myBeautifulToolbar = new ActionToolbar();
         
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
 

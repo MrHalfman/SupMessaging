@@ -5,9 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import com.supmessaging.persistence.Users;
 import com.supmessaging.persistence.HibernateUtil;
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -67,7 +65,7 @@ public class CheckInput {
         }
     }
     
-    public void validateConnection(String password, String username, String nameError) throws NoSuchAlgorithmException, InvalidKeySpecException, UnsupportedEncodingException {
+    public void validateConnection(String password, String username, String nameError) throws NoSuchAlgorithmException {
         String error = "";
         boolean defconError = false;
         
