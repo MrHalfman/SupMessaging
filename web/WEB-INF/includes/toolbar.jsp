@@ -7,12 +7,11 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li class="active">
-                    <a href="/SupMessaging/">
-                        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-                    </a>
-                </li>
-                ${contact}${connect}${registration}${editProfile}${logOut}
+                <c:forEach items="${links}" var="link">
+                    <li class="${link.value.get(0)}">
+                        <a href="${link.value.get(1)}">${link.value.get(2)}</a>
+                    </li>
+                </c:forEach>
             </ul>
         </div>
     </div>
