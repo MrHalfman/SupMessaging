@@ -1,5 +1,6 @@
 package com.supmessaging.tools;
 
+import java.util.Locale;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
@@ -102,5 +103,12 @@ public class CheckInput {
                 }
             }
         }
+    }
+    
+    public String formatName(String name) {
+    name = name.toLowerCase(Locale.FRENCH);
+    name = name.substring(0, 1).toUpperCase() + name.substring(1);
+    
+    return name;
     }
 }

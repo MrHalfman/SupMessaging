@@ -24,8 +24,6 @@ import org.hibernate.Transaction;
 
 public class Registration extends HttpServlet {
     public static final String jspView = "/WEB-INF/Registration.jsp";
-    SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-    Session sessionHibernate = sessionFactory.openSession();
     Users secretary = new Users();
     Encryption encryption = new Encryption();
 
@@ -86,6 +84,12 @@ public class Registration extends HttpServlet {
             } catch (InvalidKeySpecException ex) {
                 Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            firstName = checkInput.formatName(firstName);
+            lastName = checkInput.formatName(lastName);
+            
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            Session sessionHibernate = sessionFactory.openSession();
             
             secretary.setFirstname(firstName);
             secretary.setMail(email);
