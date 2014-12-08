@@ -69,23 +69,26 @@ public class CheckInput {
     
     public void validateConnection(String password, String username, String nameError) throws NoSuchAlgorithmException, InvalidKeySpecException, UnsupportedEncodingException {
         String error = "";
+        boolean defconError = false;
         
         if (errors.isEmpty()) {
             if (this.pseudo != null) {
                 if (!this.pseudo.equals(username)) {
-                    error = "Sorry, it seem that you've got wrong ID";
-                    System.out.println("BAD ID");
-                    configureError(nameError, error);
+                    defconError = true;
                 }
                 else if (!encryption.checkPasswordEqual(password, passwordEncrypted)) {
                     error = "Sorry, it seem that you've got wrong ID";
-                    configureError(nameError, error);
+                    defconError = true;
                 }
             }
             else {
-                error = "Sorry, it seem that you've got wrong ID";
-                configureError(nameError, error);
+                defconError = true;
             }
+        }
+        
+        if (defconError) {
+            error = "Sorry, it seem that you've got wrong ID";
+            configureError(nameError, error);
         }
     }
     
