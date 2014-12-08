@@ -13,16 +13,16 @@ public class ActionToolBar {
 
         links.put("home", Arrays.asList("", "/SupMessaging", " <span class=\"glyphicon glyphicon-home\" aria-hidden=\"true\"></span>"));
         
-        if (!sessionCreator.checkSessionExist()) {
+        if (sessionCreator.checkSessionExist()) {
+            // Elements apparaissants si la personne est connectée
+            links.put("editProfile", Arrays.asList("", "/SupMessaging/profile", "My profile"));
+            links.put("logOut", Arrays.asList("", "/SupMessaging/goodbye", "Logout"));
+        }
+        else {
             // Elements apparaissants si la personne n'est pas connectée
             links.put("contact", Arrays.asList("", "/SupMessaging/contact", "Contact"));
             links.put("connect", Arrays.asList("", "/SupMessaging/connect", "Sign in"));
             links.put("registration", Arrays.asList("", "/SupMessaging/registration" ,"Sign up"));
-        }
-        else {
-            // Elements apparaissants si la personne est connectée
-            links.put("editProfile", Arrays.asList("", "/SupMessaging/profile", "My profile"));
-            links.put("logOut", Arrays.asList("", "/SupMessaging/goodbye", "Logout"));
         }
         
         switch(request.getRequestURI()) {
