@@ -1,7 +1,7 @@
 <jsp:include page="/WEB-INF/includes/headers.jsp">
     <jsp:param name="title" value="Profile" />
 </jsp:include>
-        <%@ include file="/WEB-INF/includes/Toolbar.jsp" %>
+        <%@ include file="/WEB-INF/includes/toolbar.jsp" %>
         <div class="container">
             <form method="post" action="/SupMessaging/home/myProfile">
                 <h2>Edit your informations</h2>

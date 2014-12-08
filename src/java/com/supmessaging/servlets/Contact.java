@@ -20,7 +20,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 public class Contact extends HttpServlet {
-    public static final String jspView = "/WEB-INF/Contact.jsp";
+    public static final String jspView = "/WEB-INF/contact.jsp";
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     Date date = new Date();
     SessionFactory sessionFactory = HibernateUtil.getSessionFactory(); // Transmission avec la BDD

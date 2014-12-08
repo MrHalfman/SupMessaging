@@ -23,7 +23,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 public class Registration extends HttpServlet {
-    public static final String jspView = "/WEB-INF/Registration.jsp";
+    public static final String jspView = "/WEB-INF/registration.jsp";
     Users secretary = new Users();
     Encryption encryption = new Encryption();
 
@@ -38,7 +38,7 @@ public class Registration extends HttpServlet {
             this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );
         }
         else {
-            response.sendRedirect("home/dashboard");
+            response.sendRedirect("/SupMessaging");
         }
     }
 
@@ -107,8 +107,8 @@ public class Registration extends HttpServlet {
             sessionHibernate.flush();
             sessionHibernate.close();
             
-            sessionCreator.createSession(userName, 1);            
-            response.sendRedirect("home/dashboard");
+            sessionCreator.createSession(userName, 1);   
+            response.sendRedirect("/SupMessaging");
         }
     }   
 }

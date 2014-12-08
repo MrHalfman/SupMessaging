@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Connection extends HttpServlet {
     
-    public static final String jspView = "/WEB-INF/Connection.jsp";
+    public static final String jspView = "/WEB-INF/connection.jsp";
     
     @Override
     public void doGet( HttpServletRequest request, HttpServletResponse response )	throws ServletException, IOException {
@@ -26,7 +26,7 @@ public class Connection extends HttpServlet {
             this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );
         }
         else {
-            response.sendRedirect("home/dashboard");
+            response.sendRedirect("/SupMessaging");
         }
     }
 
@@ -53,8 +53,8 @@ public class Connection extends HttpServlet {
             errors.clear();
         }
         else {
-            sessionCreator.createSession(username, 1);            
-            response.sendRedirect("home/dashboard");
+            sessionCreator.createSession(username, 1);   
+            response.sendRedirect("/SupMessaging");
         }
     }
 }

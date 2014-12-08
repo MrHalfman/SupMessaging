@@ -30,15 +30,6 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
     <servlet>
-        <!-- Servlet pour la page d'accueil une fois connecté -->
-        <servlet-name>Dashboard</servlet-name>
-        <servlet-class>com.supmessaging.servlets.Dashboard</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Dashboard</servlet-name>
-        <url-pattern>/home/dashboard</url-pattern>
-    </servlet-mapping>
-    <servlet>
         <!-- Servlet de la page de connexion -->
         <servlet-name>Connection</servlet-name>
         <servlet-class>com.supmessaging.servlets.Connection</servlet-class>
@@ -81,6 +72,15 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Profile</servlet-name>
-        <url-pattern>/home/myProfile</url-pattern>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <!-- Servlet de boite de reception -->
+        <servlet-name>Inbox</servlet-name>
+        <servlet-class>com.supmessaging.servlets.Inbox</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Inbox</servlet-name>
+        <url-pattern>/inbox</url-pattern>
     </servlet-mapping>
 </web-app>

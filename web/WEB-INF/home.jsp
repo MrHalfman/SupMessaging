@@ -1,7 +1,7 @@
 <jsp:include page="/WEB-INF/includes/headers.jsp">
     <jsp:param name="title" value="Home" />
 </jsp:include>
-<%@ include file="/WEB-INF/includes/Toolbar.jsp" %>
+<%@ include file="/WEB-INF/includes/toolbar.jsp" %>
 <div class="jumbotron">
     <div class="container">
         <h1>Welcome on SupMessaging</h1>

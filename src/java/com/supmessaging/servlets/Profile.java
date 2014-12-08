@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.supmessaging.servlets;
 
 import com.supmessaging.tools.ActionToolBar;
@@ -17,12 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Martin
- */
 public class Profile extends HttpServlet {
-    public static final String jspView = "/WEB-INF/home/Profile.jsp";
+    public static final String jspView = "/WEB-INF/profile.jsp";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

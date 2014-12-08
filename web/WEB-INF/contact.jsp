@@ -1,7 +1,7 @@
 <jsp:include page="/WEB-INF/includes/headers.jsp">
     <jsp:param name="title" value="Contact" />
 </jsp:include>
-<%@ include file="/WEB-INF/includes/Toolbar.jsp" %>
+<%@ include file="/WEB-INF/includes/toolbar.jsp" %>
         <div class="container"> <br>
             <div class="panel panel-primary">
                 <div class="panel-heading">
