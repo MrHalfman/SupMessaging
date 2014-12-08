@@ -10,10 +10,21 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.supmessaging.persistence.Users;
+import com.supmessaging.persistence.Messages;
+import com.supmessaging.persistence.HibernateUtil;
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class Profile extends HttpServlet {
     public static final String jspView = "/WEB-INF/profile.jsp";
-
+    private String firstName;
+    private String lastName;
+    private String email;
+    //private String password;
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -46,9 +57,9 @@ public class Profile extends HttpServlet {
         
         
         // On récupère les modifications
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        String email = request.getParameter("email");
+        firstName = request.getParameter("firstName");
+        lastName = request.getParameter("lastName");
+        email = request.getParameter("email");
         
         errors.clear();
         request.setAttribute("firstName", firstName);
@@ -70,5 +81,27 @@ public class Profile extends HttpServlet {
         String newPasswordOne = request.getParameter("newPasswordOne");
         String newPasswordTwo = request.getParameter("newPasswordTwo");
         */
+    }
+    
+    public void profilModification(){
+        Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
+            Transaction tx = sessionHibernate.beginTransaction();
+
+            Query query = sessionHibernate.createQuery("update Users set "+  
+                    "name = :name," +
+                    "firstname = :firstname," +
+                    "mail = :mail,"  +
+                    "password = :password"               
+                    + " where stockCode = :stockCode");
+     
+            
+            query.setParameter("name", lastName );
+            query.setParameter("firstname", firstName);
+            query.setParameter("mail", email);
+            query.setParameter("password", "");
+            int result = query.executeUpdate();
+            tx.commit();
+            sessionHibernate.close();
+        
     }
 }
