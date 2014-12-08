@@ -15,6 +15,7 @@ public class ActionToolBar {
         
         if (sessionCreator.checkSessionExist()) {
             // Elements apparaissants si la personne est connectée
+            links.put("inbox", Arrays.asList("", "/SupMessaging/inbox", "Inbox"));
             links.put("editProfile", Arrays.asList("", "/SupMessaging/profile", "My profile"));
             links.put("logOut", Arrays.asList("", "/SupMessaging/goodbye", "Logout"));
         }
@@ -49,6 +50,11 @@ public class ActionToolBar {
             case "/SupMessaging/profile":
                 try {
                     links.get("editProfile").set(0, "active");
+                } catch (NullPointerException ex) {};
+                break;
+            case "/SupMessaging/inbox":
+                try {
+                    links.get("inbox").set(0, "active");
                 } catch (NullPointerException ex) {};
                 break;
         }
