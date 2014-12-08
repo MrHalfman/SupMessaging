@@ -4,10 +4,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>SupMessaging - ${param.title}</title>
         <link href="${pageContext.request.contextPath}/static/css/bootstrap.min.css" rel="stylesheet"/>
         <link href="${pageContext.request.contextPath}/static/css/style.css" rel="stylesheet"/>
-        <link href="${pageContext.request.contextPath}/static/js/bootstrap.min.js" rel="stylesheet"/>
         <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/img/favicon.ico">
-        <title>SupMessaging - ${param.title}</title>
+        
+        <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/main.js"></script>
     </head>
     <body>

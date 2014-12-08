@@ -5,7 +5,10 @@
 <div class="container" style="height: 100%;">
     <div id="inbox" class="row">
         <div id="messagesList" class="col-md-3">
-            <h3>Liste des messages</h3>
+            <h3>
+                Liste des messages 
+                <button id="newMessage" title="New Conversation" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>
+            </h3>
             <hr>
             <div class="messageItem">
 <!--                <strong>Titre</strong> <br>-->
@@ -57,7 +60,7 @@
             
             <div id="input">
                 <form>
-                    <textarea placeholder="Saisissez votre message..."></textarea>
+                    <textarea placeholder="Enter your message then press Enter..."></textarea>
                 </form>
             </div>
         </div>
