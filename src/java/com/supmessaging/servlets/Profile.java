@@ -11,32 +11,44 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.supmessaging.persistence.HibernateUtil;
+import com.supmessaging.persistence.Users;
+import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class Profile extends HttpServlet {
     public static final String jspView = "/WEB-INF/profile.jsp";
-    private String firstName;
-    private String lastName;
-    private String email;
-    //private String password;
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         SessionCreator sessionCreator = new SessionCreator(request);
         ActionToolbar myBeautifulToolbar = new ActionToolbar();
-        
+        HttpSession session = request.getSession();
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
 
         if(sessionCreator.checkSessionExist()) {
             
-            // On set les données de l'utilisateur dans les champs
-            request.setAttribute("firstName", "");
-            request.setAttribute("lastName", "");
-            request.setAttribute("email", "");
-        
+            Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
+            Transaction tx = sessionHibernate.beginTransaction();
+
+            Query queryTest = (Query) sessionHibernate.createQuery("FROM Users u WHERE u.pseudo = :pseudo");
+            queryTest.setParameter("pseudo", session.getAttribute("username"));       
+
+            List<Users> users = queryTest.list();
+
+            for (Users user : users){
+                // On set les données de l'utilisateur dans les champs
+                request.setAttribute("firstName", user.getFirstname());
+                request.setAttribute("lastName", user.getName());
+                request.setAttribute("email", user.getMail());
+            }
+            
+            tx.commit();
+            sessionHibernate.close();
+           
             this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );
         }
         else {
@@ -50,13 +62,10 @@ public class Profile extends HttpServlet {
         Map<String, String> errors = new HashMap<>();
         CheckInput checkInput = new CheckInput(request, errors);
         
-        SessionCreator sessionCreator = new SessionCreator(request);
-        
-        
         // On récupère les modifications
-        firstName = request.getParameter("firstName");
-        lastName = request.getParameter("lastName");
-        email = request.getParameter("email");
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String email = request.getParameter("email");
         
         errors.clear();
         request.setAttribute("firstName", firstName);
@@ -69,8 +78,13 @@ public class Profile extends HttpServlet {
         
         if(!errors.isEmpty()) {
             request.setAttribute("error", errors);
-            this.getServletContext().getRequestDispatcher(jspView).forward( request, response );
+            
+            this.getServletContext().getRequestDispatcher(jspView).forward(request, response);
             errors.clear();
+        }
+        else {
+            alterInformations(lastName, firstName, email, request);
+            this.getServletContext().getRequestDispatcher(jspView).forward(request, response);
         }
         
         /*
@@ -80,22 +94,24 @@ public class Profile extends HttpServlet {
         */
     }
     
-    public void profilModification(){
+    public void alterInformations(String lastName, String firstName, String email, HttpServletRequest request){
+        HttpSession session = request.getSession();
         Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
-            Transaction tx = sessionHibernate.beginTransaction();
+        Transaction tx = sessionHibernate.beginTransaction();
 
             Query query = sessionHibernate.createQuery("update Users set "+  
-                    "name = :name," +
-                    "firstname = :firstname," +
-                    "mail = :mail,"  +
-                    "password = :password"               
-                    + " where stockCode = :stockCode");
+                    "name = :name, " +
+                    "firstname = :firstname, " +
+                    "mail = :mail "  +  
+                    "where pseudo = :pseudo");
      
             
             query.setParameter("name", lastName );
             query.setParameter("firstname", firstName);
             query.setParameter("mail", email);
-            query.setParameter("password", "");
+            query.setParameter("pseudo", session.getAttribute("username"));
+//            query.setParameter("password", "");
+            System.out.println(query);
             int result = query.executeUpdate();
             tx.commit();
             sessionHibernate.close();

@@ -3,7 +3,7 @@
 </jsp:include>
         <%@ include file="/WEB-INF/includes/toolbar.jsp" %>
         <div class="container">
-            <form method="post" action="/SupMessaging/home/myProfile">
+            <form method="post" action="profile">
                 <h2>Edit your informations</h2>
                 <p>
                     If you want to correct somes informations, please insert your new informations. <br />
