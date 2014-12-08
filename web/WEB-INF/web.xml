@@ -8,10 +8,9 @@
         <filter-name>UTF-8 Encoding Filter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    
     <servlet>
         <servlet-name>FileServlet</servlet-name>
-        <servlet-class>com.supmessaging.servlets.FileServlet</servlet-class>
+        <servlet-class>com.supmessaging.servlets.librairies.FileServlet</servlet-class>
         <init-param>
             <param-name>basePath</param-name>
             <param-value>/WEB-INF/static</param-value>
@@ -21,7 +20,6 @@
         <servlet-name>FileServlet</servlet-name>
         <url-pattern>/static/*</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>Home</servlet-name>
         <servlet-class>com.supmessaging.servlets.Home</servlet-class>
@@ -76,8 +74,8 @@
         <servlet-name>LogOut</servlet-name>
         <url-pattern>/goodbye</url-pattern>
     </servlet-mapping>
-    
-    <servlet> <!-- Servlet de modification des informations du compte -->
+    <servlet>
+        <!-- Servlet de modification des informations du compte -->
         <servlet-name>Profile</servlet-name>
         <servlet-class>com.supmessaging.servlets.Profile</servlet-class>
     </servlet>
