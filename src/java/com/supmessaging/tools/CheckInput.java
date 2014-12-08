@@ -17,7 +17,7 @@ public class CheckInput {
     private List<Users> users = null;
     private String pseudo;
     private String password;
-    private String salt;
+    private byte[] salt;
     
             
     public void queryUser(String username){

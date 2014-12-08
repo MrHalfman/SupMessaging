@@ -94,7 +94,7 @@ public class Registration extends HttpServlet {
             secretary.setName(lastName);
             secretary.setPseudo(userName);
             secretary.setPassword(encryptedPassword);
-            secretary.setSalt(new BigInteger(1, salt).toString(16));
+            secretary.setSalt(salt);
             secretary.setRoleUser(1);
 
             Transaction tx = sessionHibernate.beginTransaction();
