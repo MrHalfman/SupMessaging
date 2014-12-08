@@ -1,22 +1,8 @@
-<%-- 
-    Document   : Profile
-    Created on : 7 déc. 2014, 12:11:53
-    Author     : Martin
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"/>
-        <link href="${pageContext.request.contextPath}/mycss/style.css" rel="stylesheet"/>
-        <link href="${pageContext.request.contextPath}/js/bootstrap.min.js" rel="stylesheet"/>
-        <title>My Profile</title>
-    </head>
-    <body>
+<jsp:include page="/WEB-INF/includes/headers.jsp">
+    <jsp:param name="title" value="Profile" />
+</jsp:include>
         <%@ include file="/WEB-INF/includes/Toolbar.jsp" %>
-        <div class="form-style">
+        <div class="container">
             <form method="post" action="/SupMessaging/home/myProfile">
                 <h2>Edit your informations</h2>
                 <p>
@@ -76,5 +62,4 @@
                 </div>
             </form>
         </div>
-    </body>
-</html>
+<%@ include file="/WEB-INF/includes/footer.jsp" %>
