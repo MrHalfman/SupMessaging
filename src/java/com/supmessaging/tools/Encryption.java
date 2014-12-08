@@ -7,18 +7,18 @@ import java.security.spec.InvalidKeySpecException;
 
 public class Encryption {
     
-    public String encryptionPassword(String password) throws NoSuchAlgorithmException, InvalidKeySpecException, UnsupportedEncodingException {
+    public String encryptionPassword(String password) throws NoSuchAlgorithmException {
         
-        MessageDigest md = MessageDigest.getInstance("SHA-512");
-        byte[] passBytes = password.getBytes();
-        md.reset();
+        MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
+        byte[] passwordInBytes = password.getBytes();
+        messageDigest.reset();
         
-        byte[] digested = md.digest(passBytes);
-        StringBuilder sb = new StringBuilder();
-        for(int i=0;i<digested.length;i++){
-            sb.append(Integer.toHexString(0xff & digested[i]));
+        byte[] digested = messageDigest.digest(passwordInBytes);
+        StringBuilder stringBuilder = new StringBuilder();
+        for(int i = 0; i < digested.length; i++){
+            stringBuilder.append(Integer.toHexString(0xff & digested[i]));
         }
-        return sb.toString();
+        return stringBuilder.toString();
         
         /*KeySpec spec = new PBEKeySpec("password".toCharArray(), salt.getBytes(), 65536, 128);
         SecretKeyFactory f = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
