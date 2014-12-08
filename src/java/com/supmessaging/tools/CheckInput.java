@@ -3,13 +3,46 @@ package com.supmessaging.tools;
 import java.util.Locale;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import com.supmessaging.persistence.Users;
+import com.supmessaging.persistence.HibernateUtil;
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class CheckInput {
     
     private final HttpServletRequest request;
     private final Map<String, String> errors;
+    private List<Users> users = null;
+    private String pseudo;
+    private String password;
+    private String salt;
     
+            
+    public void queryUser(String username){
+        
+        Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = sessionHibernate.beginTransaction();
+
+        Query queryTest = (Query) sessionHibernate.createQuery("FROM Users u WHERE u.pseudo = :pseudo");
+        queryTest.setParameter("pseudo", username);       
+
+        users = queryTest.list();
+
+        for (Users user : users){
+            this.pseudo = user.getPseudo();
+            this.password = user.getPassword();
+            this.salt = user.getSalt();
+        }
+        System.out.println(this.pseudo);
+        System.out.println(this.password);
+        System.out.println(this.salt);
+        tx.commit();
+        sessionHibernate.close();
+    }
     
+            
     public CheckInput(HttpServletRequest request, Map<String, String> errors) {
         this.request = request;
         this.errors = errors;

@@ -42,9 +42,11 @@ public class Connection extends HttpServlet {
         
         request.setAttribute("username", username);
         
+        //checkInput.queryUser(username);
+        
         checkInput.validateUsername(username, "username");
         checkInput.validatePassword(password, "password");
-        
+              
         if(!errors.isEmpty()) {
             request.setAttribute("error", errors);
             this.getServletContext().getRequestDispatcher(jspView).forward( request, response );
