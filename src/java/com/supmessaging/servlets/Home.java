@@ -20,12 +20,10 @@ public class Home extends HttpServlet {
         
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
 
-        if(sessionCreator.checkSessionExist()) {
-            this.getServletContext().getRequestDispatcher(connectedView).forward( request, response );
-        }
-        else {
-            this.getServletContext().getRequestDispatcher(guestView).forward( request, response );
-        }
+        this.getServletContext().getRequestDispatcher(
+                (sessionCreator.checkSessionExist() ? connectedView : guestView)
+            ).forward(request, response);
+
     }
 
     
