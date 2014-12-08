@@ -5,7 +5,9 @@
  */
 package com.supmessaging.tools;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
@@ -13,6 +15,7 @@ import java.security.spec.KeySpec;
 import java.util.Random;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
+import sun.misc.BASE64Encoder;
 
 /**
  *
@@ -20,25 +23,30 @@ import javax.crypto.spec.PBEKeySpec;
  */
 public class Encryption {
     
-    public byte[] generateSalt() {
-        final Random random = new SecureRandom();
-        byte[] salt = new byte[32];
-        random.nextBytes(salt);
+    public String encryptionPassword(String password) throws NoSuchAlgorithmException, InvalidKeySpecException, UnsupportedEncodingException {
         
-        return salt;
-    }
-    
-    public String encryptionPassword(byte[] salt, String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        KeySpec spec = new PBEKeySpec("password".toCharArray(), salt, 65536, 128);
+        MessageDigest md = MessageDigest.getInstance("SHA-512");
+        byte[] passBytes = password.getBytes();
+        md.reset();
+        
+        byte[] digested = md.digest(passBytes);
+        StringBuilder sb = new StringBuilder();
+        for(int i=0;i<digested.length;i++){
+            sb.append(Integer.toHexString(0xff & digested[i]));
+        }
+        return sb.toString();
+        
+        /*KeySpec spec = new PBEKeySpec("password".toCharArray(), salt.getBytes(), 65536, 128);
         SecretKeyFactory f = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
         byte[] hash = f.generateSecret(spec).getEncoded();
         String encryptedPassword = new BigInteger(1, hash).toString(16);
-        
-        return encryptedPassword;
+
+        return encryptedPassword;*/
     }
     
-    public boolean checkPasswordEqual(byte[] salt, String password, String hash) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        String encryptedPassword = this.encryptionPassword(salt, password);
+    public boolean checkPasswordEqual(String password, String hash) throws NoSuchAlgorithmException, InvalidKeySpecException, UnsupportedEncodingException {
+        
+        String encryptedPassword = this.encryptionPassword(password);
         boolean isEqual = true;
         
         if(!hash.equals(encryptedPassword)) {

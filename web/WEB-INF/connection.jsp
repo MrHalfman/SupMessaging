@@ -23,6 +23,7 @@
                                 <span class="error-field text-right">${error['password']}</span>
                             </div>
                         </div>
+                        <span class="error-field text-right">${error['connection']}</span>
                         <div class="form-group"> 
                             <div>
                                 <button type="submit" value="connect" class="btn btn-default pull-right">Submit</button>

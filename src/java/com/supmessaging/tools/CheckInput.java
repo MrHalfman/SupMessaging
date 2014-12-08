@@ -5,6 +5,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import com.supmessaging.persistence.Users;
 import com.supmessaging.persistence.HibernateUtil;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -15,11 +18,15 @@ public class CheckInput {
     private final HttpServletRequest request;
     private final Map<String, String> errors;
     private List<Users> users = null;
+    private Encryption encryption = new Encryption();
     private String pseudo;
-    private String password;
-    private byte[] salt;
-    
+    private String passwordEncrypted;
             
+    public CheckInput(HttpServletRequest request, Map<String, String> errors) {
+        this.request = request;
+        this.errors = errors;
+    }
+    
     public void queryUser(String username){
         
         Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
@@ -32,44 +39,57 @@ public class CheckInput {
 
         for (Users user : users){
             this.pseudo = user.getPseudo();
-            this.password = user.getPassword();
-            this.salt = user.getSalt();
+            this.passwordEncrypted = user.getPassword();
         }
-        System.out.println(this.pseudo);
-        System.out.println(this.password);
-        System.out.println(this.salt);
+        
         tx.commit();
         sessionHibernate.close();
     }
     
-            
-    public CheckInput(HttpServletRequest request, Map<String, String> errors) {
-        this.request = request;
-        this.errors = errors;
+    public void configureError(String nameError, String error) {
+        errors.put(nameError, error);
+        request.removeAttribute(nameError);
     }
     
-    public void configureError(String name, String error) {
-        errors.put(name, error);
-        request.removeAttribute(name);
-    }
-    
-    public void validateUsername(String username, String name) {
+    public void validateUsername(String username, String nameError) {
         String error = "";
         if (username == null || username.trim().length() == 0) {
             error = "Please, enter a valid username";
-            configureError(name, error);
+            configureError(nameError, error);
         }
     }
     
-    public void validatePassword(String password, String name) {
+    public void validatePassword(String password, String nameError) {
         String error = "";
         if (password == null || password.trim().length() == 0) {
             error = "Please, enter a valid password";
-            configureError(name, error);
+            configureError(nameError, error);
         }
     }
     
-    public void validateMail(String email, String name, boolean isAnonymousMessage) {
+    public void validateConnection(String password, String username, String nameError) throws NoSuchAlgorithmException, InvalidKeySpecException, UnsupportedEncodingException {
+        String error = "";
+        
+        if (errors.isEmpty()) {
+            if (this.pseudo != null) {
+                if (!this.pseudo.equals(username)) {
+                    error = "Sorry, it seem that you've got wrong ID";
+                    System.out.println("BAD ID");
+                    configureError(nameError, error);
+                }
+                else if (!encryption.checkPasswordEqual(password, passwordEncrypted)) {
+                    error = "Sorry, it seem that you've got wrong ID";
+                    configureError(nameError, error);
+                }
+            }
+            else {
+                error = "Sorry, it seem that you've got wrong ID";
+                configureError(nameError, error);
+            }
+        }
+    }
+    
+    public void validateMail(String email, String nameError, boolean isAnonymousMessage) {
         String error = "";
         if (email == null || email.trim().length() == 0) {
             if (!isAnonymousMessage) {
@@ -78,15 +98,15 @@ public class CheckInput {
             else {
                 error = "Please, if you want a response to your message, we need a email";
             }
-            configureError(name, error);
+            configureError(nameError, error);
         }
         else if (!email.matches( "([a-zA-Z0-9-_+\\/=]+\\.?[a-zA-Z0-9-_+\\/=])+@[a-zA-Z]+\\.[a-zA-Z]{0,4}" )) {
             error = "Please give us a valide email";
-            configureError(name, error);
+            configureError(nameError, error);
         }
     }
     
-    public void nonEmpty(String text, String name, boolean isTextarea) {
+    public void nonEmpty(String text, String nameError, boolean isTextarea) {
         String error = "";
         if (text == null || text.trim().length() == 0) {
             
@@ -96,11 +116,11 @@ public class CheckInput {
             else {
                 error = "Sorry, you have to fill the field";
             }
-            configureError(name, error);
+            configureError(nameError, error);
         }
     }
     
-    public void equalizationField(String fieldOne, String fieldTwo, String name) {
+    public void equalizationField(String fieldOne, String fieldTwo, String nameError) {
         String error = "";
         boolean fieldMissing = false;
         boolean passwordStandard = true;
@@ -109,7 +129,7 @@ public class CheckInput {
         for (int i = 0; i < fields.length; i++) {
             if (fields[i] == null || fields[i].trim().length() == 0) {
                 error = "Sorry, you have to fill the two fields";
-                configureError(name, error);
+                configureError(nameError, error);
                 fieldMissing = true;
                 break;
             }
@@ -118,7 +138,7 @@ public class CheckInput {
         if (!fieldMissing) {
             if (!fieldOne.equals(fieldTwo)) {
                 error = "Sorry, the fields aren't equals";
-                configureError(name, error);
+                configureError(nameError, error);
             }
 
             else {
@@ -132,16 +152,16 @@ public class CheckInput {
                 }
 
                 if (!passwordStandard) {
-                    configureError(name, error);
+                    configureError(nameError, error);
                 }
             }
         }
     }
     
     public String formatName(String name) {
-    name = name.toLowerCase(Locale.FRENCH);
-    name = name.substring(0, 1).toUpperCase() + name.substring(1);
-    
-    return name;
+        name = name.toLowerCase(Locale.FRENCH);
+        name = name.substring(0, 1).toUpperCase() + name.substring(1);
+
+        return name;
     }
 }

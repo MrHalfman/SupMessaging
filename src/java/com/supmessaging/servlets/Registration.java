@@ -7,7 +7,7 @@ import com.supmessaging.tools.CheckInput;
 import com.supmessaging.tools.Encryption;
 import com.supmessaging.tools.SessionCreator;
 import java.io.IOException;
-import java.math.BigInteger;
+import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
@@ -43,7 +43,7 @@ public class Registration extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, UnsupportedEncodingException {
         
         Map<String, String> errors = new HashMap<>();
         CheckInput checkInput = new CheckInput(request, errors);
@@ -73,13 +73,13 @@ public class Registration extends HttpServlet {
             errors.clear();
         }
         else {
-            
-            byte[] salt = encryption.generateSalt();
             String encryptedPassword = null;
             
             try {
-                encryptedPassword = encryption.encryptionPassword(salt, passwordTwo);
-            } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
+                encryptedPassword = encryption.encryptionPassword(passwordTwo);
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvalidKeySpecException ex) {
                 Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
             }
             
@@ -94,7 +94,6 @@ public class Registration extends HttpServlet {
             secretary.setName(lastName);
             secretary.setPseudo(userName);
             secretary.setPassword(encryptedPassword);
-            secretary.setSalt(salt);
             secretary.setRoleUser(1);
 
             Transaction tx = sessionHibernate.beginTransaction();
