@@ -17,7 +17,7 @@
     <body>
         <%@ include file="/WEB-INF/includes/Toolbar.jsp" %>
         <div class="form-style">
-            <form method="post" action="registration">
+            <form method="post" action="/SupMessaging/home/myProfile">
                 <h2>Edit your informations</h2>
                 <p>
                     If you want to correct somes informations, please insert your new informations. <br />
@@ -63,9 +63,9 @@
                 <div class="form-group">
                     <label>New password (twice):</label>
                     <div> 
-                        <input type="password" name="passwordOne" class="form-control" id="pwd" placeholder="Enter password">
+                        <input type="password" name="newPasswordOne" class="form-control" id="pwd" placeholder="Enter password">
                         <div class="space-between"></div>
-                        <input type="password" name="passwordTwo" class="form-control" id="pwd" placeholder="Enter the password twice">
+                        <input type="password" name="newPasswordTwo" class="form-control" id="pwd" placeholder="Retype the password">
                         <span class="error-field text-right">${error['newPassword']}</span>
                     </div>
                 </div>
