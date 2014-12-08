@@ -36,10 +36,14 @@ public class ActionToolBar {
                 links.get("connect").set(0, "active");
                 break;
             case "/SupMessaging/registration":
-                links.get("registration").set(0, "active");
+                try {
+                    links.get("registration").set(0, "active");
+                } catch (NullPointerException ex) {};
                 break;
             case "/SupMessaging/profile":
-                links.get("editProfile").set(0, "active");
+                try {
+                    links.get("editProfile").set(0, "active");
+                } catch (NullPointerException ex) {};
                 break;
         }
         

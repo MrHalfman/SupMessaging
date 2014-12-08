@@ -79,9 +79,7 @@ public class Registration extends HttpServlet {
             
             try {
                 encryptedPassword = encryption.encryptionPassword(salt, passwordTwo);
-            } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (InvalidKeySpecException ex) {
+            } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
                 Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
             }
             
