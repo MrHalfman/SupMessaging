@@ -27,13 +27,19 @@ public class ActionToolBar {
         
         switch(request.getRequestURI()) {
             default:
-                links.get("home").set(0, "active");
+                try {
+                    links.get("home").set(0, "active");
+                } catch (NullPointerException ex) {};
                 break;
             case "/SupMessaging/contact":
-                links.get("contact").set(0, "active");
+                try {
+                    links.get("contact").set(0, "active");
+                } catch (NullPointerException ex) {};
                 break;
             case "/SupMessaging/connect":
-                links.get("connect").set(0, "active");
+                try {
+                    links.get("connect").set(0, "active");
+                } catch (NullPointerException ex) {};
                 break;
             case "/SupMessaging/registration":
                 try {
