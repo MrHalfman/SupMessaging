@@ -24,6 +24,10 @@ public class Contact extends HttpServlet {
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     Date date = new Date();
     SessionFactory sessionFactory = HibernateUtil.getSessionFactory(); // Transmission avec la BDD
+    public int idAnonyme = 0;
+    public int idAdmin = 1;
+    public int notRead = 0;
+    public int read = 1;
     
     @Override
     public void doGet( HttpServletRequest request, HttpServletResponse response )	throws ServletException, IOException {
@@ -69,10 +73,10 @@ public class Contact extends HttpServlet {
 
             contactAdmin.setDateMessage(currentDate);
             contactAdmin.setCorpus(messageData);
-            contactAdmin.setIdUserAuthor(0);    // 0 c'est l'id dans le table users pour l'anonyme
-            contactAdmin.setIdUserReceiver(1);  // Ca sera toujours 1 ici car c'est l'id de l'admin        
+            contactAdmin.setIdUserAuthor(idAnonyme);    // 0 c'est l'id dans le table users pour l'anonyme
+            contactAdmin.setIdUserReceiver(idAdmin);  // Ca sera toujours 1 ici car c'est l'id de l'admin        
             contactAdmin.setMail(emailData);
-            contactAdmin.setReadMessage(0);     // Toujours 0 car pas encore lu
+            contactAdmin.setReadMessage(notRead);     // Toujours 0 car pas encore lu
 
             Transaction tx = sessionHibernate.beginTransaction();
             sessionHibernate.saveOrUpdate(contactAdmin);
