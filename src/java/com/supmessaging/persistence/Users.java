@@ -39,7 +39,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByMail", query = "SELECT u FROM Users u WHERE u.mail = :mail"),
     @NamedQuery(name = "Users.findByPseudo", query = "SELECT u FROM Users u WHERE u.pseudo = :pseudo"),
     @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"),
-    @NamedQuery(name = "Users.findBySalt", query = "SELECT u FROM Users u WHERE u.salt = :salt"),
     @NamedQuery(name = "Users.findByRoleUser", query = "SELECT u FROM Users u WHERE u.roleUser = :roleUser")})
 public class Users implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -75,11 +74,6 @@ public class Users implements Serializable {
     private String password;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 500)
-    @Column(name = "salt")
-    private String salt;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "roleUser")
     private int roleUser;
     @JoinTable(name = "user_friendship", joinColumns = {
@@ -97,14 +91,13 @@ public class Users implements Serializable {
         this.id = id;
     }
 
-    public Users(Integer id, String name, String firstname, String mail, String pseudo, String password, String salt, int roleUser) {
+    public Users(Integer id, String name, String firstname, String mail, String pseudo, String password, int roleUser) {
         this.id = id;
         this.name = name;
         this.firstname = firstname;
         this.mail = mail;
         this.pseudo = pseudo;
         this.password = password;
-        this.salt = salt;
         this.roleUser = roleUser;
     }
 
@@ -154,14 +147,6 @@ public class Users implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
     }
 
     public int getRoleUser() {
