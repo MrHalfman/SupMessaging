@@ -32,9 +32,10 @@
                 </div>                 
             </div>
 
-            <a href="registration">                
-                <div class="form-alert">                           
-                    <div class="panel-body">
+                           
+            <div class="form-alert">                           
+                <div class="panel-body">
+                    <a href="registration"> 
                         <form method="post" action="registration">
                             <div class="form-group">                  
                                 <div class="alert alert-danger" role="alert">
@@ -42,8 +43,9 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
-                </div>  
-            </a>        
+                    </a>
+                </div>
+            </div>  
+                    
         </div>
 <%@ include file="/WEB-INF/includes/footer.jsp" %>
