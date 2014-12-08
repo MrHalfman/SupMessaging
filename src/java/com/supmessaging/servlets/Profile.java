@@ -48,7 +48,7 @@ public class Profile extends HttpServlet {
             
             tx.commit();
             sessionHibernate.close();
-           
+                       
             this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );
         }
         else {
@@ -116,5 +116,45 @@ public class Profile extends HttpServlet {
             tx.commit();
             sessionHibernate.close();
         
+    }
+    
+    public void alterPassword(String newPassword, HttpServletRequest request) {
+        
+        HttpSession session = request.getSession();
+        Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = sessionHibernate.beginTransaction();
+
+            Query query = sessionHibernate.createQuery("update Users set "+  
+                    "password = :password, " +
+                    "where pseudo = :pseudo");
+     
+            query.setParameter("pseudo", session.getAttribute("username"));
+            query.setParameter("password", newPassword);
+            System.out.println(query);
+            int result = query.executeUpdate();
+            tx.commit();
+            sessionHibernate.close();
+   
+    }
+    
+    public void getCurrentPassword (HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
+            Transaction tx = sessionHibernate.beginTransaction();
+
+            Query queryTest = (Query) sessionHibernate.createQuery("FROM Users u WHERE u.pseudo = :pseudo");
+            queryTest.setParameter("pseudo", session.getAttribute("username"));       
+
+             List<Users> users = queryTest.list();
+
+            for (Users user : users){
+            System.out.println(user.getPassword());
+
+
+
+            }
+            tx.commit();
+            sessionHibernate.close();
+    
     }
 }
