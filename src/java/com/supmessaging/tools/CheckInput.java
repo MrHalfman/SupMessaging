@@ -16,7 +16,7 @@ public class CheckInput {
     private final HttpServletRequest request;
     private final Map<String, String> errors;
     private List<Users> users = null;
-    private Encryption encryption = new Encryption();
+    private final Encryption encryption = new Encryption();
     private String pseudo;
     private String passwordEncrypted;
             
@@ -71,11 +71,8 @@ public class CheckInput {
         
         if (errors.isEmpty()) {
             if (this.pseudo != null) {
-                if (!this.pseudo.equals(username)) {
-                    defconError = true;
-                }
-                else if (!encryption.checkPasswordEqual(password, passwordEncrypted)) {
-                    error = "Sorry, it seem that you've got wrong ID";
+                if (!this.pseudo.equals(username) || 
+                        !encryption.checkPasswordEqual(password, passwordEncrypted)) {
                     defconError = true;
                 }
             }
@@ -121,7 +118,7 @@ public class CheckInput {
         }
     }
     
-    public void equalizationField(String fieldOne, String fieldTwo, String nameError) {
+    public void equalizationPassword(String fieldOne, String fieldTwo, String nameError) {
         String error = "";
         boolean fieldMissing = false;
         boolean passwordStandard = true;
