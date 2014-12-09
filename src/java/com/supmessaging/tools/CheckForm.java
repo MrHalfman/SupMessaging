@@ -11,7 +11,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class CheckInput {
+public class CheckForm {
     
     private final HttpServletRequest request;
     private final Map<String, String> errors;
@@ -20,7 +20,7 @@ public class CheckInput {
     private String pseudo;
     private String passwordEncrypted;
             
-    public CheckInput(HttpServletRequest request, Map<String, String> errors) {
+    public CheckForm(HttpServletRequest request, Map<String, String> errors) {
         this.request = request;
         this.errors = errors;
     }
@@ -57,10 +57,16 @@ public class CheckInput {
         }
     }
     
-    public void validatePassword(String password, String nameError) {
+    public void validatePassword(String password, String nameError, boolean changePassword) throws NoSuchAlgorithmException {
         String error = "";
+        System.out.println("Password inside function = " + password);
+        System.out.println("Password  encrypted inside function = " + passwordEncrypted);
         if (password == null || password.trim().length() == 0) {
             error = "Please, enter a valid password";
+            configureError(nameError, error);
+        }
+        else if (changePassword && !encryption.checkPasswordEqual(password, passwordEncrypted)) {
+            error = "This isn't the correct password for this account";
             configureError(nameError, error);
         }
     }
