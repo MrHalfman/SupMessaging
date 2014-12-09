@@ -3,7 +3,7 @@ package com.supmessaging.servlets;
 import com.supmessaging.persistence.HibernateUtil;
 import com.supmessaging.persistence.Users;
 import com.supmessaging.tools.ActionToolbar;
-import com.supmessaging.tools.CheckInput;
+import com.supmessaging.tools.CheckForm;
 import com.supmessaging.tools.Encryption;
 import com.supmessaging.tools.SessionCreator;
 import java.io.IOException;
@@ -45,7 +45,7 @@ public class Registration extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, UnsupportedEncodingException {
         
         Map<String, String> errors = new HashMap<>();
-        CheckInput checkInput = new CheckInput(request, errors);
+        CheckForm checkInput = new CheckForm(request, errors);
         SessionCreator sessionCreator = new SessionCreator(request);
         
         String userName = request.getParameter("username");
@@ -64,7 +64,7 @@ public class Registration extends HttpServlet {
         checkInput.nonEmpty(firstName, "firstName", false);
         checkInput.nonEmpty(firstName, "lastName", false);
         checkInput.validateMail(email, "email", false);
-        checkInput.equalizationField(passwordOne, passwordTwo, "password");
+        checkInput.equalizationPassword(passwordOne, passwordTwo, "password");
  
         if(!errors.isEmpty()) {
             request.setAttribute("error", errors);

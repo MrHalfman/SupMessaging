@@ -1,7 +1,7 @@
 package com.supmessaging.servlets;
 
 import com.supmessaging.tools.ActionToolbar;
-import com.supmessaging.tools.CheckInput;
+import com.supmessaging.tools.CheckForm;
 import com.supmessaging.tools.SessionCreator;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -37,7 +37,7 @@ public class Connection extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         Map<String, String> errors = new HashMap<>();
-        CheckInput checkInput = new CheckInput(request, errors);
+        CheckForm checkInput = new CheckForm(request, errors);
         
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -48,7 +48,11 @@ public class Connection extends HttpServlet {
         checkInput.queryUser(username);
         
         checkInput.validateUsername(username, "username");
-        checkInput.validatePassword(password, "password");
+        try {
+            checkInput.validatePassword(password, "password", false);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         try {
             checkInput.validateConnection(password, username, "connection");

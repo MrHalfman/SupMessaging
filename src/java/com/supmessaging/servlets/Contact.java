@@ -1,7 +1,7 @@
 package com.supmessaging.servlets;
 
 import com.supmessaging.persistence.HibernateUtil;
-import com.supmessaging.tools.CheckInput;
+import com.supmessaging.tools.CheckForm;
 import com.supmessaging.persistence.Messages;
 import com.supmessaging.tools.ActionToolbar;
 import com.supmessaging.tools.SessionCreator;
@@ -48,7 +48,7 @@ public class Contact extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Map<String, String> errors = new HashMap<>();
-        CheckInput checkInput = new CheckInput(request, errors);
+        CheckForm checkInput = new CheckForm(request, errors);
         
         String emailData = request.getParameter("email"); 
         String messageData = request.getParameter("message");
