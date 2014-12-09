@@ -42,7 +42,7 @@
                     <label>Old password :</label>
                     <div>
                         <input type="password" name="oldPassword" class="form-control" id="pwd" placeholder="Enter your old password">
-                        <span class="error-field text-right">${error['oldPassword']}</span>
+                        <span class="error-field text-right">${errorPassword['oldPassword']}</span>
                     </div>
                 </div>
 
@@ -52,7 +52,7 @@
                         <input type="password" name="newPasswordOne" class="form-control" id="pwd" placeholder="Enter password">
                         <div class="space-between"></div>
                         <input type="password" name="newPasswordTwo" class="form-control" id="pwd" placeholder="Retype the password">
-                        <span class="error-field text-right">${error['newPassword']}</span>
+                        <span class="error-field text-right">${errorPassword['newPassword']}</span>
                     </div>
                 </div>
                 <div class="form-group"> 
