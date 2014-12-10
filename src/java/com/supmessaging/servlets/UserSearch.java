@@ -1,11 +1,13 @@
 package com.supmessaging.servlets;
 
+import com.supmessaging.persistence.Users;
 import com.supmessaging.tools.ActionToolbar;
 import com.supmessaging.tools.CheckForm;
 import com.supmessaging.tools.ComplexRequest;
 import com.supmessaging.tools.SessionCreator;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -49,13 +51,15 @@ public class UserSearch extends HttpServlet {
             this.getServletContext().getRequestDispatcher(jspView).forward(request, response);
             errors.clear();
         }
-        else {
-            
-            // C'EST ICI QUE L'ON RECUPERE LES UTILISATEURS DRIDRI
-            // CI DESSOUS LE PSEUDO DE LA PERSONNE QUE L'ON CHERCHE
-            System.out.println(friend);
+        else {           
             ComplexRequest searchUser = new ComplexRequest();
-            searchUser.contactSearch(friend);
+            List<Users> users = searchUser.contactSearch(friend);
+               for (Users user : users){
+                
+                    System.out.println(user.getFirstname());
+                    System.out.println(user.getName());           
+                }
+            
             
             this.getServletContext().getRequestDispatcher(jspView).forward(request, response);
         }

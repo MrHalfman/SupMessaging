@@ -68,7 +68,7 @@ public class ComplexRequest {
 
 
 
-      public void contactSearch (String username) {
+      public List<Users> contactSearch (String username) {
             List<Users> users = null;
             Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
             Transaction tx = sessionHibernate.beginTransaction();
@@ -78,12 +78,8 @@ public class ComplexRequest {
 
             users = queryTest.list();
 
-            for (Users user : users){
-                
-            System.out.println(user.getFirstname());
-            System.out.println(user.getName());           
-            }
             tx.commit();
             sessionHibernate.close();
+            return users;
     }
 }
