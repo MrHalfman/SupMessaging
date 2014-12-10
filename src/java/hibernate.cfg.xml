@@ -11,7 +11,7 @@
     <property name="hibernate.connection.password">sup14,</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
     <property name="hibernate.dialect">org.hibernate.dialect.DB2Dialect</property>
-    <mapping class="com.supmessaging.persistence.Messages" file="" jar="" package="" resource=""/>
+    <mapping class="com.supmessaging.persistence.Messages"/>
     <mapping class="com.supmessaging.persistence.Users"/>
     <mapping class="com.supmessaging.persistence.UserFriendship"/>
   </session-factory>
