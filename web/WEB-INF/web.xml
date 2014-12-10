@@ -92,4 +92,14 @@
         <servlet-name>UserSearch</servlet-name>
         <url-pattern>/search</url-pattern>
     </servlet-mapping>
+    
+    <servlet> 
+        <!-- Servlet affichant les relations de l'utilisateur -->
+        <servlet-name>MyFriends</servlet-name>
+        <servlet-class>com.supmessaging.servlets.MyFriends</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MyFriends</servlet-name>
+        <url-pattern>/myFriends</url-pattern>
+    </servlet-mapping>
 </web-app>

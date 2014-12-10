@@ -17,6 +17,7 @@ public class ActionToolbar {
             links.put("inbox", Arrays.asList("", "/SupMessaging/inbox", "Inbox"));
             links.put("editProfile", Arrays.asList("", "/SupMessaging/profile", "My profile"));
             links.put("search", Arrays.asList("", "/SupMessaging/search" ,"New Firends!"));
+            links.put("directory", Arrays.asList("", "/SupMessaging/myFriends" ,"My Directory"));
             links.put("logOut", Arrays.asList("", "/SupMessaging/goodbye", "Logout"));
         }
         else {
