@@ -73,8 +73,8 @@ public class ComplexRequest {
             Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
             Transaction tx = sessionHibernate.beginTransaction();
 
-            Query queryTest = (Query) sessionHibernate.createQuery("FROM Users u WHERE u.pseudo like = :pseudo");
-            queryTest.setParameter("pseudo", username);       
+            Query queryTest = (Query) sessionHibernate.createQuery("FROM Users WHERE pseudo LIKE :pseudo");
+            queryTest.setParameter("pseudo", "%"+username+"%");       
 
             users = queryTest.list();
 

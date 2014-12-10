@@ -2,6 +2,7 @@ package com.supmessaging.servlets;
 
 import com.supmessaging.tools.ActionToolbar;
 import com.supmessaging.tools.CheckForm;
+import com.supmessaging.tools.ComplexRequest;
 import com.supmessaging.tools.SessionCreator;
 import java.io.IOException;
 import java.util.HashMap;
@@ -53,6 +54,8 @@ public class UserSearch extends HttpServlet {
             // C'EST ICI QUE L'ON RECUPERE LES UTILISATEURS DRIDRI
             // CI DESSOUS LE PSEUDO DE LA PERSONNE QUE L'ON CHERCHE
             System.out.println(friend);
+            ComplexRequest searchUser = new ComplexRequest();
+            searchUser.contactSearch(friend);
             
             this.getServletContext().getRequestDispatcher(jspView).forward(request, response);
         }
