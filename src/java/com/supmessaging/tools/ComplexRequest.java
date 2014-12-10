@@ -63,4 +63,27 @@ public class ComplexRequest {
         
         return !users.isEmpty();
     }
+    
+    
+
+
+
+      public void contactSearch (String username) {
+            List<Users> users = null;
+            Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
+            Transaction tx = sessionHibernate.beginTransaction();
+
+            Query queryTest = (Query) sessionHibernate.createQuery("FROM Users u WHERE u.pseudo like = :pseudo");
+            queryTest.setParameter("pseudo", username);       
+
+            users = queryTest.list();
+
+            for (Users user : users){
+                
+            System.out.println(user.getFirstname());
+            System.out.println(user.getName());           
+            }
+            tx.commit();
+            sessionHibernate.close();
+    }
 }
