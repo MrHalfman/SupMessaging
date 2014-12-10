@@ -76,8 +76,8 @@ public class Profile extends HttpServlet {
         checkPassword.queryUser((String) session.getAttribute("username"));
         
         // On récupère les modifications
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
+        String firstName = checkData.formatName(request.getParameter("firstName"));
+        String lastName = checkData.formatName(request.getParameter("lastName"));
         String email = request.getParameter("email");
         String oldPassword = request.getParameter("oldPassword");
         String newPasswordOne = request.getParameter("newPasswordOne");
