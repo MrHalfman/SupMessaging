@@ -23,6 +23,8 @@ public class Home extends HttpServlet {
         this.getServletContext().getRequestDispatcher(
                 (sessionCreator.checkSessionExist() ? connectedView : guestView)
             ).forward(request, response);
+        
+        //créer un rapport de statistiques infos 
 
     }
 
