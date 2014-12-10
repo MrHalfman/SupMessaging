@@ -57,13 +57,13 @@ public class CheckForm {
             configureError(nameError, error);
         }
         else {
-            if(complexRequest.pseudoExist(username)) {
-                error = "This username already exist. Please choose another one.";
-                configureError(nameError, error);
+            if (firstConnection) {
+                if(complexRequest.pseudoExist(username)) {
+                    error = "This username already exist. Please choose another one.";
+                    configureError(nameError, error);
+                }
             }
         }
-        
-        
     }
     
     public void validatePassword(String password, String nameError, boolean changePassword) throws NoSuchAlgorithmException {
