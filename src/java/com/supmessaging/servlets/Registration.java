@@ -23,7 +23,6 @@ import org.hibernate.Transaction;
 
 public class Registration extends HttpServlet {
     public static final String jspView = "/WEB-INF/registration.jsp";
-    Users secretary = new Users();
     Encryption encryption = new Encryption();
 
     @Override
@@ -73,6 +72,7 @@ public class Registration extends HttpServlet {
         }
         else {
             String encryptedPassword = null;
+            Users secretary = new Users();
             
             try {
                 encryptedPassword = encryption.encryptionPassword(passwordTwo);
