@@ -68,8 +68,6 @@ public class CheckForm {
     
     public void validatePassword(String password, String nameError, boolean changePassword) throws NoSuchAlgorithmException {
         String error = "";
-        System.out.println("Password inside function = " + password);
-        System.out.println("Password  encrypted inside function = " + passwordEncrypted);
         if (password == null || password.trim().length() == 0) {
             error = "Please, enter a valid password";
             configureError(nameError, error);
