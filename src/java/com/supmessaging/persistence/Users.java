@@ -8,16 +8,15 @@ package com.supmessaging.persistence;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -76,13 +75,10 @@ public class Users implements Serializable {
     @NotNull
     @Column(name = "roleUser")
     private int roleUser;
-    @JoinTable(name = "user_friendship", joinColumns = {
-        @JoinColumn(name = "id_users1", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "id_users2", referencedColumnName = "id")})
-    @ManyToMany
-    private Collection<Users> usersCollection;
-    @ManyToMany(mappedBy = "usersCollection")
-    private Collection<Users> usersCollection1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsers2")
+    private Collection<UserFriendship> userFriendshipCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsers1")
+    private Collection<UserFriendship> userFriendshipCollection1;
 
     public Users() {
     }
@@ -158,21 +154,21 @@ public class Users implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Users> getUsersCollection() {
-        return usersCollection;
+    public Collection<UserFriendship> getUserFriendshipCollection() {
+        return userFriendshipCollection;
     }
 
-    public void setUsersCollection(Collection<Users> usersCollection) {
-        this.usersCollection = usersCollection;
+    public void setUserFriendshipCollection(Collection<UserFriendship> userFriendshipCollection) {
+        this.userFriendshipCollection = userFriendshipCollection;
     }
 
     @XmlTransient
-    public Collection<Users> getUsersCollection1() {
-        return usersCollection1;
+    public Collection<UserFriendship> getUserFriendshipCollection1() {
+        return userFriendshipCollection1;
     }
 
-    public void setUsersCollection1(Collection<Users> usersCollection1) {
-        this.usersCollection1 = usersCollection1;
+    public void setUserFriendshipCollection1(Collection<UserFriendship> userFriendshipCollection1) {
+        this.userFriendshipCollection1 = userFriendshipCollection1;
     }
 
     @Override
