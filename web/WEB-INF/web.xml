@@ -12,6 +12,7 @@
         <servlet-name>FileServlet</servlet-name>
         <url-pattern>/static/*</url-pattern>
     </servlet-mapping>
+    
     <servlet>
         <servlet-name>Home</servlet-name>
         <servlet-class>com.supmessaging.servlets.Home</servlet-class>
@@ -21,6 +22,7 @@
         <servlet-name>Home</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+    
     <servlet>
         <!-- Servlet de la page de connexion -->
         <servlet-name>Connection</servlet-name>
@@ -30,6 +32,7 @@
         <servlet-name>Connection</servlet-name>
         <url-pattern>/connect</url-pattern>
     </servlet-mapping>
+    
     <servlet>
         <!-- Servlet de la page de contact -->
         <servlet-name>Contact</servlet-name>
@@ -39,6 +42,7 @@
         <servlet-name>Contact</servlet-name>
         <url-pattern>/contact</url-pattern>
     </servlet-mapping>
+    
     <servlet>
         <!-- Servlet de la page de Registration -->
         <servlet-name>Registration</servlet-name>
@@ -48,6 +52,7 @@
         <servlet-name>Registration</servlet-name>
         <url-pattern>/registration</url-pattern>
     </servlet-mapping>
+    
     <servlet>
         <!-- Servlet de déconnexion -->
         <servlet-name>LogOut</servlet-name>
@@ -57,6 +62,7 @@
         <servlet-name>LogOut</servlet-name>
         <url-pattern>/goodbye</url-pattern>
     </servlet-mapping>
+    
     <servlet>
         <!-- Servlet de modification des informations du compte -->
         <servlet-name>Profile</servlet-name>
@@ -66,7 +72,8 @@
         <servlet-name>Profile</servlet-name>
         <url-pattern>/profile</url-pattern>
     </servlet-mapping>
-    <servlet>
+    
+    <servlet>  
         <!-- Servlet de boite de reception -->
         <servlet-name>Inbox</servlet-name>
         <servlet-class>com.supmessaging.servlets.Inbox</servlet-class>
@@ -74,5 +81,15 @@
     <servlet-mapping>
         <servlet-name>Inbox</servlet-name>
         <url-pattern>/inbox</url-pattern>
+    </servlet-mapping>
+    
+    <servlet> 
+        <!-- Servlet d'ajout d'utilisateurs -->
+        <servlet-name>UserSearch</servlet-name>
+        <servlet-class>com.supmessaging.servlets.UserSearch</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserSearch</servlet-name>
+        <url-pattern>/search</url-pattern>
     </servlet-mapping>
 </web-app>
