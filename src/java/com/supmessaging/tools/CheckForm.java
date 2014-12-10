@@ -17,6 +17,7 @@ public class CheckForm {
     private final Map<String, String> errors;
     private List<Users> users = null;
     private final Encryption encryption = new Encryption();
+    private ComplexRequest complexRequest = new ComplexRequest();
     private String pseudo;
     private String passwordEncrypted;
             
@@ -49,12 +50,20 @@ public class CheckForm {
         request.removeAttribute(nameError);
     }
     
-    public void validateUsername(String username, String nameError) {
+    public void validateUsername(String username, String nameError, boolean firstConnection) {
         String error = "";
         if (username == null || username.trim().length() == 0) {
             error = "Please, enter a valid username";
             configureError(nameError, error);
         }
+        else {
+            if(complexRequest.pseudoExist(username)) {
+                error = "This username already exist. Please choose another one.";
+                configureError(nameError, error);
+            }
+        }
+        
+        
     }
     
     public void validatePassword(String password, String nameError, boolean changePassword) throws NoSuchAlgorithmException {

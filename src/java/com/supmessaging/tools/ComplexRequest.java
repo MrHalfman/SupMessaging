@@ -1,6 +1,8 @@
 package com.supmessaging.tools;
 
 import com.supmessaging.persistence.HibernateUtil;
+import com.supmessaging.persistence.Users;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.hibernate.Query;
@@ -43,5 +45,23 @@ public class ComplexRequest {
         int result = query.executeUpdate();
         tx.commit();
         sessionHibernate.close();
+    }
+    
+    public boolean pseudoExist(String username) {
+        List<Users> users = null;    
+        Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = sessionHibernate.beginTransaction();
+
+        Query queryTest = (Query) sessionHibernate.createQuery("FROM Users u WHERE u.pseudo = :pseudo");
+        queryTest.setParameter("pseudo", username);       
+
+        users = queryTest.list();
+
+        
+        System.out.println(users);
+        tx.commit();
+        sessionHibernate.close(); 
+        
+        return !users.isEmpty();
     }
 }

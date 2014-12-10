@@ -47,7 +47,7 @@ public class Connection extends HttpServlet {
         
         checkInput.queryUser(username);
         
-        checkInput.validateUsername(username, "username");
+        checkInput.validateUsername(username, "username", false);
         try {
             checkInput.validatePassword(password, "password", false);
         } catch (NoSuchAlgorithmException ex) {

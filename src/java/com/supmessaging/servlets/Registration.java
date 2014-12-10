@@ -60,7 +60,7 @@ public class Registration extends HttpServlet {
         request.setAttribute("lastName", lastName);
         request.setAttribute("email", email);
         
-        checkInput.validateUsername(userName, "username");
+        checkInput.validateUsername(userName, "username", true);
         checkInput.nonEmpty(firstName, "firstName", false);
         checkInput.nonEmpty(firstName, "lastName", false);
         checkInput.validateMail(email, "email", false);
