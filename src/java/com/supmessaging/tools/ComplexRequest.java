@@ -56,7 +56,6 @@ public class ComplexRequest {
         queryTest.setParameter("pseudo", username);       
 
         users = queryTest.list();
-
         
         System.out.println(users);
         tx.commit();
