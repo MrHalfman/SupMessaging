@@ -25,12 +25,12 @@ import org.hibernate.Transaction;
 
 public class Profile extends HttpServlet {
     public static final String jspView = "/WEB-INF/profile.jsp";
-    private ComplexRequest complexRequest = new ComplexRequest();
+    private final ComplexRequest complexRequest = new ComplexRequest();
+    private final ActionToolbar myBeautifulToolbar = new ActionToolbar();
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         SessionCreator sessionCreator = new SessionCreator(request);
-        ActionToolbar myBeautifulToolbar = new ActionToolbar();
         HttpSession session = request.getSession();
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
 
@@ -67,6 +67,8 @@ public class Profile extends HttpServlet {
         HttpSession session = request.getSession();
         Map<String, String> errorsData = new HashMap<>();
         Map<String, String> errorsPassword = new HashMap<>();
+        SessionCreator sessionCreator = new SessionCreator(request);
+        myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
         
         CheckForm checkData = new CheckForm(request, errorsData);
         CheckForm checkPassword = new CheckForm(request, errorsPassword);
