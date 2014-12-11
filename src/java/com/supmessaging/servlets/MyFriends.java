@@ -1,6 +1,5 @@
 package com.supmessaging.servlets;
 
-import static com.supmessaging.servlets.UserSearch.jspView;
 import com.supmessaging.tools.ActionToolbar;
 import com.supmessaging.tools.SessionCreator;
 import java.io.IOException;
