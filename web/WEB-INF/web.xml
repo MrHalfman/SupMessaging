@@ -110,6 +110,6 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>AddFriend</servlet-name>
-        <url-pattern>/addfriend</url-pattern>
+        <url-pattern>/addFriend</url-pattern>
     </servlet-mapping>
 </web-app>
