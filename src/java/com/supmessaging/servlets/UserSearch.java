@@ -53,12 +53,25 @@ public class UserSearch extends HttpServlet {
         }
         else {           
             ComplexRequest searchUser = new ComplexRequest();
+            ComplexRequest addFriend = new ComplexRequest();
             List<Users> users = searchUser.contactSearch(friend);
-               for (Users user : users){
-                
+            int idOfFriend = 0;
+            
+            
+            Users toto = new Users(); //remplacer toto par l'user de session
+            toto.setId(3); //remplacer toto par l'user de session
+            
+               for (Users user : users){               
                     System.out.println(user.getFirstname());
-                    System.out.println(user.getName());           
+                    System.out.println(user.getName());  
+                    idOfFriend = user.getId();
                 }
+               
+               // on envoi la requete d'ajout d'amis, à place avec le ONCLIK du bouton ajout amis
+               addFriend.createRelationship(toto.getId(), idOfFriend); //remplacer toto par l'user de session
+           
+               
+                      
             
             
             this.getServletContext().getRequestDispatcher(jspView).forward(request, response);

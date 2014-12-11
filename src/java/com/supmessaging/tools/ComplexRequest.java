@@ -1,6 +1,8 @@
 package com.supmessaging.tools;
 
 import com.supmessaging.persistence.HibernateUtil;
+import com.supmessaging.persistence.Messages;
+import com.supmessaging.persistence.UserFriendship;
 import com.supmessaging.persistence.Users;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -82,4 +84,43 @@ public class ComplexRequest {
             sessionHibernate.close();
             return users;
     }
+      
+      public List<Users> getIdOfUser(String username) {
+            List<Users> users = null;
+            Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
+            Transaction tx = sessionHibernate.beginTransaction();
+
+            Query queryTest = (Query) sessionHibernate.createQuery("FROM Users WHERE pseudo LIKE :pseudo");
+            queryTest.setParameter("pseudo", username);       
+
+            users = queryTest.list();
+            for (Users user : users){
+                user.getId();
+            }
+            tx.commit();
+            sessionHibernate.close();
+            
+            
+            return users;
+      }
+      
+      public void createRelationship(int idCurrentUser, int idReceiver) {
+          Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
+
+            UserFriendship newRelation = new UserFriendship();
+
+            newRelation.setIdUsers1(idCurrentUser);
+            newRelation.setIdUsers2(idReceiver);
+            
+            Transaction tx = sessionHibernate.beginTransaction();
+            sessionHibernate.saveOrUpdate(newRelation);
+
+            tx.commit();
+            sessionHibernate.flush();
+            sessionHibernate.close();
+          
+      }
+      
+      
+      
 }
