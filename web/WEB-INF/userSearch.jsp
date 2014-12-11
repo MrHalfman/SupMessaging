@@ -24,5 +24,28 @@
             </form>
         </div>                 
     </div>
+    
+    <form action="addfriend" method='post'>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Firstname</th>
+                    <th>Last name</th>
+                    <th>Validate</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="user" items="${users}" >
+                    <tr>
+                        <td>${user.pseudo}</td>
+                        <td>${user.firstname}</td> 
+                        <td>${user.name}</td> 
+                        <td><a href="addfriend?userId=${user.id}">Add this friend</a></td>
+                    </tr> 
+                </c:forEach>
+            </tbody>
+        </table>
+    </form>
 </div>
 <%@ include file="/WEB-INF/includes/footer.jsp" %>
