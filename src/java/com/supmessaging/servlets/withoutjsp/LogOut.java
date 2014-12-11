@@ -1,4 +1,4 @@
-package com.supmessaging.servlets;
+package com.supmessaging.servlets.withoutjsp;
 
 import com.supmessaging.tools.SessionCreator;
 import java.io.IOException;
