@@ -13,6 +13,6 @@
     <property name="hibernate.dialect">org.hibernate.dialect.DB2Dialect</property>
     <mapping class="com.supmessaging.persistence.Messages"/>
     <mapping class="com.supmessaging.persistence.Users"/>
-    <mapping class="com.supmessaging.persistence.UserFriendship" file="" jar="" package="" resource=""/>
+    <mapping class="com.supmessaging.persistence.UserFriendship"/>
   </session-factory>
 </hibernate-configuration>
