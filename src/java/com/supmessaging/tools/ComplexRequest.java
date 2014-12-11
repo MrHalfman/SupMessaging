@@ -1,7 +1,6 @@
 package com.supmessaging.tools;
 
 import com.supmessaging.persistence.HibernateUtil;
-import com.supmessaging.persistence.Messages;
 import com.supmessaging.persistence.UserFriendship;
 import com.supmessaging.persistence.Users;
 import java.util.List;
@@ -66,61 +65,58 @@ public class ComplexRequest {
         return !users.isEmpty();
     }
     
-    
+    public List<Users> contactSearch (String username) {
+        List<Users> users;
+        Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = sessionHibernate.beginTransaction();
 
+        Query queryTest = (Query) sessionHibernate.createQuery("FROM Users WHERE pseudo LIKE :pseudo");
+        queryTest.setParameter("pseudo", "%"+username+"%");       
 
+        users = queryTest.list();
 
-      public List<Users> contactSearch (String username) {
-            List<Users> users = null;
-            Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
-            Transaction tx = sessionHibernate.beginTransaction();
-
-            Query queryTest = (Query) sessionHibernate.createQuery("FROM Users WHERE pseudo LIKE :pseudo");
-            queryTest.setParameter("pseudo", "%"+username+"%");       
-
-            users = queryTest.list();
-
-            tx.commit();
-            sessionHibernate.close();
-            return users;
+        tx.commit();
+        sessionHibernate.close();
+        return users;
     }
       
-      public List<Users> getIdOfUser(String username) {
-            List<Users> users = null;
-            Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
-            Transaction tx = sessionHibernate.beginTransaction();
+    public int getIdOfUser(String username) {
+        List<Users> users;
+        int idUser = -1;
 
-            Query queryTest = (Query) sessionHibernate.createQuery("FROM Users WHERE pseudo LIKE :pseudo");
-            queryTest.setParameter("pseudo", username);       
+        Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = sessionHibernate.beginTransaction();
 
-            users = queryTest.list();
-            for (Users user : users){
-                user.getId();
-            }
-            tx.commit();
-            sessionHibernate.close();
-            
-            
-            return users;
-      }
+        Query queryTest = (Query) sessionHibernate.createQuery("FROM Users WHERE pseudo LIKE :pseudo");
+        queryTest.setParameter("pseudo", username);
+        users = queryTest.list();
+
+        for (Users user : users){
+            idUser = user.getId();
+        }
+
+        tx.commit();
+        sessionHibernate.close();
+
+        return idUser;
+    }
       
-      public void createRelationship(int idCurrentUser, int idReceiver) {
-          Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
+    public void createRelationship(String currentUsername, int idReceiver) {
+        Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
 
-            UserFriendship newRelation = new UserFriendship();
+        UserFriendship newRelation = new UserFriendship();
+        int idCurrentUser = getIdOfUser(currentUsername);
 
+        if (idCurrentUser != -1) {
             newRelation.setIdUsers1(idCurrentUser);
             newRelation.setIdUsers2(idReceiver);
-            
+
             Transaction tx = sessionHibernate.beginTransaction();
             sessionHibernate.saveOrUpdate(newRelation);
 
             tx.commit();
             sessionHibernate.flush();
             sessionHibernate.close();
-          
-      }
-      
-      
-      
+        }
+    }
 }
