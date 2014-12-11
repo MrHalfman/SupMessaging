@@ -56,7 +56,7 @@
     <servlet>
         <!-- Servlet de déconnexion -->
         <servlet-name>LogOut</servlet-name>
-        <servlet-class>com.supmessaging.servlets.LogOut</servlet-class>
+        <servlet-class>com.supmessaging.servlets.withoutjsp.LogOut</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LogOut</servlet-name>
@@ -73,7 +73,7 @@
         <url-pattern>/profile</url-pattern>
     </servlet-mapping>
     
-    <servlet>  
+    <servlet>
         <!-- Servlet de boite de reception -->
         <servlet-name>Inbox</servlet-name>
         <servlet-class>com.supmessaging.servlets.Inbox</servlet-class>
@@ -83,7 +83,7 @@
         <url-pattern>/inbox</url-pattern>
     </servlet-mapping>
     
-    <servlet> 
+    <servlet>
         <!-- Servlet d'ajout d'utilisateurs -->
         <servlet-name>UserSearch</servlet-name>
         <servlet-class>com.supmessaging.servlets.UserSearch</servlet-class>
@@ -93,7 +93,7 @@
         <url-pattern>/search</url-pattern>
     </servlet-mapping>
     
-    <servlet> 
+    <servlet>
         <!-- Servlet affichant les relations de l'utilisateur -->
         <servlet-name>MyFriends</servlet-name>
         <servlet-class>com.supmessaging.servlets.MyFriends</servlet-class>
@@ -101,5 +101,15 @@
     <servlet-mapping>
         <servlet-name>MyFriends</servlet-name>
         <url-pattern>/myFriends</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <!-- Servlet permettant l'ajout de liens d'amitiés -->
+        <servlet-name>AddFriend</servlet-name>
+        <servlet-class>com.supmessaging.servlets.withoutjsp.AddFriend</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddFriend</servlet-name>
+        <url-pattern>/addfriend</url-pattern>
     </servlet-mapping>
 </web-app>
