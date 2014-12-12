@@ -35,13 +35,14 @@ public class Connection extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+        SessionCreator sessionCreator = new SessionCreator(request);
+        ActionToolbar myBeautifulToolbar = new ActionToolbar();
+        myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
         Map<String, String> errors = new HashMap<>();
         CheckForm checkInput = new CheckForm(request, errors);
         
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        SessionCreator sessionCreator = new SessionCreator(request);
         
         request.setAttribute("username", username);
         

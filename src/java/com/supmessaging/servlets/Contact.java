@@ -47,6 +47,9 @@ public class Contact extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        SessionCreator sessionCreator = new SessionCreator(request);
+        ActionToolbar myBeautifulToolbar = new ActionToolbar();
+        myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
         Map<String, String> errors = new HashMap<>();
         CheckForm checkInput = new CheckForm(request, errors);
         

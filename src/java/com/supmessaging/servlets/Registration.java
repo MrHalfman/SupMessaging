@@ -43,9 +43,11 @@ public class Registration extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, UnsupportedEncodingException {
         
+        SessionCreator sessionCreator = new SessionCreator(request);
+        ActionToolbar myBeautifulToolbar = new ActionToolbar();
+        myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
         Map<String, String> errors = new HashMap<>();
         CheckForm checkInput = new CheckForm(request, errors);
-        SessionCreator sessionCreator = new SessionCreator(request);
         
         String userName = request.getParameter("username");
         String firstName = request.getParameter("firstName");
