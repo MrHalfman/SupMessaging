@@ -28,6 +28,10 @@ public class Profile extends HttpServlet {
     private final ComplexRequest complexRequest = new ComplexRequest();
     private final ActionToolbar myBeautifulToolbar = new ActionToolbar();
     
+    private String firstname = null;
+    private String lastname = null;
+    private String email = null;
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         SessionCreator sessionCreator = new SessionCreator(request);
@@ -49,6 +53,10 @@ public class Profile extends HttpServlet {
                 request.setAttribute("firstName", user.getFirstname());
                 request.setAttribute("lastName", user.getName());
                 request.setAttribute("email", user.getMail());
+                
+                this.firstname =  user.getFirstname();
+                this.lastname = user.getName();
+                this.email = user.getMail();
             }
             
             tx.commit();
@@ -122,7 +130,18 @@ public class Profile extends HttpServlet {
                 }
             }
             
-            complexRequest.alterInformations(lastName, firstName, email, request);
+            // On regarde si les informations d'origines sont différentes pour faire la requête
+            if (!firstName.equals(this.firstname) 
+                    || !lastName.equals(this.lastname) 
+                    || !email.equals(this.email)) {
+                
+                complexRequest.alterInformations(lastName, firstName, email, request);
+                
+                // On assigne en cas de changement immédiat (du mot de passe par exemple)
+                this.firstname = firstName;
+                this.lastname = lastName;
+                this.email = email;
+            }
             this.getServletContext().getRequestDispatcher(jspView).forward(request, response);
         }
     }
