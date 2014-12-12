@@ -21,8 +21,12 @@ public class AddFriend extends HttpServlet {
         int userId = -1;
         String security = null;
         
+        
+        
         ComplexRequest toto = new ComplexRequest();
-        toto.checkRelation("adrienxp3", "adrienxp3");
+        toto.checkRelation("adrienxp3", "blake43");
+        
+        
         
         System.out.println(sessionCreator.checkSessionExist());
         System.out.println(request.getParameter("userId") != null);
