@@ -19,19 +19,26 @@ public class AddFriend extends HttpServlet {
         ComplexRequest addFriend = new ComplexRequest();
         HttpSession session = request.getSession();
         int userId = -1;
+        String security = null;
         
         System.out.println(sessionCreator.checkSessionExist());
         System.out.println(request.getParameter("userId") != null);
         System.out.println(sessionCreator.checkSessionExist() && request.getParameter("userId") != null);
         
         
-        if(sessionCreator.checkSessionExist() && request.getParameter("userId") != null) {
+        if(sessionCreator.checkSessionExist() && request.getParameter("userId") != null && request.getParameter("security") != null) {
             userId = Integer.parseInt(request.getParameter("userId"));
-            System.out.println(userId > -1);
-            if (userId > -1) {
+            security = request.getParameter("security");
+            
+            System.out.println(userId);
+            System.out.println(security);
+            System.out.println(session.getAttribute("security"));
+            System.out.println(userId > -1 && security == session.getAttribute("security"));
+            if (userId > -1 && security.equals(session.getAttribute("security"))) {
                 addFriend.createRelationship((String) session.getAttribute("username"), userId);
                 System.out.println("GO LOOK THE TABLE");
             }
+            session.setAttribute("security", null);
             response.sendRedirect("/SupMessaging/search");
         }
         else {

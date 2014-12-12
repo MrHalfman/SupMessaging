@@ -41,7 +41,7 @@
                         <td>${user.pseudo}</td>
                         <td>${user.firstname}</td> 
                         <td>${user.name}</td> 
-                        <td><a href="addFriend?userId=${user.id}">Add this friend</a></td>
+                        <td><a href="addFriend?userId=${user.id}&security=${security}">Add this friend</a></td>
                     </tr> 
                 </c:forEach>
             </tbody>

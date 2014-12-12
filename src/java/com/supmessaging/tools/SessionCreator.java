@@ -17,6 +17,7 @@ public class SessionCreator {
         HttpSession session = request.getSession();
         session.setAttribute("username", username);
         session.setAttribute("permission", permission);
+        session.setAttribute("security", null);
     }
     
     public boolean checkSessionExist() {

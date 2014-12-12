@@ -6,6 +6,8 @@ import com.supmessaging.tools.CheckForm;
 import com.supmessaging.tools.ComplexRequest;
 import com.supmessaging.tools.SessionCreator;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +22,6 @@ public class UserSearch extends HttpServlet {
 
     private final ActionToolbar myBeautifulToolbar = new ActionToolbar();
     private static final String jspView = "/WEB-INF/userSearch.jsp";
-    List<Users> users = new ArrayList<>();
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -42,6 +43,7 @@ public class UserSearch extends HttpServlet {
             throws ServletException, IOException {
         SessionCreator sessionCreator = new SessionCreator(request);
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
+        List<Users> users = new ArrayList<>();
         Map<String, String> errors = new HashMap<>();
         CheckForm checkData = new CheckForm(request, errors);
         
@@ -56,15 +58,15 @@ public class UserSearch extends HttpServlet {
         }
         else {           
             ComplexRequest searchUser = new ComplexRequest();
-            
+            SecureRandom random = new SecureRandom();
             users = searchUser.contactSearch(friend);
+            HttpSession session = request.getSession();
+            String security = new BigInteger(130, random).toString(32);
             
-            for (Users user : users){               
-                System.out.println(user.getFirstname());
-                System.out.println(user.getName());
-            }
-           
+            
+            session.setAttribute("security", security);
             request.setAttribute("users", users);
+            request.setAttribute("security", security);
             
            
             this.getServletContext().getRequestDispatcher(jspView).forward(request, response);
