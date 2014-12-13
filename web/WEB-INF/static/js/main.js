@@ -10,6 +10,9 @@ window.onload = function () {
     $(".messageItem").on("click", function () {
         $(".selected").removeClass("selected");
         $(this).addClass("selected");
+        $(".spinner").show();
+        $(".bubble").remove();
+        $("#messageReceiver").html("");
     });
 };
 

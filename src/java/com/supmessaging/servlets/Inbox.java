@@ -46,11 +46,8 @@ public class Inbox extends HttpServlet {
         }
         if (sessionCreator.checkSessionExist()) {
             ComplexRequest inboxRequest = new ComplexRequest ();
-            List<Messages> sendMessages = inboxRequest.getMessages(1, 0);
-            for (Messages mess : sendMessages){
-                String corpus = mess.getCorpus();
-                System.out.println(corpus);
-            }
+            List<Messages> messagesList = inboxRequest.getMessages(1, 0);
+            request.setAttribute("messagesList", messagesList);
 
             myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);      
             this.getServletContext().getRequestDispatcher(jspView).forward(request, response);

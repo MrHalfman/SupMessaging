@@ -145,6 +145,10 @@ body {
 #bubbleTemplate {
     display: none;
 }
+
+.spinner {
+    display: none;
+}
 // ----------------------------------
 //         MEDIA QUERIES
 // ----------------------------------

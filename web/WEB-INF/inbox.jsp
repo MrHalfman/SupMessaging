@@ -41,24 +41,30 @@
             <hr>
         </div>
         <div id="conversation" class="col-md-9">
-            <h3>Conversation avec GladOS</h3>
+            <h3>Conversation avec <span id="messageReceiver">GladOS</span></h3>
             <hr>
             <div id="bubbles">
-                <div class="bubble you">
-                    <p>
-                        Hello world!
-                    </p>
-                    <div class="informations">
-                        <div class="author">
-                            <b>Par GladOS </b>
+                <img class="spinner" width="100%" height="32" src="/SupMessaging/static/img/loading-cylon-red.svg" />
+                
+                <c:forEach items="${messagesList}" var="message">
+                    <div class="bubble you">
+                        <p>
+                            ${message.getCorpus()}
+                        </p>
+                        <div class="informations">
+                            <div class="author">
+                                <b>Par GladOS </b>
+                            </div>
+                            <div class="date">
+                                ${message.getDateMessage()}
+                            </div>
                         </div>
-                        <div class="date">
-                            Le 1 Janvier 2000
-                        </div>
+                        <div class="clear"></div>
                     </div>
-                    <div class="clear"></div>
-                </div>
-                <div class="spacer"></div>
+                    <div class="spacer"></div>
+                </c:forEach>
+                
+
                 <div class="bubble me">
                     <p>Plop</p>
                     <div class="informations">
