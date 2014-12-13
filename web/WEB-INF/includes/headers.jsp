@@ -13,6 +13,5 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/sweet-alert.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/main.js"></script>
-        
     </head>
     <body>

@@ -57,7 +57,7 @@
                 </div>
                 <div class="form-group"> 
                     <div>
-                        <button type="submit" value="Sign up" class="btn btn-default pull-right">Submit</button>
+                        <button type="submit" value="Sign up" class="btn btn-primary pull-right">Submit</button>
                     </div>
                 </div>
             </form>

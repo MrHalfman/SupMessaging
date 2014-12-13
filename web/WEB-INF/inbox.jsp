@@ -28,41 +28,55 @@
         <div id="conversation" class="col-md-9">
             <h3>Conversation avec GladOS</h3>
             <hr>
-            <div class="bubble you">
-                <p>
-                    Hello world!
-                </p>
-                <div class="informations">
-                    <div class="author">
-                        <b>Par GladOS</b>
+            <div id="bubbles">
+                <div class="bubble you">
+                    <p>
+                        Hello world!
+                    </p>
+                    <div class="informations">
+                        <div class="author">
+                            <b>Par GladOS</b>
+                        </div>
+                        <div class="date">
+                            Le 1 Janvier 2000
+                        </div>
                     </div>
-                    <div class="date">
-                        Le 1 Janvier 2000
-                    </div>
+                    <div class="clear"></div>
                 </div>
-                <div class="clear"></div>
+                <div class="spacer"></div>
+                <div class="bubble me">
+                    <p>Plop</p>
+                    <div class="informations">
+                        <div class="author">
+                            <b>Par vous</b>
+                        </div>
+                        <div class="date">Le 1 Janvier 2000</div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="spacer"></div>
+                <div id="bubbleTemplate">
+                    <div class="bubble me">
+                        <p></p>
+                        <div class="informations">
+                            <div class="author">
+                                <b>Par vous</b>
+                            </div>
+                            <div class="date"></div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="spacer"></div>
+                </div>
+                <div class="spacer"></div>
             </div>
             <div class="clear"></div>
-            <div class="bubble me">
-                <p>
-                    Hello world!
-                </p>
-                <div class="informations">
-                    <div class="author">
-                        <b>Par vous</b>
-                    </div>
-                    <div class="date">
-                        Le 1 Janvier 2000
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-            
             <div id="input">
                 <form>
-                    <textarea placeholder="Enter your message then press Enter..."></textarea>
+                    <textarea id="message" placeholder="Enter your message then press Enter..."></textarea>
                 </form>
             </div>
+            <div class="clear"></div>
         </div>
     </div>
 </div>
