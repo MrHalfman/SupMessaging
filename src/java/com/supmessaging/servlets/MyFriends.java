@@ -27,10 +27,11 @@ public class MyFriends extends HttpServlet {
         
         
         if(sessionCreator.checkSessionExist()) {
-            this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );
             HttpSession session = request.getSession();
             ComplexRequest queryFriends = new ComplexRequest();
             users = queryFriends.getFriends((String) session.getAttribute("username"));
+            request.setAttribute("users", users);
+            this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );
         }
         else {
             response.sendRedirect("/SupMessaging");
