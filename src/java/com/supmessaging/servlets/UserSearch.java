@@ -63,7 +63,7 @@ public class UserSearch extends HttpServlet {
             HttpSession session = request.getSession();
             String security = new BigInteger(130, random).toString(32);
             
-                       
+            
             session.setAttribute("security", security);
             request.setAttribute("users", users);
             request.setAttribute("security", security);

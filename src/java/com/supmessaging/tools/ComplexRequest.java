@@ -63,7 +63,6 @@ public class ComplexRequest {
 
         users = queryTest.list();
         
-        System.out.println(users);
         tx.commit();
         sessionHibernate.close(); 
         
@@ -279,6 +278,23 @@ public class ComplexRequest {
             tx.commit();
             sessionHibernate.flush();
             sessionHibernate.close();
+    }
+    
+    public List<Messages> getMessages (int idUser1, int idUser2){
+        Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
+
+        List<Messages> sendMessages;
+        Transaction tx = sessionHibernate.beginTransaction();
+        
+        Query query = (Query) sessionHibernate.createQuery("FROM Messages WHERE idUserAuthor = :id AND idUserReceiver = :id2 OR idUserAuthor = :id2 AND idUserReceiver = :id ");
+        query.setParameter("id", idUser1);
+        query.setParameter("id2", idUser2);
+        
+        sendMessages = query.list();
+             
+        tx.commit();
+        sessionHibernate.close();
+        return sendMessages;
     }
     
 }

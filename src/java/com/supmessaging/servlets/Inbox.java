@@ -1,10 +1,11 @@
 package com.supmessaging.servlets;
 
-import com.supmessaging.persistence.HibernateUtil;
+import com.supmessaging.persistence.Messages;
 import com.supmessaging.tools.ActionToolbar;
 import com.supmessaging.tools.ComplexRequest;
 import com.supmessaging.tools.SessionCreator;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -50,26 +51,34 @@ public class Inbox extends HttpServlet {
             response.sendRedirect("/SupMessaging");
         }
         
+        ComplexRequest inboxRequest = new ComplexRequest ();
+        List<Messages> sendMessages = inboxRequest.getMessages(1, 0);
+        for (Messages mess : sendMessages){
+            String corpus = mess.getCorpus();
+            System.out.println(corpus);
+        }
+        
+        myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);      
+        this.getServletContext().getRequestDispatcher(jspView).forward(request, response);
      }
      
      @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        
         HttpSession session = request.getSession();
+        
         // ENVOI MESSAGE
         ComplexRequest inboxRequest = new ComplexRequest (); //ok
         
-        String username = request.getParameter("username"); //probleme j'arrive pas a récuperer le username de la sessio en cours    
-        int idUser = inboxRequest.getIdOfUser(username); //ok si username marche
         
-        int idReceiver = Integer.parseInt(request.getParameter("receiver"));    // à faire
-        //int idReceiver = inboxRequest.getIdOfUser(receiver); 
+        int idUser = Integer.parseInt((String) session.getAttribute("userid")); //ok 
         
-        String message = request.getParameter("message"); // a faire
+        String receiver = request.getParameter("receiver");    // à faire on pourrait recupere le nom 
+        int idReceiver = inboxRequest.getIdOfUser(receiver); // du contact/destinataire du jsp et la mettre en variable ici
+        
+        String corpus = request.getParameter("message"); // a faire pareil
         
         
-        inboxRequest.newMessage(message, idUser, idReceiver); // testé et approuvé
+        inboxRequest.newMessage(corpus, idUser, idReceiver); // testé et approuvé la fonction marche faut juste de bon parametres
         
     }
 }
