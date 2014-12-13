@@ -1,6 +1,7 @@
 package com.supmessaging.servlets;
 
 import com.supmessaging.tools.ActionToolbar;
+import com.supmessaging.tools.ComplexRequest;
 import com.supmessaging.tools.SessionCreator;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -19,12 +20,18 @@ public class Home extends HttpServlet {
         ActionToolbar myBeautifulToolbar = new ActionToolbar();
         
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
+        ComplexRequest stats = new ComplexRequest();
+        int statUsers = stats.getStatsUser();
+        int statMessages = stats.getStatsUser();
+        
+        request.setAttribute("nbUsers", statUsers);
+        request.setAttribute("nbMessages", statMessages);
 
         this.getServletContext().getRequestDispatcher(
                 (sessionCreator.checkSessionExist() ? connectedView : guestView)
             ).forward(request, response);
         
-        //créer un rapport de statistiques infos 
+        
 
     }
 

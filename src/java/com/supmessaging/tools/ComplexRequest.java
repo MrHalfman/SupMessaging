@@ -200,4 +200,32 @@ public class ComplexRequest {
         System.out.println("la relation existe ? : " + relationExist2 +" ! Car même id ? : " + sameId );
         return relationExist2;
     }
+    
+    public int getStatsUser() {
+        
+        Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = sessionHibernate.beginTransaction();
+        int numberOfUsers= (int)((long)sessionHibernate.createQuery("select count(*) from Users").uniqueResult());
+        
+        tx.commit();
+        sessionHibernate.close();
+        
+        return numberOfUsers;
+        
+        
+    }
+    public int getStatsMessages() {
+        
+        Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = sessionHibernate.beginTransaction();
+        int renumberOfMessages= (int)((long)sessionHibernate.createQuery("select count(*) from Messages").uniqueResult());
+        
+        tx.commit();
+        sessionHibernate.close();
+        
+        return renumberOfMessages;
+        
+        
+    }
+    
 }
