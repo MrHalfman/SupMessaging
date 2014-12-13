@@ -1,9 +1,12 @@
 package com.supmessaging.servlets;
 
+import com.supmessaging.persistence.Messages;
+import com.supmessaging.persistence.Users;
 import com.supmessaging.tools.ActionToolbar;
 import com.supmessaging.tools.ComplexRequest;
 import com.supmessaging.tools.SessionCreator;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,19 +22,27 @@ public class Inbox extends HttpServlet {
         SessionCreator sessionCreator = new SessionCreator(request);
         ActionToolbar myBeautifulToolbar = new ActionToolbar();
         
+        ComplexRequest inboxRequest = new ComplexRequest ();
+        List<Messages> sendMessages = inboxRequest.getMessagesSend(1, 0);
+        for (Messages mess : sendMessages){
+            String corpus = mess.getCorpus();
+            System.out.println(corpus);
+        }
+        
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);      
         this.getServletContext().getRequestDispatcher(jspView).forward(request, response);
      }
      
      @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+        HttpSession session = request.getSession();
         
         // ENVOI MESSAGE
         ComplexRequest inboxRequest = new ComplexRequest (); //ok
         
-        String username = request.getParameter("username"); //probleme j'arrive pas a récuperer le username de la sessio en cours    
-        int idUser = inboxRequest.getIdOfUser(username); //ok si username marche
+        
+        
+        int idUser = inboxRequest.getIdOfUser((String) session.getAttribute("username")); //ok 
         
         String receiver = "le username du destinataire";    // à faire
         int idReceiver = inboxRequest.getIdOfUser(receiver); 
