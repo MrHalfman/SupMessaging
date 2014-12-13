@@ -29,13 +29,13 @@
             <h3>Conversation avec GladOS</h3>
             <hr>
             <div id="bubbles">
-                <div class="bubble you">
+                <div class="bubble you" value="<c:out value="${corpus}">
                     <p>
                         Hello world!
                     </p>
                     <div class="informations">
                         <div class="author">
-                            <b>Par GladOS</b>
+                            <b>Par GladOS </b>
                         </div>
                         <div class="date">
                             Le 1 Janvier 2000
