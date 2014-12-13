@@ -167,7 +167,7 @@ public class ComplexRequest {
                 myFriends.add(friendship.getIdUsers1());
             }
         }
-        System.out.println(myFriends);
+        
         tx.commit();
         sessionHibernate.close();
         return myFriends;        
