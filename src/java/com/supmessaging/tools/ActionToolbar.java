@@ -1,14 +1,14 @@
 package com.supmessaging.tools;
 
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 public class ActionToolbar {
     public void getAdaptedToolbar(SessionCreator sessionCreator, HttpServletRequest request) {
-        Map<String, List<String> > links = new HashMap<>();
+        Map<String, List<String> > links = new LinkedHashMap<>();
 
         links.put("home", Arrays.asList("", "/SupMessaging", " <span class=\"glyphicon glyphicon-home\" aria-hidden=\"true\"></span>"));
         
@@ -16,8 +16,8 @@ public class ActionToolbar {
             // Elements apparaissants si la personne est connectée
             links.put("inbox", Arrays.asList("", "/SupMessaging/inbox", "Inbox"));
             links.put("editProfile", Arrays.asList("", "/SupMessaging/profile", "My profile"));
-            links.put("search", Arrays.asList("", "/SupMessaging/search" ,"New Friends!"));
-            links.put("directory", Arrays.asList("", "/SupMessaging/myFriends" ,"My Directory"));
+            links.put("search", Arrays.asList("", "/SupMessaging/search" ,"Find Friends!"));
+            links.put("directory", Arrays.asList("", "/SupMessaging/myFriends" ,"Contacts"));
             links.put("logOut", Arrays.asList("", "/SupMessaging/goodbye", "Logout"));
         }
         else {
