@@ -1,6 +1,7 @@
 package com.supmessaging.tools;
 
 import com.supmessaging.persistence.HibernateUtil;
+import com.supmessaging.persistence.Messages;
 import com.supmessaging.persistence.UserFriendship;
 import com.supmessaging.persistence.Users;
 import java.util.List;
@@ -9,6 +10,10 @@ import javax.servlet.http.HttpSession;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import org.hibernate.SessionFactory;
 
 public class ComplexRequest {
     public void alterInformations(String lastName, String firstName, String email, HttpServletRequest request){
@@ -247,6 +252,31 @@ public class ComplexRequest {
         return renumberOfMessages;
         
         
+    }
+    
+    public void newMessage(String messageData, int idAuthor, int idReceiver, int readMessage ) {
+        
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Date date = new Date();
+            String currentDate = dateFormat.format(date);
+            
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();        
+            Session sessionHibernate = sessionFactory.openSession();
+
+            Messages newMessage = new Messages();
+
+            newMessage.setDateMessage(currentDate);
+            newMessage.setCorpus(messageData);
+            newMessage.setIdUserAuthor(idAuthor);
+            newMessage.setIdUserReceiver(idReceiver);        
+            newMessage.setReadMessage(readMessage); 
+
+            Transaction tx = sessionHibernate.beginTransaction();
+            sessionHibernate.saveOrUpdate(newMessage);
+
+            tx.commit();
+            sessionHibernate.flush();
+            sessionHibernate.close();
     }
     
 }
