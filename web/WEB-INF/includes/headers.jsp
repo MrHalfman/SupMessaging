@@ -7,10 +7,12 @@
         <title>SupMessaging - ${param.title}</title>
         <link href="${pageContext.request.contextPath}/static/css/bootstrap.min.css" rel="stylesheet"/>
         <link href="${pageContext.request.contextPath}/static/css/style.css" rel="stylesheet"/>
-        <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/img/favicon.ico">
-        
+        <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/img/favicon.ico" />
+        <link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/static/css/sweet-alert.css" />
         <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/sweet-alert.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/main.js"></script>
+        
     </head>
     <body>
