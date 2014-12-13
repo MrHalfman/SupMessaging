@@ -45,21 +45,18 @@ public class Inbox extends HttpServlet {
             Logger.getLogger(Inbox.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (sessionCreator.checkSessionExist()) {
+            ComplexRequest inboxRequest = new ComplexRequest ();
+            List<Messages> sendMessages = inboxRequest.getMessages(1, 0);
+            for (Messages mess : sendMessages){
+                String corpus = mess.getCorpus();
+                System.out.println(corpus);
+            }
+
             myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);      
             this.getServletContext().getRequestDispatcher(jspView).forward(request, response);
         } else {
             response.sendRedirect("/SupMessaging");
         }
-        
-        ComplexRequest inboxRequest = new ComplexRequest ();
-        List<Messages> sendMessages = inboxRequest.getMessages(1, 0);
-        for (Messages mess : sendMessages){
-            String corpus = mess.getCorpus();
-            System.out.println(corpus);
-        }
-        
-        myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);      
-        this.getServletContext().getRequestDispatcher(jspView).forward(request, response);
      }
      
      @Override
@@ -69,14 +66,12 @@ public class Inbox extends HttpServlet {
         // ENVOI MESSAGE
         ComplexRequest inboxRequest = new ComplexRequest (); //ok
         
-        
         int idUser = Integer.parseInt((String) session.getAttribute("userid")); //ok 
         
         String receiver = request.getParameter("receiver");    // à faire on pourrait recupere le nom 
         int idReceiver = inboxRequest.getIdOfUser(receiver); // du contact/destinataire du jsp et la mettre en variable ici
         
         String corpus = request.getParameter("message"); // a faire pareil
-        
         
         inboxRequest.newMessage(corpus, idUser, idReceiver); // testé et approuvé la fonction marche faut juste de bon parametres
         

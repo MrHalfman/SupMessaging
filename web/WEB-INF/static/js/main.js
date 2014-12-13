@@ -6,6 +6,11 @@ window.onload = function () {
            $(this).val("");
         }
     });
+    
+    $(".messageItem").on("click", function () {
+        $(".selected").removeClass("selected");
+        $(this).addClass("selected");
+    });
 };
 
 function submitMsg(text) {

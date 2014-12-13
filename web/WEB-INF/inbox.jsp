@@ -11,9 +11,23 @@
                 <button id="newMessage" title="New Conversation" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>
             </h3>
             <hr>
-            <div class="messageItem">
-<!--                <strong>Titre</strong> <br>-->
+            <div class="messageItem selected">
+                <strong>GladOS</strong> <br>
                 <em>Blabl balblabl lbalblalb lablblabl</em>
+                <div class="informations">
+                    <div class="date">
+                        Le 42 Août 2045
+                    </div>
+                    <div class="answers">
+                        <span class="badge">42</span> Messages
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <hr>
+            <div class="messageItem">
+                <strong>Adrien</strong> <br>
+                <em>Lorem Ipsum dolor sit amet</em>
                 <div class="informations">
                     <div class="date">
                         Le 42 Août 2045
