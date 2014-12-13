@@ -190,8 +190,8 @@ public class ComplexRequest {
         int idCurrentUser = getIdOfUser(currentUsername);
         int idFriendUser = getIdOfUser(friendUsername);
     
-        System.out.println("current user: " + idCurrentUser);
-        System.out.println("relation user: " + idFriendUser);
+        System.out.println("current user : " + idCurrentUser);
+        System.out.println("relation user : " + idFriendUser);
         
     
         //  TEST DE LA RELATION

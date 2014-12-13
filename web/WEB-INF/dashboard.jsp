@@ -3,7 +3,7 @@
 </jsp:include>
 <%@ include file="/WEB-INF/includes/toolbar.jsp" %>
 <div class="container">
-    <h1>Welcome to your dashboard, ${username}, ${userid}!</h1> <br> <br>
+    <h1>Welcome to your dashboard, ${username} !</h1> <br> <br>
     <strong>Statistics : </strong> ${nbUsers} users are registered, ${nbMessages} messages have been written! <br> <br>
     <div class="row">
         <div class="col-md-6">
