@@ -1,5 +1,6 @@
 <jsp:include page="/WEB-INF/includes/headers.jsp">
     <jsp:param name="title" value="Inbox" />
+    <jsp:param name="csrf" value="${csrf}" />
 </jsp:include>
 <%@ include file="/WEB-INF/includes/toolbar.jsp" %>
 <div class="container" style="height: 100%;">

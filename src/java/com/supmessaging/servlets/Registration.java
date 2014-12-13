@@ -103,7 +103,7 @@ public class Registration extends HttpServlet {
             sessionHibernate.flush();
             sessionHibernate.close();
             
-            sessionCreator.createSession(userName, 1);   
+            sessionCreator.createSession(0, userName, 1);  // TODO : Add real uid
             response.sendRedirect("/SupMessaging");
         }
     }   

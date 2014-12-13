@@ -31,9 +31,6 @@ public class Home extends HttpServlet {
                 (sessionCreator.checkSessionExist() ? connectedView : guestView)
             ).forward(request, response);
         
-        
-
     }
-
     
 }

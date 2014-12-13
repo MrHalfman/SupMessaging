@@ -13,8 +13,9 @@ public class SessionCreator {
         this.request = request;
     }
     
-    public void createSession(String username, int permission) {
+    public void createSession(int uid, String username, int permission) {
         HttpSession session = request.getSession();
+        session.setAttribute("userid", uid);
         session.setAttribute("username", username);
         session.setAttribute("permission", permission);
         session.setAttribute("security", null);

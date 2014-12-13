@@ -46,7 +46,7 @@ public class Connection extends HttpServlet {
         
         request.setAttribute("username", username);
         
-        checkInput.queryUser(username);
+        Integer uid = checkInput.queryUser(username);
         
         checkInput.validateUsername(username, "username", false);
         try {
@@ -67,7 +67,7 @@ public class Connection extends HttpServlet {
             errors.clear();
         }
         else {
-            sessionCreator.createSession(username, 1);   
+            sessionCreator.createSession(uid, username, 1);   
             response.sendRedirect("/SupMessaging");
         }
     }

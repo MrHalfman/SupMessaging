@@ -17,17 +17,17 @@ public class CheckForm {
     private final Map<String, String> errors;
     private List<Users> users = null;
     private final Encryption encryption = new Encryption();
-    private ComplexRequest complexRequest = new ComplexRequest();
+    private final ComplexRequest complexRequest = new ComplexRequest();
     private String pseudo;
     private String passwordEncrypted;
+    private Integer uid;
             
     public CheckForm(HttpServletRequest request, Map<String, String> errors) {
         this.request = request;
         this.errors = errors;
     }
     
-    public void queryUser(String username){
-        
+    public Integer queryUser(String username){
         Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = sessionHibernate.beginTransaction();
 
@@ -37,12 +37,15 @@ public class CheckForm {
         users = queryTest.list();
 
         for (Users user : users){
+            this.uid = user.getId();
             this.pseudo = user.getPseudo();
             this.passwordEncrypted = user.getPassword();
         }
         
         tx.commit();
         sessionHibernate.close();
+        
+        return this.uid;
     }
     
     public void configureError(String nameError, String error) {
