@@ -131,7 +131,7 @@ public class ComplexRequest {
         }
     }
     
-    public List<Integer> getRelations(String username) {
+    public List<Integer> getIDRelations(String username) {
         Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
         int idCurrentUser = getIdOfUser(username);
         List<UserFriendship> myRelations;
@@ -158,10 +158,12 @@ public class ComplexRequest {
         return myFriends;        
     }
     
+    public List<Users> 
+    
     public List<Users> contactSearch (String friend, String username) {
         List<Users> allUsers;
         List<Users> usersOfInterest = new ArrayList<>();
-        List<Integer> idFriends = getRelations(username);
+        List<Integer> idFriends = getIDRelations(username);
         int idCurrentUser = getIdOfUser(username);
         Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = sessionHibernate.beginTransaction();
