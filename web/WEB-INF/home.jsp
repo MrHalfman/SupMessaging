@@ -6,7 +6,8 @@
     <div class="container">
         <h1>Welcome on SupMessaging</h1>
         <p>
-            SupMessaging is the best way to share your thought with all your friends!
+            SupMessaging is the best way to share your thought with all your friends! <br>
+            ${nbUsers} users are registered, ${nbMessages} messages have been written!
         </p>
         <p>
             <a class="btn btn-success" href="${pageContext.request.contextPath}/registration">Register now !</a>
