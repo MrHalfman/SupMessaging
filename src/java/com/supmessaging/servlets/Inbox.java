@@ -23,7 +23,7 @@ public class Inbox extends HttpServlet {
         ActionToolbar myBeautifulToolbar = new ActionToolbar();
         
         ComplexRequest inboxRequest = new ComplexRequest ();
-        List<Messages> sendMessages = inboxRequest.getMessagesSend(1, 0);
+        List<Messages> sendMessages = inboxRequest.getMessages(1, 0);
         for (Messages mess : sendMessages){
             String corpus = mess.getCorpus();
             System.out.println(corpus);
