@@ -22,7 +22,7 @@ public class Home extends HttpServlet {
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
         ComplexRequest stats = new ComplexRequest();
         int statUsers = stats.getStatsUser();
-        int statMessages = stats.getStatsUser();
+        int statMessages = stats.getStatsMessages();
         
         request.setAttribute("nbUsers", statUsers);
         request.setAttribute("nbMessages", statMessages);
