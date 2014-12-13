@@ -29,7 +29,7 @@
             <h3>Conversation avec GladOS</h3>
             <hr>
             <div id="bubbles">
-                <div class="bubble you" value="<c:out value="${corpus}">
+                <div class="bubble you">
                     <p>
                         Hello world!
                     </p>

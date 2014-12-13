@@ -36,7 +36,7 @@ public class Inbox extends HttpServlet {
         String receiver = "le username du destinataire";    // à faire
         int idReceiver = inboxRequest.getIdOfUser(receiver); 
         
-        String corpus = request.getParameter("corpus"); // ok
+        String corpus = request.getParameter("corpus"); // a faire
         
         
         inboxRequest.newMessage(corpus, idUser, idReceiver); // testé et approuvé
