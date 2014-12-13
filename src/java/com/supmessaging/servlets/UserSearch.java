@@ -42,6 +42,8 @@ public class UserSearch extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         SessionCreator sessionCreator = new SessionCreator(request);
+        HttpSession session = request.getSession();
+        String username = (String) session.getAttribute("username");
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
         List<Users> users = new ArrayList<>();
         Map<String, String> errors = new HashMap<>();
@@ -59,8 +61,7 @@ public class UserSearch extends HttpServlet {
         else {           
             ComplexRequest searchUser = new ComplexRequest();
             SecureRandom random = new SecureRandom();
-            users = searchUser.contactSearch(friend);
-            HttpSession session = request.getSession();
+            users = searchUser.contactSearch(friend, username);
             String security = new BigInteger(130, random).toString(32);
             
             

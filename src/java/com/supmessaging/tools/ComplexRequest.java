@@ -69,21 +69,6 @@ public class ComplexRequest {
         
         return !users.isEmpty();
     }
-    
-    public List<Users> contactSearch (String username) {
-        List<Users> allUsers;
-        Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
-        Transaction tx = sessionHibernate.beginTransaction();
-
-        Query queryTest = (Query) sessionHibernate.createQuery("FROM Users WHERE pseudo LIKE :pseudo");
-        queryTest.setParameter("pseudo", "%"+username+"%");       
-
-        allUsers = queryTest.list();
-
-        tx.commit();
-        sessionHibernate.close();
-        return allUsers;
-    }
       
     public int getIdOfUser(String username) {
         List<Users> users;
@@ -145,7 +130,7 @@ public class ComplexRequest {
             sessionHibernate.close();
         }
     }
-   
+    
     public List<Integer> getRelations(String username) {
         Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
         int idCurrentUser = getIdOfUser(username);
@@ -161,7 +146,7 @@ public class ComplexRequest {
         
         for (UserFriendship friendship : myRelations){
             if (friendship.getIdUsers1() == idCurrentUser) {
-                myFriends.add(friendship.getIdUsers1());
+                myFriends.add(friendship.getIdUsers2());
             }
             else {
                 myFriends.add(friendship.getIdUsers1());
@@ -172,49 +157,29 @@ public class ComplexRequest {
         sessionHibernate.close();
         return myFriends;        
     }
-   
-    public boolean checkRelation(String currentUsername, String friendUsername) {
-        boolean sameId = false;
-        boolean relationExist1 = false;
-        boolean relationExist2 = false;
-        
-        int idCurrentUser = getIdOfUser(currentUsername);
-        int idFriendUser = getIdOfUser(friendUsername);
     
-        System.out.println("current user : " + idCurrentUser);
-        System.out.println("relation user : " + idFriendUser);
+    public List<Users> contactSearch (String friend, String username) {
+        List<Users> allUsers;
+        List<Users> usersOfInterest = new ArrayList<>();
+        List<Integer> idFriends = getRelations(username);
+        int idCurrentUser = getIdOfUser(username);
+        Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = sessionHibernate.beginTransaction();
+
+        Query queryTest = (Query) sessionHibernate.createQuery("FROM Users WHERE pseudo LIKE :pseudo");
+        queryTest.setParameter("pseudo", "%"+friend+"%");       
+
+        allUsers = queryTest.list();
         
-    
-        //  TEST DE LA RELATION
-        /*
-        if (idCurrentUser == idFriendUser){
-            sameId = true;
-        }else {       
-                for (UserFriendship relation : MyFriends){
-                    //sinon on test si la valeur de la colonne user2 = id du nouvel ami
-                    if (relation.getIdUsers2() == idFriendUser){
-                        relationExist1 = true;
-                    } 
-                        for (UserFriendship relation2 : MyFriends2){
-                            //on test si la valeur de la colonne user1 = id du nouvel ami
-                            if (relation2.getIdUsers1() == idFriendUser){                       
-                                relationExist2 = true;
-                            } 
-                            else if (relationExist1 == true){
-                                    relationExist2 = true;
-                                }
-                                else {
-                                    relationExist2 = false;
-                                     }
-                            }                   
-                      }            
-        }  
+        for (Users user : allUsers){
+            if (!idFriends.contains(user.getId()) && user.getId() != idCurrentUser) {
+                usersOfInterest.add(user);
+            }
+        }
         
-        */
-        
-                        
-        System.out.println("la relation existe ? : " + relationExist2 +" ! Car même id ? : " + sameId );
-        return relationExist2;
+        tx.commit();
+        sessionHibernate.close();
+        return usersOfInterest;
     }
     
     public int getStatsUser() {
