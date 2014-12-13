@@ -69,7 +69,7 @@ public class ComplexRequest {
         
         return !users.isEmpty();
     }
-      
+
     public int getIdOfUser(String username) {
         List<Users> users;
         int idUser = -1;
@@ -89,27 +89,6 @@ public class ComplexRequest {
         sessionHibernate.close();
 
         return idUser;
-    }
-    
-    public String getPseudoOfUser(int id) {
-        List<Users> users;
-        String pseudo = "";
-
-        Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
-        Transaction tx = sessionHibernate.beginTransaction();
-
-        Query queryTest = (Query) sessionHibernate.createQuery("FROM Users WHERE pseudo LIKE :id");
-        queryTest.setParameter("pseudo", id);
-        users = queryTest.list();
-
-        for (Users user : users){
-            pseudo = user.getPseudo();
-        }
-
-        tx.commit();
-        sessionHibernate.close();
-
-        return pseudo;
     }
       
     public void createRelationship(String currentUsername, int idReceiver) {
@@ -157,8 +136,6 @@ public class ComplexRequest {
         sessionHibernate.close();
         return myFriends;        
     }
-    
-    public List<Users> 
     
     public List<Users> contactSearch (String friend, String username) {
         List<Users> allUsers;
