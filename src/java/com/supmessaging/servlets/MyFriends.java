@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class MyFriends extends HttpServlet {
     
@@ -27,9 +28,9 @@ public class MyFriends extends HttpServlet {
         
         if(sessionCreator.checkSessionExist()) {
             this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );
+            HttpSession session = request.getSession();
             ComplexRequest queryFriends = new ComplexRequest();
-            String username = request.getParameter("username");
-            //queryFriends.listFriends(username);
+            users = queryFriends.getFriends((String) session.getAttribute("username"));
         }
         else {
             response.sendRedirect("/SupMessaging");

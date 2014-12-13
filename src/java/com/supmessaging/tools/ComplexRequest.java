@@ -69,7 +69,7 @@ public class ComplexRequest {
         
         return !users.isEmpty();
     }
-
+      
     public int getIdOfUser(String username) {
         List<Users> users;
         int idUser = -1;
@@ -90,7 +90,7 @@ public class ComplexRequest {
 
         return idUser;
     }
-      
+    
     public void createRelationship(String currentUsername, int idReceiver) {
         Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
 
@@ -135,6 +135,36 @@ public class ComplexRequest {
         tx.commit();
         sessionHibernate.close();
         return myFriends;        
+    }
+    
+    public Users getUserById(int idCurrentUser) {
+        List<Users> users;
+        Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = sessionHibernate.beginTransaction();
+
+        Query queryTest = (Query) sessionHibernate.createQuery("FROM Users WHERE id LIKE :id");
+        queryTest.setParameter("id", idCurrentUser);
+        users = queryTest.list();
+
+        tx.commit();
+        sessionHibernate.close();
+        
+        System.out.println("List of users : " + users);
+        System.out.println("First User : " + users.get(0));
+
+        return users.get(0);
+    }
+    
+    public List<Users> getFriends(String username) {
+        List<Integer> myFriendsID = getIDRelations(username);
+        List<Users> myFriendsInformations = new ArrayList<>();
+        
+        for (Integer idUser : myFriendsID){
+            myFriendsInformations.add(getUserById(idUser));
+        }
+        
+        System.out.println(myFriendsInformations);
+        return myFriendsInformations;
     }
     
     public List<Users> contactSearch (String friend, String username) {
