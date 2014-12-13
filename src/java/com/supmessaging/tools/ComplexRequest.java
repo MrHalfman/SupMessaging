@@ -254,7 +254,7 @@ public class ComplexRequest {
         
     }
     
-    public void newMessage(String messageData, int idAuthor, int idReceiver, int readMessage ) {
+    public void newMessage(String messageData, int idAuthor, int idReceiver) {
         
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             Date date = new Date();
@@ -268,8 +268,10 @@ public class ComplexRequest {
             newMessage.setDateMessage(currentDate);
             newMessage.setCorpus(messageData);
             newMessage.setIdUserAuthor(idAuthor);
-            newMessage.setIdUserReceiver(idReceiver);        
-            newMessage.setReadMessage(readMessage); 
+            newMessage.setIdUserReceiver(idReceiver);     
+            newMessage.setMail(idAuthor + "@supmessaging.com");
+            newMessage.setReadMessage(0);
+            
 
             Transaction tx = sessionHibernate.beginTransaction();
             sessionHibernate.saveOrUpdate(newMessage);
