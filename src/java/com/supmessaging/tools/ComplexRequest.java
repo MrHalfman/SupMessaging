@@ -12,6 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import org.hibernate.SessionFactory;
 
@@ -70,18 +71,18 @@ public class ComplexRequest {
     }
     
     public List<Users> contactSearch (String username) {
-        List<Users> users;
+        List<Users> allUsers;
         Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = sessionHibernate.beginTransaction();
 
         Query queryTest = (Query) sessionHibernate.createQuery("FROM Users WHERE pseudo LIKE :pseudo");
         queryTest.setParameter("pseudo", "%"+username+"%");       
 
-        users = queryTest.list();
+        allUsers = queryTest.list();
 
         tx.commit();
         sessionHibernate.close();
-        return users;
+        return allUsers;
     }
       
     public int getIdOfUser(String username) {
@@ -145,42 +146,32 @@ public class ComplexRequest {
         }
     }
    
-    public List<UserFriendship> getFirstListRelation(String currentUsername, String friendUsername) {
+    public List<Integer> getRelations(String username) {
         Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
-        int idCurrentUser = getIdOfUser(currentUsername);
-        int idFriendUser = getIdOfUser(friendUsername);
-        List<UserFriendship> MyFriends;
+        int idCurrentUser = getIdOfUser(username);
+        List<UserFriendship> myRelations;
+        List<Integer> myFriends = new ArrayList<>();
+        
         Transaction tx = sessionHibernate.beginTransaction();
         
-        Query checkRelation1 = (Query) sessionHibernate.createQuery("FROM UserFriendship WHERE idUsers1 = :id");
-        checkRelation1.setParameter("id", idCurrentUser);
+        Query checkRelation = (Query) sessionHibernate.createQuery("FROM UserFriendship WHERE idUsers1 = :id OR idUsers2 = :id");
+        checkRelation.setParameter("id", idCurrentUser);
         
-        MyFriends = checkRelation1.list();
+        myRelations = checkRelation.list();
         
-        
+        for (UserFriendship friendship : myRelations){
+            if (friendship.getIdUsers1() == idCurrentUser) {
+                myFriends.add(friendship.getIdUsers1());
+            }
+            else {
+                myFriends.add(friendship.getIdUsers1());
+            }
+        }
+        System.out.println(myFriends);
         tx.commit();
         sessionHibernate.close();
-        return MyFriends;        
+        return myFriends;        
     }
-    
-    public List<UserFriendship> getSecondListRelation(String currentUsername, String friendUsername) {
-        Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
-        int idCurrentUser = getIdOfUser(currentUsername);
-        int idFriendUser = getIdOfUser(friendUsername);
-        List<UserFriendship> MyFriends2;
-        Transaction tx = sessionHibernate.beginTransaction();
-        
-        Query checkRelation2 = (Query) sessionHibernate.createQuery("FROM UserFriendship WHERE idUsers2 = :id");
-        checkRelation2.setParameter("id", idCurrentUser);
-        
-        MyFriends2 = checkRelation2.list();
-             
-        tx.commit();
-        sessionHibernate.close();
-        return MyFriends2;        
-    }
-    
-    
    
     public boolean checkRelation(String currentUsername, String friendUsername) {
         boolean sameId = false;
