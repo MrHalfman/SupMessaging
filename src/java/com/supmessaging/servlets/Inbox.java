@@ -44,13 +44,13 @@ public class Inbox extends HttpServlet {
         
         int idUser = inboxRequest.getIdOfUser((String) session.getAttribute("username")); //ok 
         
-        String receiver = "le username du destinataire";    // à faire
-        int idReceiver = inboxRequest.getIdOfUser(receiver); 
+        String receiver = "le username du destinataire";    // à faire on pourrait recupere le nom 
+        int idReceiver = inboxRequest.getIdOfUser(receiver); // du contact/destinataire du jsp et la mettre en variable ici
         
-        String corpus = request.getParameter("corpus"); // a faire
+        String corpus = request.getParameter("corpus"); // a faire pareil
         
         
-        inboxRequest.newMessage(corpus, idUser, idReceiver); // testé et approuvé
+        inboxRequest.newMessage(corpus, idUser, idReceiver); // testé et approuvé la fonction marche faut juste de bon parametres
         
     }
 }
