@@ -23,14 +23,12 @@ public class AddFriend extends HttpServlet {
         
         
         
-        ComplexRequest toto = new ComplexRequest();
-        toto.checkRelation("adrienxp3", "blake43");
         
         
-        
-        System.out.println(sessionCreator.checkSessionExist());
-        System.out.println(request.getParameter("userId") != null);
-        System.out.println(sessionCreator.checkSessionExist() && request.getParameter("userId") != null);
+               
+        System.out.println("session exist  : " + sessionCreator.checkSessionExist());
+        System.out.println("userid !=null  : " + (request.getParameter("userId") != null));
+        System.out.println("session exist et userid !=null?  : " +( sessionCreator.checkSessionExist() && request.getParameter("userId") != null));
 
         
         if(sessionCreator.checkSessionExist() && request.getParameter("userId") != null && request.getParameter("security") != null) {
