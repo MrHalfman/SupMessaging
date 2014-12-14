@@ -14,6 +14,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import org.hibernate.SessionFactory;
 
 public class ComplexRequest {
@@ -148,9 +150,6 @@ public class ComplexRequest {
 
         tx.commit();
         sessionHibernate.close();
-        
-        System.out.println("List of users : " + users);
-        System.out.println("First User : " + users.get(0));
 
         return users.get(0);
     }
@@ -260,6 +259,36 @@ public class ComplexRequest {
         tx.commit();
         sessionHibernate.close();
         return sendMessages;
+    }
+    
+    public List<Integer> getCommunicateContact (String currentUsername) {
+        ComplexRequest request = new ComplexRequest();
+        int idCurrentUsername = request.getIdOfUser(currentUsername);
+
+        List<Messages> idOfUserInConversation1;
+        List<Messages> idOfUserInConversation2;
+        
+        Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = sessionHibernate.beginTransaction();
+
+        
+        Query query = (Query) sessionHibernate.createQuery("SELECT idUserAuthor FROM Messages WHERE idUserReceiver = :id");
+        query.setParameter("id", idCurrentUsername);
+        Query query2 = (Query) sessionHibernate.createQuery("SELECT idUserReceiver FROM Messages WHERE idUserAuthor = :id");
+        query2.setParameter("id", idCurrentUsername);
+        
+        idOfUserInConversation1 = query.list();
+        idOfUserInConversation2 = query2.list();
+        idOfUserInConversation1.addAll(idOfUserInConversation2);
+        
+        Set set = new HashSet() ;
+        set.addAll(idOfUserInConversation1) ;
+        ArrayList idOfUserInConversation = new ArrayList(set) ; 
+        
+        tx.commit();
+        sessionHibernate.close();
+        
+        return idOfUserInConversation;        
     }
     
 }

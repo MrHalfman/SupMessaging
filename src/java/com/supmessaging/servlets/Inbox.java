@@ -1,6 +1,7 @@
 package com.supmessaging.servlets;
 
 import com.supmessaging.persistence.Messages;
+import com.supmessaging.persistence.Users;
 import com.supmessaging.tools.ActionToolbar;
 import com.supmessaging.tools.ComplexRequest;
 import com.supmessaging.tools.SessionCreator;
@@ -26,6 +27,30 @@ public class Inbox extends HttpServlet {
         SessionCreator sessionCreator = new SessionCreator(request);
         ActionToolbar myBeautifulToolbar = new ActionToolbar();
         HttpSession session = request.getSession();
+        
+        
+        
+        
+        //  LISTE CONTACT
+        String username = (String) session.getAttribute("username"); // on recupere le curren username
+        List<Integer> getIdOfContactConversation; // on crée une liste de int pour recuperer les id
+        Users toto = new Users(); // on créé un user car on en a besoin pour savoir a qui correspond l'id
+        
+        
+        ComplexRequest quest = new ComplexRequest(); //nouvelle requete
+        getIdOfContactConversation = quest.getCommunicateContact(username); //on récupere la liste des id avec qui il existe une conversation
+        
+        for (Integer user : getIdOfContactConversation){        //on boucle dans la liste d'id       
+               toto = quest.getUserById(user.intValue());       //on determine le user ici toto grace à l'id récuperé
+               System.out.println (toto.getPseudo());           //on affiche le pseudo
+               
+               // si tu veux exploiter je vois pas comment ^^désolé j'ai pensé à ça mais a appronfondir
+               //request.setAttribute("contact", toto.getPseudo()); 
+            }
+
+       
+                
+        
         
         try {
             //HttpSession session = request.getSession();
@@ -61,14 +86,13 @@ public class Inbox extends HttpServlet {
         HttpSession session = request.getSession();
         
         // ENVOI MESSAGE
-        ComplexRequest inboxRequest = new ComplexRequest (); //ok
+        ComplexRequest inboxRequest = new ComplexRequest ();      
+        int idUser = Integer.parseInt((String) session.getAttribute("userid"));
         
-        int idUser = Integer.parseInt((String) session.getAttribute("userid")); //ok 
-        
-        String receiver = request.getParameter("receiver");    // à faire on pourrait recupere le nom 
+        String receiver = request.getParameter("receiver");    // à faire on pourrait recupere le pseudo du contact 
         int idReceiver = inboxRequest.getIdOfUser(receiver); // du contact/destinataire du jsp et la mettre en variable ici
         
-        String corpus = request.getParameter("message"); // a faire pareil
+        String corpus = request.getParameter("message"); // à recuperer du jsp avec une value
         
         inboxRequest.newMessage(corpus, idUser, idReceiver); // testé et approuvé la fonction marche faut juste de bon parametres
         
