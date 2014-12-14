@@ -29,7 +29,7 @@ public class MyFriends extends HttpServlet {
         if(sessionCreator.checkSessionExist()) {
             HttpSession session = request.getSession();
             ComplexRequest queryFriends = new ComplexRequest();
-            users = queryFriends.getFriends((String) session.getAttribute("username"));
+            users = queryFriends.getFriends((String) session.getAttribute("username"));            
             request.setAttribute("users", users);
             this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );
         }
