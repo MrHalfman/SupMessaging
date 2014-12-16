@@ -307,4 +307,52 @@ public class ComplexRequest {
         return idOfUserInConversation;        
     }
     
+    public void sendAnonymMessage(String messageData, int idAnonym, int idAdmin, String emailData, int notRead) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        
+        //on formate la date et l'heure pour l'envoyer en BDD
+        String currentDate = dateFormat.format(date);
+        Session sessionHibernate = sessionFactory.openSession();
+
+        Messages contactAdmin = new Messages();
+
+        contactAdmin.setDateMessage(currentDate);
+        contactAdmin.setCorpus(messageData);
+        contactAdmin.setIdUserAuthor(idAnonym);
+        contactAdmin.setIdUserReceiver(idAdmin);        
+        contactAdmin.setMail(emailData);
+        contactAdmin.setReadMessage(notRead);   
+
+        Transaction tx = sessionHibernate.beginTransaction();
+        sessionHibernate.saveOrUpdate(contactAdmin);
+
+        tx.commit();
+        sessionHibernate.flush();
+        sessionHibernate.close();
+        
+    }
+    
+    // Permet de retourner l'ID des utilisateurs tel que l'anonyme ou l'admin
+    public int getSpecificUser(int userType) {
+        int idSpecificUser = -1;
+        List<Users> users = null;    
+        Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = sessionHibernate.beginTransaction();
+
+        Query queryTest = (Query) sessionHibernate.createQuery("FROM Users u WHERE u.roleUser = :userType");
+        queryTest.setParameter("userType", userType);       
+
+        users = queryTest.list();
+        
+        for (Users user : users){
+            idSpecificUser = user.getId();
+        }
+        
+        tx.commit();
+        sessionHibernate.close(); 
+        
+        return idSpecificUser;
+    }
 }

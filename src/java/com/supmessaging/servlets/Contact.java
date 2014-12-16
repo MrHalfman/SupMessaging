@@ -1,35 +1,19 @@
 package com.supmessaging.servlets;
 
-import com.supmessaging.persistence.HibernateUtil;
 import com.supmessaging.tools.CheckForm;
-import com.supmessaging.persistence.Messages;
 import com.supmessaging.tools.ActionToolbar;
+import com.supmessaging.tools.ComplexRequest;
 import com.supmessaging.tools.SessionCreator;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
 public class Contact extends HttpServlet {
     public static final String jspView = "/WEB-INF/contact.jsp";
-    
-    SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    Date date = new Date();
-    
-    public int idAnonyme = 0;
-    public int idAdmin = 1;
-    public int notRead = 0;
-    public int read = 1;
     
     @Override
     public void doGet( HttpServletRequest request, HttpServletResponse response )	throws ServletException, IOException {
@@ -49,6 +33,7 @@ public class Contact extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        ComplexRequest complexRequest = new ComplexRequest();
         SessionCreator sessionCreator = new SessionCreator(request);
         ActionToolbar myBeautifulToolbar = new ActionToolbar();
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
@@ -70,25 +55,10 @@ public class Contact extends HttpServlet {
             errors.clear();
         }
         else {
-            //on formate la date et l'heure pour l'envoyer en BDD
-            String currentDate = dateFormat.format(date);
-            Session sessionHibernate = sessionFactory.openSession();
-
-            Messages contactAdmin = new Messages();
-
-            contactAdmin.setDateMessage(currentDate);
-            contactAdmin.setCorpus(messageData);
-            contactAdmin.setIdUserAuthor(idAnonyme);
-            contactAdmin.setIdUserReceiver(idAdmin);        
-            contactAdmin.setMail(emailData);
-            contactAdmin.setReadMessage(notRead);   
-
-            Transaction tx = sessionHibernate.beginTransaction();
-            sessionHibernate.saveOrUpdate(contactAdmin);
-
-            tx.commit();
-            sessionHibernate.flush();
-            sessionHibernate.close();
+            int idAnonyme = complexRequest.getSpecificUser(0);
+            int idAdmin = complexRequest.getSpecificUser(2);
+            
+            complexRequest.sendAnonymMessage(messageData, idAnonyme, idAdmin, emailData, 0);
             
             response.sendRedirect("/SupMessaging"); 
         }
