@@ -173,6 +173,8 @@ public class ComplexRequest {
         for (Integer idUser : myFriendsID){
             myFriendsInformations.add(getUserById(idUser));
         }
+        
+        // Permet de trier les éléments en fonction du username
         if (myFriendsInformations.size() > 0) {
             Collections.sort(myFriendsInformations, new Comparator<Users>() {
                 @Override
