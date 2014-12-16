@@ -19,6 +19,8 @@ import java.util.Set;
 import org.hibernate.SessionFactory;
 
 public class ComplexRequest {
+    
+    // Requête de modifications des informations de l'utilisateur
     public void alterInformations(String lastName, String firstName, String email, HttpServletRequest request){
         HttpSession session = request.getSession();
         Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
@@ -39,6 +41,7 @@ public class ComplexRequest {
         sessionHibernate.close();
     }
     
+    // Requête de modification des mots de passe
     public void alterPassword(String newPassword, HttpServletRequest request) {
 
         HttpSession session = request.getSession();
@@ -56,6 +59,7 @@ public class ComplexRequest {
         sessionHibernate.close();
     }
     
+    // Permet la vérification de l'unicité d'un pseudo
     public boolean pseudoExist(String username) {
         List<Users> users = null;    
         Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
@@ -71,7 +75,7 @@ public class ComplexRequest {
         
         return !users.isEmpty();
     }
-      
+    
     public int getIdOfUser(String username) {
         List<Users> users;
         int idUser = -1;
@@ -112,6 +116,8 @@ public class ComplexRequest {
         }
     }
     
+    // Méthode de récupération des relations des utilisateurs
+    // On va récupérer une liste d'utilisateurs en "écrémant" l'ID de l'utilisateur
     public List<Integer> getIDRelations(String username) {
         Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
         int idCurrentUser = getIdOfUser(username);
@@ -120,7 +126,8 @@ public class ComplexRequest {
         
         Transaction tx = sessionHibernate.beginTransaction();
         
-        Query checkRelation = (Query) sessionHibernate.createQuery("FROM UserFriendship WHERE idUsers1 = :id OR idUsers2 = :id");
+        Query checkRelation = (Query) sessionHibernate.createQuery("FROM UserFriendship "
+                + "WHERE idUsers1 = :id OR idUsers2 = :id");
         checkRelation.setParameter("id", idCurrentUser);
         
         myRelations = checkRelation.list();
@@ -139,6 +146,7 @@ public class ComplexRequest {
         return myFriends;        
     }
     
+    // Permet de retourner un objet utilisateur en fonction de l'ID
     public Users getUserById(int idCurrentUser) {
         List<Users> users;
         Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
@@ -190,8 +198,7 @@ public class ComplexRequest {
         return usersOfInterest;
     }
     
-    public int getStatsUser() {
-        
+    public int getStatsUser() {    
         Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = sessionHibernate.beginTransaction();
         int numberOfUsers= (int)((long)sessionHibernate.createQuery("select count(*) from Users").uniqueResult());
@@ -200,11 +207,9 @@ public class ComplexRequest {
         sessionHibernate.close();
         
         return numberOfUsers;
-        
-        
     }
+    
     public int getStatsMessages() {
-        
         Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = sessionHibernate.beginTransaction();
         int renumberOfMessages= (int)((long)sessionHibernate.createQuery("select count(*) from Messages").uniqueResult());
@@ -213,35 +218,30 @@ public class ComplexRequest {
         sessionHibernate.close();
         
         return renumberOfMessages;
-        
-        
     }
     
     public void newMessage(String messageData, int idAuthor, int idReceiver) {
-        
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            Date date = new Date();
-            String currentDate = dateFormat.format(date);
-            
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();        
-            Session sessionHibernate = sessionFactory.openSession();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        Messages newMessage = new Messages();
+        String currentDate = dateFormat.format(date);
 
-            Messages newMessage = new Messages();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();        
+        Session sessionHibernate = sessionFactory.openSession();
 
-            newMessage.setDateMessage(currentDate);
-            newMessage.setCorpus(messageData);
-            newMessage.setIdUserAuthor(idAuthor);
-            newMessage.setIdUserReceiver(idReceiver);     
-            newMessage.setMail(idAuthor + "@supmessaging.com");
-            newMessage.setReadMessage(0);
-            
+        newMessage.setDateMessage(currentDate);
+        newMessage.setCorpus(messageData);
+        newMessage.setIdUserAuthor(idAuthor);
+        newMessage.setIdUserReceiver(idReceiver);     
+        newMessage.setMail(idAuthor + "@supmessaging.com");
+        newMessage.setReadMessage(0);
 
-            Transaction tx = sessionHibernate.beginTransaction();
-            sessionHibernate.saveOrUpdate(newMessage);
+        Transaction tx = sessionHibernate.beginTransaction();
+        sessionHibernate.saveOrUpdate(newMessage);
 
-            tx.commit();
-            sessionHibernate.flush();
-            sessionHibernate.close();
+        tx.commit();
+        sessionHibernate.flush();
+        sessionHibernate.close();
     }
     
     public List<Messages> getMessages (int idUser1, int idUser2){
@@ -250,7 +250,9 @@ public class ComplexRequest {
         List<Messages> sendMessages;
         Transaction tx = sessionHibernate.beginTransaction();
         
-        Query query = (Query) sessionHibernate.createQuery("FROM Messages WHERE idUserAuthor = :id AND idUserReceiver = :id2 OR idUserAuthor = :id2 AND idUserReceiver = :id ");
+        Query query = (Query) sessionHibernate.createQuery("FROM Messages "
+                + "WHERE idUserAuthor = :id AND idUserReceiver = :id2 "
+                + "OR idUserAuthor = :id2 AND idUserReceiver = :id ");
         query.setParameter("id", idUser1);
         query.setParameter("id2", idUser2);
         
@@ -264,17 +266,18 @@ public class ComplexRequest {
     public List<Integer> getCommunicateContact (String currentUsername) {
         ComplexRequest request = new ComplexRequest();
         int idCurrentUsername = request.getIdOfUser(currentUsername);
-
         List<Messages> idOfUserInConversation1;
         List<Messages> idOfUserInConversation2;
         
         Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = sessionHibernate.beginTransaction();
-
         
-        Query query = (Query) sessionHibernate.createQuery("SELECT idUserAuthor FROM Messages WHERE idUserReceiver = :id");
+        Query query = (Query) sessionHibernate.createQuery("SELECT idUserAuthor "
+                + "FROM Messages WHERE idUserReceiver = :id");
         query.setParameter("id", idCurrentUsername);
-        Query query2 = (Query) sessionHibernate.createQuery("SELECT idUserReceiver FROM Messages WHERE idUserAuthor = :id");
+        
+        Query query2 = (Query) sessionHibernate.createQuery("SELECT idUserReceiver "
+                + "FROM Messages WHERE idUserAuthor = :id");
         query2.setParameter("id", idCurrentUsername);
         
         idOfUserInConversation1 = query.list();
