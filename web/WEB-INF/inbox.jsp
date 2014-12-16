@@ -11,49 +11,43 @@
                 <button id="newMessage" title="New Conversation" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>
             </h3>
             <hr>
-            <div class="messageItem selected">
-                <strong>GladOS</strong> <br>
-                <em>Blabl balblabl lbalblalb lablblabl</em>
-                <div class="informations">
-                    <div class="date">
-                        Le 42 Août 2045
-                    </div>
-                    <div class="answers">
-                        <span class="badge">42</span> Messages
-                    </div>
-                    <div class="clear"></div>
-                </div>
-            </div>
-            <hr>
-            <div class="messageItem">
-                <strong>Adrien</strong> <br>
+            <c:forEach items="${conversationsList}" var="conversation">
+                <div class="messageItem <c:if test="${conversation.getId() == actualConversation}">selected</c:if>" data-uid="${conversation.getId()}">
+                <strong>${conversation.getPseudo()}</strong><!-- <br>
                 <em>Lorem Ipsum dolor sit amet</em>
                 <div class="informations">
                     <div class="date">
-                        Le 42 Août 2045
+                        Le xx xxxxxxx xxxx
                     </div>
                     <div class="answers">
-                        <span class="badge">42</span> Messages
+                        <span class="badge">x</span> Messages
                     </div>
                     <div class="clear"></div>
-                </div>
+                </div>-->
             </div>
             <hr>
+            </c:forEach>
         </div>
         <div id="conversation" class="col-md-9">
+            <c:choose >
+                <c:when test="${messagesList.isEmpty()}">
+                    <h1>Merci de sélectionner une conversation.</h1>
+                </c:when>
+                <c:otherwise>
+                    
             <h3>Conversation avec <span id="messageReceiver">GladOS</span></h3>
             <hr>
             <div id="bubbles">
                 <img class="spinner" width="100%" height="32" src="/SupMessaging/static/img/loading-cylon-red.svg" />
                 
                 <c:forEach items="${messagesList}" var="message">
-                    <div class="bubble you">
+                    <div class="bubble <c:choose><c:when test="${message.getIdUserAuthor() == userid}">me</c:when><c:otherwise>you</c:otherwise></c:choose>">
                         <p>
                             ${message.getCorpus()}
                         </p>
                         <div class="informations">
                             <div class="author">
-                                <b>Par GladOS </b>
+                                <b>Par <c:choose><c:when test="${message.getIdUserAuthor() == userid}">vous</c:when><c:otherwise>${message.getAuthorName()}</c:otherwise></c:choose></b>
                             </div>
                             <div class="date">
                                 ${message.getDateMessage()}
@@ -63,19 +57,6 @@
                     </div>
                     <div class="spacer"></div>
                 </c:forEach>
-                
-
-                <div class="bubble me">
-                    <p>Plop</p>
-                    <div class="informations">
-                        <div class="author">
-                            <b>Par vous</b>
-                        </div>
-                        <div class="date">Le 1 Janvier 2000</div>
-                    </div>
-                    <div class="clear"></div>
-                </div>
-                <div class="spacer"></div>
                 <div id="bubbleTemplate">
                     <div class="bubble me">
                         <p></p>
@@ -98,6 +79,8 @@
                 </form>
             </div>
             <div class="clear"></div>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </div>

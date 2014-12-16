@@ -8,11 +8,7 @@ window.onload = function () {
     });
     
     $(".messageItem").on("click", function () {
-        $(".selected").removeClass("selected");
-        $(this).addClass("selected");
-        $(".spinner").show();
-        $(".bubble").remove();
-        $("#messageReceiver").html("");
+        window.location = window.location.protocol + "//" + window.location.host + window.location.pathname +  "?conversationId=" + $(this).data("uid");
     });
 };
 

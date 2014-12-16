@@ -5,6 +5,7 @@
  */
 package com.supmessaging.persistence;
 
+import com.supmessaging.tools.ComplexRequest;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -126,6 +127,10 @@ public class Messages implements Serializable {
 
     public void setIdUserReceiver(int idUserReceiver) {
         this.idUserReceiver = idUserReceiver;
+    }
+    
+    public String getAuthorName() {
+        return "todo";
     }
 
     public String getMail() {
