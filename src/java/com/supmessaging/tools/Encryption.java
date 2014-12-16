@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class Encryption {
     
+    // Méthode de chiffrement des mots de passe
     public String encryptionPassword(String password) throws NoSuchAlgorithmException {
         
         MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
@@ -17,15 +18,10 @@ public class Encryption {
             stringBuilder.append(Integer.toHexString(0xff & digested[i]));
         }
         return stringBuilder.toString();
-        
-        /*KeySpec spec = new PBEKeySpec("password".toCharArray(), salt.getBytes(), 65536, 128);
-        SecretKeyFactory f = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-        byte[] hash = f.generateSecret(spec).getEncoded();
-        String encryptedPassword = new BigInteger(1, hash).toString(16);
-
-        return encryptedPassword;*/
     }
     
+    // Au lieu de déchiffrer les mots de passe, la méthode va chiffrer la saisie de l'utilisateur
+    // et regarder s'ils sont égaux
     public boolean checkPasswordEqual(String password, String hash) throws NoSuchAlgorithmException{
         
         String encryptedPassword = this.encryptionPassword(password);
