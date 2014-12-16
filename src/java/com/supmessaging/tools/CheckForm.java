@@ -141,8 +141,8 @@ public class CheckForm {
         boolean passwordStandard = true;
         String[] fields = {fieldOne, fieldTwo};
         
-        for (int i = 0; i < fields.length; i++) {
-            if (fields[i] == null || fields[i].trim().length() == 0) {
+        for (String field : fields) {
+            if (field == null || field.trim().length() == 0) {
                 error = "Sorry, you have to fill the two fields";
                 configureError(nameError, error);
                 fieldMissing = true;
