@@ -13,6 +13,11 @@ public class SessionCreator {
         this.request = request;
     }
     
+    public String getUsername() {
+        HttpSession session = request.getSession();
+        return (String) session.getAttribute("username");
+    }
+    
     public void createSession(int uid, String username, int permission) {
         HttpSession session = request.getSession();
         session.setAttribute("userid", uid);
