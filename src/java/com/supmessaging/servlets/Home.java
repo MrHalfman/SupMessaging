@@ -15,7 +15,8 @@ public class Home extends HttpServlet {
     public static final String guestView        = "/WEB-INF/home.jsp";
     
     @Override
-    public void doGet( HttpServletRequest request, HttpServletResponse response )	throws ServletException, IOException {            
+    public void doGet( HttpServletRequest request, HttpServletResponse response )	
+            throws ServletException, IOException {            
         SessionCreator sessionCreator = new SessionCreator(request);
         ActionToolbar myBeautifulToolbar = new ActionToolbar();
         
@@ -30,7 +31,6 @@ public class Home extends HttpServlet {
         this.getServletContext().getRequestDispatcher(
                 (sessionCreator.checkSessionExist() ? connectedView : guestView)
             ).forward(request, response);
-        
     }
     
 }

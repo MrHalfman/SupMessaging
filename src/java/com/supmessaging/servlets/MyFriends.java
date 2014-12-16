@@ -37,15 +37,4 @@ public class MyFriends extends HttpServlet {
             response.sendRedirect("/SupMessaging");
         }
     }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-        
-        
-        
-        
-        
-    }
 }

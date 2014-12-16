@@ -35,7 +35,6 @@ public class UserSearch extends HttpServlet {
         else {
             response.sendRedirect("/SupMessaging");
         }
-           
     }
 
     @Override
@@ -64,12 +63,10 @@ public class UserSearch extends HttpServlet {
             users = searchUser.contactSearch(friend, username);
             String security = new BigInteger(130, random).toString(32);
             
-            
             session.setAttribute("security", security);
             request.setAttribute("users", users);
             request.setAttribute("security", security);
             
-           
             this.getServletContext().getRequestDispatcher(jspView).forward(request, response);
         }
         

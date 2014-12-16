@@ -21,9 +21,11 @@ import org.hibernate.Transaction;
 
 public class Contact extends HttpServlet {
     public static final String jspView = "/WEB-INF/contact.jsp";
+    
+    SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     Date date = new Date();
-    SessionFactory sessionFactory = HibernateUtil.getSessionFactory(); // Transmission avec la BDD
+    
     public int idAnonyme = 0;
     public int idAdmin = 1;
     public int notRead = 0;
@@ -76,10 +78,10 @@ public class Contact extends HttpServlet {
 
             contactAdmin.setDateMessage(currentDate);
             contactAdmin.setCorpus(messageData);
-            contactAdmin.setIdUserAuthor(idAnonyme);    // 0 c'est l'id dans le table users pour l'anonyme
-            contactAdmin.setIdUserReceiver(idAdmin);  // Ca sera toujours 1 ici car c'est l'id de l'admin        
+            contactAdmin.setIdUserAuthor(idAnonyme);
+            contactAdmin.setIdUserReceiver(idAdmin);        
             contactAdmin.setMail(emailData);
-            contactAdmin.setReadMessage(notRead);     // Toujours 0 car pas encore lu
+            contactAdmin.setReadMessage(notRead);   
 
             Transaction tx = sessionHibernate.beginTransaction();
             sessionHibernate.saveOrUpdate(contactAdmin);

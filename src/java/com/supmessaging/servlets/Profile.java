@@ -49,7 +49,6 @@ public class Profile extends HttpServlet {
             List<Users> users = queryTest.list();
 
             for (Users user : users){
-                // On set les données de l'utilisateur dans les champs
                 request.setAttribute("firstName", user.getFirstname());
                 request.setAttribute("lastName", user.getName());
                 request.setAttribute("email", user.getMail());
@@ -86,18 +85,18 @@ public class Profile extends HttpServlet {
         // On récupère les modifications
         String firstName = checkData.formatName(request.getParameter("firstName"));
         String lastName = checkData.formatName(request.getParameter("lastName"));
-        String email = request.getParameter("email");
+        String mail = request.getParameter("email");
         String oldPassword = request.getParameter("oldPassword");
         String newPasswordOne = request.getParameter("newPasswordOne");
         String newPasswordTwo = request.getParameter("newPasswordTwo");
         
         request.setAttribute("firstName", firstName);
         request.setAttribute("lastName", lastName);
-        request.setAttribute("email", email);
+        request.setAttribute("email", mail);
         
         checkData.nonEmpty(firstName, "firstName", false);
         checkData.nonEmpty(lastName, "lastName", false);
-        checkData.validateMail(email, "email", false);
+        checkData.validateMail(mail, "email", false);
         
         if(!errorsData.isEmpty()) {
             
@@ -107,9 +106,11 @@ public class Profile extends HttpServlet {
             errorsData.clear();
             errorsPassword.clear();
         }
+        
         else {
             if(!oldPassword.isEmpty() || !newPasswordOne.isEmpty() || !newPasswordTwo.isEmpty()) {
                 checkPassword.equalizationPassword(newPasswordOne, newPasswordTwo, "newPassword");
+                
                 try {
                     checkPassword.validatePassword(oldPassword, "oldPassword", true);
                 } catch (NoSuchAlgorithmException ex) {
@@ -119,6 +120,7 @@ public class Profile extends HttpServlet {
                 if (!errorsPassword.isEmpty()) {
                     request.setAttribute("errorPassword", errorsPassword);
                 }
+                
                 else {
                     String ecryptedPassword = null;
                     try {
@@ -131,16 +133,15 @@ public class Profile extends HttpServlet {
             }
             
             // On regarde si les informations d'origines sont différentes pour faire la requête
-            if (!firstName.equals(this.firstname) 
-                    || !lastName.equals(this.lastname) 
-                    || !email.equals(this.email)) {
+            if (!firstName.equals(this.firstname) || !lastName.equals(this.lastname) 
+                    || !mail.equals(this.email)) {
                 
-                complexRequest.alterInformations(lastName, firstName, email, request);
+                complexRequest.alterInformations(lastName, firstName, mail, request);
                 
                 // On assigne en cas de changement immédiat (du mot de passe par exemple)
                 this.firstname = firstName;
                 this.lastname = lastName;
-                this.email = email;
+                this.email = mail;
             }
             this.getServletContext().getRequestDispatcher(jspView).forward(request, response);
         }
