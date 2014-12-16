@@ -20,8 +20,8 @@ public class Encryption {
         return stringBuilder.toString();
     }
     
-    // Au lieu de déchiffrer les mots de passe, la méthode va chiffrer la saisie de l'utilisateur
-    // et regarder s'ils sont égaux
+    /* Au lieu de déchiffrer les mots de passe, la méthode va chiffrer la saisie de l'utilisateur
+      et regarder s'ils sont égaux */
     public boolean checkPasswordEqual(String password, String hash) throws NoSuchAlgorithmException{
         
         String encryptedPassword = this.encryptionPassword(password);

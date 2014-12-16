@@ -24,7 +24,6 @@ public class ComplexRequest {
         
     }
     
-    // Requête de modifications des informations de l'utilisateur
     public void alterInformations(String lastName, String firstName, String email, HttpServletRequest request){
         HttpSession session = request.getSession();
         Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
@@ -45,7 +44,6 @@ public class ComplexRequest {
         sessionHibernate.close();
     }
     
-    // Requête de modification des mots de passe
     public void alterPassword(String newPassword, HttpServletRequest request) {
 
         HttpSession session = request.getSession();

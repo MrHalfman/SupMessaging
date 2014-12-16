@@ -27,6 +27,7 @@ public class CheckForm {
         this.errors = errors;
     }
     
+    // Permet la vérification de l'existence d'un utilisateur
     public Integer queryUser(String username){
         Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = sessionHibernate.beginTransaction();
