@@ -47,7 +47,7 @@
                         </p>
                         <div class="informations">
                             <div class="author">
-                                <b>Par <c:choose><c:when test="${message.getIdUserAuthor() == userid}">vous</c:when><c:otherwise>${message.getAuthorName()}</c:otherwise></c:choose></b>
+                                <b>Par <c:choose><c:when test="${message.getIdUserAuthor() == userid}">vous</c:when><c:otherwise>${message.getAuthorName(message.getIdUserAuthor(), message.getMail())}</c:otherwise></c:choose></b>
                             </div>
                             <div class="date">
                                 ${message.getDateMessage()}
