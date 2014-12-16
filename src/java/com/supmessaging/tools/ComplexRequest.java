@@ -13,6 +13,8 @@ import org.hibernate.Transaction;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -171,8 +173,15 @@ public class ComplexRequest {
         for (Integer idUser : myFriendsID){
             myFriendsInformations.add(getUserById(idUser));
         }
+        if (myFriendsInformations.size() > 0) {
+            Collections.sort(myFriendsInformations, new Comparator<Users>() {
+                @Override
+                public int compare(final Users object1, final Users object2) {
+                    return object1.getPseudo().compareTo(object2.getPseudo());
+                }
+            });
+        }
         
-        System.out.println(myFriendsInformations);
         return myFriendsInformations;
     }
     
