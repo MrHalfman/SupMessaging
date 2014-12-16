@@ -19,6 +19,10 @@ import java.util.Set;
 import org.hibernate.SessionFactory;
 
 public class ComplexRequest {
+        
+    public ComplexRequest() {
+        
+    }
     
     // Requête de modifications des informations de l'utilisateur
     public void alterInformations(String lastName, String firstName, String email, HttpServletRequest request){
