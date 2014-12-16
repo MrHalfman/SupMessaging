@@ -41,14 +41,15 @@ public class UserSearch extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         SessionCreator sessionCreator = new SessionCreator(request);
-        HttpSession session = request.getSession();
-        String username = (String) session.getAttribute("username");
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
+        HttpSession session = request.getSession();
         List<Users> users = new ArrayList<>();
         Map<String, String> errors = new HashMap<>();
         CheckForm checkData = new CheckForm(request, errors);
         
+        String username = sessionCreator.getUsername();
         String friend = request.getParameter("friend");
+        
         request.setAttribute("friend", friend);
         checkData.nonEmpty(friend, "friend", false);
         
@@ -61,14 +62,19 @@ public class UserSearch extends HttpServlet {
             ComplexRequest searchUser = new ComplexRequest();
             SecureRandom random = new SecureRandom();
             users = searchUser.contactSearch(friend, username);
+            
+            /* Concernant la génération du nombre aléatoire
+                 * Ce dernier est envoyé en GET et passé en session
+                 * Lors de l'ajout d'une amitié, on vérifie que le nombre est identique
+                   Afin d'éviter les ajouts hasardeux en passant des paramères GET sur l'URL
+            */
             String security = new BigInteger(130, random).toString(32);
             
-            session.setAttribute("security", security);
             request.setAttribute("users", users);
+            session.setAttribute("security", security);
             request.setAttribute("security", security);
             
             this.getServletContext().getRequestDispatcher(jspView).forward(request, response);
         }
-        
     }
 }

@@ -35,7 +35,6 @@ public class Profile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         SessionCreator sessionCreator = new SessionCreator(request);
-        HttpSession session = request.getSession();
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
 
         if(sessionCreator.checkSessionExist()) {
@@ -44,7 +43,7 @@ public class Profile extends HttpServlet {
             Transaction tx = sessionHibernate.beginTransaction();
 
             Query queryTest = (Query) sessionHibernate.createQuery("FROM Users u WHERE u.pseudo = :pseudo");
-            queryTest.setParameter("pseudo", session.getAttribute("username"));       
+            queryTest.setParameter("pseudo", sessionCreator.getUsername());       
 
             List<Users> users = queryTest.list();
 
@@ -69,9 +68,7 @@ public class Profile extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        HttpSession session = request.getSession();
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {     
         Map<String, String> errorsData = new HashMap<>();
         Map<String, String> errorsPassword = new HashMap<>();
         SessionCreator sessionCreator = new SessionCreator(request);
@@ -80,7 +77,7 @@ public class Profile extends HttpServlet {
         CheckForm checkData = new CheckForm(request, errorsData);
         CheckForm checkPassword = new CheckForm(request, errorsPassword);
         Encryption encryption = new Encryption();
-        checkPassword.queryUser((String) session.getAttribute("username"));
+        checkPassword.queryUser((String) sessionCreator.getUsername());
         
         // On récupère les modifications
         String firstName = checkData.formatName(request.getParameter("firstName"));
