@@ -62,4 +62,9 @@
                 </div>
             </form>
         </div>
+<c:if test="${popup}">
+    <script type="text/javascript">
+        window.onload = function () {swal("Succes!", "Your informations were changed with a great succes!", "success");};
+    </script>
+</c:if>
 <%@ include file="/WEB-INF/includes/footer.jsp" %>
