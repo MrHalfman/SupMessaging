@@ -21,4 +21,8 @@ function submitMsg(text) {
     bubble.find("p").html(text);
     bubble.find(".date").html(new Date());
     $("#bubbles").append(bubbleTpl);
+    $.post(window.location, {
+       receiver: $(".selected").data("uid"),
+       message: text
+    });
 }

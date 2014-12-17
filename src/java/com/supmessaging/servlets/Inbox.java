@@ -85,14 +85,10 @@ public class Inbox extends HttpServlet {
         
         // ENVOI MESSAGE
         ComplexRequest inboxRequest = new ComplexRequest ();      
-        int idUser = Integer.parseInt((String) session.getAttribute("userid"));
+        int idUser = (int) session.getAttribute("userid");
+        int idReceiver = Integer.parseInt(request.getParameter("receiver"));
+        String corpus = request.getParameter("message"); 
         
-        int idReceiver = Integer.parseInt(request.getParameter("receiver"));    // à faire on pourrait recupere le pseudo du contact 
-        //int idReceiver = inboxRequest.getIdOfUser(receiver); // du contact/destinataire du jsp et la mettre en variable ici
-        
-        String corpus = request.getParameter("message"); // à recuperer du jsp avec une value
-        
-        inboxRequest.newMessage(corpus, idUser, idReceiver); // testé et approuvé la fonction marche faut juste de bon parametres
-        
+        inboxRequest.newMessage(corpus, idUser, idReceiver);
     }
 }
