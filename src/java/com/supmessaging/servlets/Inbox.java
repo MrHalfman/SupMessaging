@@ -61,7 +61,7 @@ public class Inbox extends HttpServlet {
             
             request.setAttribute("messagesList", messagesList);
             
-            String username = (String) session.getAttribute("username");
+            String username = sessionCreator.getUsername();
             ComplexRequest quest = new ComplexRequest();
             List<Integer> contactsId = quest.getCommunicateContact(username);
             List<Users> contacts = new ArrayList<>();
@@ -71,6 +71,9 @@ public class Inbox extends HttpServlet {
             }
             
             request.setAttribute("conversationsList", contacts);
+            
+            ComplexRequest friends = new ComplexRequest();
+            request.setAttribute("friends", friends.getFriends(username));
 
             myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);      
             this.getServletContext().getRequestDispatcher(jspView).forward(request, response);

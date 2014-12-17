@@ -11,22 +11,39 @@
                 <button id="newMessage" title="New Conversation" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>
             </h3>
             <hr>
+            <div id="newMessageSelect">
+                <div class="messageItem">
+                    <select class="form-control" id="newMsgDest">
+                        <option>Destinataire</option>
+                    <c:forEach items="${friends}" var="friend">
+                        <option value="${friend.getId()}">${friend.getPseudo()}</option>
+                    </c:forEach>
+                    </select>
+                </div>
+                <hr>
+            </div>
             <c:forEach items="${conversationsList}" var="conversation">
                 <div class="messageItem <c:if test="${conversation.getId() == actualConversation}">selected</c:if>" data-uid="${conversation.getId()}">
-                <strong>${conversation.getPseudo()}</strong><!-- <br>
-                <em>Lorem Ipsum dolor sit amet</em>
-                <div class="informations">
-                    <div class="date">
-                        Le xx xxxxxxx xxxx
-                    </div>
-                    <div class="answers">
-                        <span class="badge">x</span> Messages
-                    </div>
-                    <div class="clear"></div>
-                </div>-->
-            </div>
-            <hr>
+                    <strong class="nickname">${conversation.getPseudo()}</strong><!-- <br>
+                    <em>Lorem Ipsum dolor sit amet</em>
+                    <div class="informations">
+                        <div class="date">
+                            Le xx xxxxxxx xxxx
+                        </div>
+                        <div class="answers">
+                            <span class="badge">x</span> Messages
+                        </div>
+                        <div class="clear"></div>
+                    </div>-->
+                </div>
+                <hr>
             </c:forEach>
+                <div id="messageItemTemplate">
+                    <div class="messageItem">
+                        <strong class="nickname"></strong>
+                    </div>
+                    <hr>
+                </div>
         </div>
         <div id="conversation" class="col-md-9">
             <c:choose >
@@ -35,7 +52,7 @@
                 </c:when>
                 <c:otherwise>
                     
-            <h3>Conversation avec <span id="messageReceiver">GladOS</span></h3>
+            <h3>Conversation avec <span id="messageReceiver"></span></h3>
             <hr>
             <div id="bubbles">
                 <img class="spinner" width="100%" height="32" src="/SupMessaging/static/img/loading-cylon-red.svg" />
