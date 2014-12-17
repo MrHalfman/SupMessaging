@@ -36,6 +36,7 @@ public class Profile extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         SessionCreator sessionCreator = new SessionCreator(request);
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
+        HttpSession session = request.getSession();
 
         if(sessionCreator.checkSessionExist()) {
             
@@ -45,21 +46,23 @@ public class Profile extends HttpServlet {
             Query queryTest = (Query) sessionHibernate.createQuery("FROM Users u WHERE u.pseudo = :pseudo");
             queryTest.setParameter("pseudo", sessionCreator.getUsername());       
 
-            List<Users> users = queryTest.list();
+            Users user = (Users) queryTest.list().get(0);
+            
+            request.setAttribute("firstName", user.getFirstname());
+            request.setAttribute("lastName", user.getName());
+            request.setAttribute("email", user.getMail());
 
-            for (Users user : users){
-                request.setAttribute("firstName", user.getFirstname());
-                request.setAttribute("lastName", user.getName());
-                request.setAttribute("email", user.getMail());
-                
-                this.firstname =  user.getFirstname();
-                this.lastname = user.getName();
-                this.email = user.getMail();
-            }
+            this.firstname =  user.getFirstname();
+            this.lastname = user.getName();
+            this.email = user.getMail();
             
             tx.commit();
             sessionHibernate.close();
                        
+            if(session.getAttribute("popup") == "popup!") {
+                session.removeAttribute("popup");
+                request.setAttribute("popup", true);
+            }
             this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );
         }
         else {
@@ -71,6 +74,7 @@ public class Profile extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {     
         Map<String, String> errorsData = new HashMap<>();
         Map<String, String> errorsPassword = new HashMap<>();
+        HttpSession session = request.getSession();
         SessionCreator sessionCreator = new SessionCreator(request);
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
         
@@ -126,6 +130,7 @@ public class Profile extends HttpServlet {
                         Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     complexRequest.alterPassword(ecryptedPassword, request);
+                    session.setAttribute("popup", "popup!");
                 }
             }
             
@@ -139,8 +144,9 @@ public class Profile extends HttpServlet {
                 this.firstname = firstName;
                 this.lastname = lastName;
                 this.email = mail;
+                session.setAttribute("popup", "popup!");
             }
-            this.getServletContext().getRequestDispatcher(jspView).forward(request, response);
+            response.sendRedirect("/SupMessaging/profile");
         }
     }
 }
