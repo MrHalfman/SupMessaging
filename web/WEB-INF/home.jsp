@@ -9,10 +9,10 @@
             SupMessaging is the best way to share your thought with all your friends!
         </p>
         <h3>
-            <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> ${nbUsers} users are registered, 
+            <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> ${nbUsers} awesome users are registered!
         </h3>
         <h3>
-            <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span> ${nbMessages} messages have been written!
+            <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span> ${nbMessages} lovely messages have been written!
         </h3>
         <div class="space-between"></div>
         <p>
