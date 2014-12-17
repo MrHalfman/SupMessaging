@@ -149,12 +149,11 @@ body {
 .spinner {
     display: none;
 }
-// ----------------------------------
-//         MEDIA QUERIES
-// ----------------------------------
 
-@media all and (max-width: 800px) {
-  .form-alert {
-    max-width : 95%;
-  }
+#newMessageSelect {
+    display: none;
+}
+
+#messageItemTemplate {
+    display: none;
 }
