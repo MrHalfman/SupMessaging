@@ -355,4 +355,23 @@ public class ComplexRequest {
         
         return idSpecificUser;
     }
+    
+    public List<Messages> getTenLastMessages(int idCurrentUser) {
+        
+        List<Messages> mess = null;    
+        Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = sessionHibernate.beginTransaction();
+
+        Query queryTest = (Query) sessionHibernate.createQuery("FROM Messages u WHERE idUserReceiver = :id ORDER BY id DESC LIMIT 0, 10");
+        queryTest.setParameter("id", idCurrentUser);
+
+        mess = queryTest.list();
+        
+        
+        
+        tx.commit();
+        sessionHibernate.close(); 
+        
+        return mess;
+    }
 }
