@@ -154,7 +154,7 @@ body {
 // ----------------------------------
 
 @media all and (max-width: 800px) {
-  .form-style, .form-alert {
+  .form-alert {
     max-width : 95%;
   }
 }
