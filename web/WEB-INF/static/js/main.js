@@ -25,6 +25,13 @@ window.onload = function () {
         createConversation(select.val(), option.html());
         toggleNewMessageSelect();
     });
+    
+    if ($(".noMsg").length > 0) {
+        var h2 = document.createElement("h2");
+        h2.id = "noMsgText";
+        h2.innerHTML = "Veuillez sélectionner une conversation.";
+        $("#conversation").prepend(h2);
+    }
 };
 
 function selectConversation(id) {
@@ -43,7 +50,8 @@ function createConversation(id, nickname) {
     } else {
         var template = $("#messageItemTemplate").clone().removeAttr("id"),
             msgItem = template.find(".messageItem");
-    
+        
+        $("#noMsgText").remove();
         $(".selected").removeClass("selected");
         $(".noMsg").removeClass("noMsg");
         msgItem.data("uid", id);
