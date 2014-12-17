@@ -85,7 +85,8 @@ public class Registration extends HttpServlet {
             lastname = checkInput.formatName(lastname);
             
             complexRequest.registerAnUser(firstname, email, lastname, username, encryptedPassword);
-            sessionCreator.createSession(0, username, 1);  // TODO : Add real uid
+            int idUser = complexRequest.getIdOfUser(username);
+            sessionCreator.createSession(idUser, username, 1); 
             response.sendRedirect("/SupMessaging");
         }
     }   
