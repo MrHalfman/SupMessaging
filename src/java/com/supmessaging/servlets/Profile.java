@@ -35,29 +35,21 @@ public class Profile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         SessionCreator sessionCreator = new SessionCreator(request);
+        ComplexRequest complexRequest = new ComplexRequest();
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
         HttpSession session = request.getSession();
 
         if(sessionCreator.checkSessionExist()) {
             
-            Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
-            Transaction tx = sessionHibernate.beginTransaction();
-
-            Query queryTest = (Query) sessionHibernate.createQuery("FROM Users u WHERE u.pseudo = :pseudo");
-            queryTest.setParameter("pseudo", sessionCreator.getUsername());       
-
-            Users user = (Users) queryTest.list().get(0);
+            Users me = complexRequest.getInformationsUser(sessionCreator.getUsername());
             
-            request.setAttribute("firstName", user.getFirstname());
-            request.setAttribute("lastName", user.getName());
-            request.setAttribute("email", user.getMail());
+            request.setAttribute("firstName", me.getFirstname());
+            request.setAttribute("lastName", me.getName());
+            request.setAttribute("email", me.getMail());
 
-            this.firstname =  user.getFirstname();
-            this.lastname = user.getName();
-            this.email = user.getMail();
-            
-            tx.commit();
-            sessionHibernate.close();
+            this.firstname =  me.getFirstname();
+            this.lastname = me.getName();
+            this.email = me.getMail();
                        
             if(session.getAttribute("popup") == "popup!") {
                 session.removeAttribute("popup");

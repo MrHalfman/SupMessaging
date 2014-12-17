@@ -399,4 +399,18 @@ public class ComplexRequest {
         sessionHibernate.flush();
         sessionHibernate.close();
     }
+    
+    public Users getInformationsUser(String username) {
+        Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = sessionHibernate.beginTransaction();
+
+        Query queryTest = (Query) sessionHibernate.createQuery("FROM Users u WHERE u.pseudo = :pseudo");
+        queryTest.setParameter("pseudo", username);             
+        Users user = (Users) queryTest.list().get(0);
+
+        tx.commit();
+        sessionHibernate.close();
+        
+        return user;
+    }
 }
