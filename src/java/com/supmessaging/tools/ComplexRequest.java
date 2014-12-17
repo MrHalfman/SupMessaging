@@ -355,7 +355,7 @@ public class ComplexRequest {
         
         return idSpecificUser;
     }
-<<<<<<< HEAD
+
     
     public List<Messages> getTenLastMessages(int idCurrentUser) {
         
@@ -367,15 +367,13 @@ public class ComplexRequest {
         queryTest.setParameter("id", idCurrentUser);
 
         mess = queryTest.list();
-        
-        
-        
+
         tx.commit();
         sessionHibernate.close(); 
         
         return mess;
-=======
-
+    }
+    
     public void registerAnUser(String firstname, String email, String lastname, String username, String encryptedPassword) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session sessionHibernate = sessionFactory.openSession();
@@ -394,6 +392,5 @@ public class ComplexRequest {
 
         sessionHibernate.flush();
         sessionHibernate.close();
->>>>>>> FETCH_HEAD
     }
 }
