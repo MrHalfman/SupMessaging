@@ -5,7 +5,7 @@
 <div class="container"> <br>
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h5> Welcome on the Contact page, here you can send a message to the SupMessaging's admin. </h5>
+            <h3 class="panel-title">Welcome on the Contact page, here you can send a message to the SupMessaging's admin. </h3>
         </div>
         <div class="panel-body">
             <form method="post" action="contact">
