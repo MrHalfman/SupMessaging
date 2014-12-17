@@ -1,4 +1,4 @@
-#SupMessaging (Supinfo JEE Project
+#SupMessaging (Supinfo JEE Project)
 
 Le groupe est constitué de : 
  * BILLARD Martin : 160651
