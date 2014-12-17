@@ -28,8 +28,14 @@ public class UserSearch extends HttpServlet {
             throws ServletException, IOException {
         SessionCreator sessionCreator = new SessionCreator(request);
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
+        HttpSession session = request.getSession();
+
         
         if(sessionCreator.checkSessionExist()) {
+            if(session.getAttribute("popup") == "popup!") {
+                session.removeAttribute("popup");
+                request.setAttribute("popup", true);
+            }        
             this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );
         }
         else {
@@ -46,6 +52,7 @@ public class UserSearch extends HttpServlet {
         List<Users> users = new ArrayList<>();
         Map<String, String> errors = new HashMap<>();
         CheckForm checkData = new CheckForm(request, errors);
+        
         
         String username = sessionCreator.getUsername();
         String friend = request.getParameter("friend");

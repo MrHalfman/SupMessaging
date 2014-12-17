@@ -29,6 +29,7 @@ public class AddFriend extends HttpServlet {
                 addFriend.createRelationship(username, userId);
             }
             session.setAttribute("security", null);
+            session.setAttribute("popup", "popup!");
             response.sendRedirect("/SupMessaging/search");
         }
         else {

@@ -56,9 +56,4 @@
                 </div>
             </div>
         </div>
-<c:if test="${popup}">
-    <script type="text/javascript">
-        window.onload = function () {swal("test", "test", "success");};
-    </script>
-</c:if>
 <%@ include file="/WEB-INF/includes/footer.jsp" %>
