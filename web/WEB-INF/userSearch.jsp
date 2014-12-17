@@ -24,7 +24,7 @@
             </form>
         </div>                 
     </div>
-    
+
     <form action="addfriend" method='post'>
         <table class="table">
             <thead>
@@ -50,7 +50,9 @@
 </div>
 <c:if test="${popup}">
     <script type="text/javascript">
-        window.onload = function () {swal("User added", "You've got a new friend! Joy and Happiness!", "success");};
+        window.onload = function () {
+            swal("User added", "You've got a new friend! Joy and Happiness!", "success");
+        };
     </script>
 </c:if>
 <%@ include file="/WEB-INF/includes/footer.jsp" %>
