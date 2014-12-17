@@ -33,6 +33,16 @@ public class ActionToolbar {
                     links.get("home").set(0, "active");
                 } catch (NullPointerException ex) {};
                 break;
+            case "/SupMessaging/myFriends":
+                try {
+                    links.get("directory").set(0, "active");
+                } catch (NullPointerException ex) {};
+                break;
+            case "/SupMessaging/search":
+                try {
+                    links.get("search").set(0, "active");
+                } catch (NullPointerException ex) {};
+                break;
             case "/SupMessaging/contact":
                 try {
                     links.get("contact").set(0, "active");

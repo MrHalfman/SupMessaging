@@ -129,12 +129,11 @@ public class Messages implements Serializable {
         this.idUserReceiver = idUserReceiver;
     }
     
-    public String getAuthorName(int id, String mailing) {
+    public String getAuthorName() {
         ComplexRequest request = new ComplexRequest();
-        Users username = request.getUserById(id);
+        Users username = request.getUserById(idUserAuthor);
        
         return username.getPseudo();
-        
     }
 
     public String getMail() {

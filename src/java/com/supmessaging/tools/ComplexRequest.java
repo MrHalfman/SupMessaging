@@ -358,15 +358,16 @@ public class ComplexRequest {
 
     
     public List<Messages> getTenLastMessages(int idCurrentUser) {
-        
-        List<Messages> mess = null;    
+        List<Messages> mess;    
         Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = sessionHibernate.beginTransaction();
 
-        Query queryTest = (Query) sessionHibernate.createQuery("FROM Messages u WHERE idUserReceiver = :id ORDER BY id DESC LIMIT 0, 10");
+        Query queryTest = (Query) sessionHibernate.createQuery("FROM Messages WHERE idUserReceiver = :id ORDER BY id DESC");
         queryTest.setParameter("id", idCurrentUser);
-
         mess = queryTest.list();
+        int maxMessages = (mess.size() < 10 ? mess.size() : 10);
+        
+        mess = mess.subList(0, maxMessages);
 
         tx.commit();
         sessionHibernate.close(); 
