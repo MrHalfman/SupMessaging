@@ -36,58 +36,50 @@
             </div>
         </div>
         <div id="conversation" class="col-md-9">
-            <c:choose >
-                <c:when test="${messagesList.isEmpty()}">
-                    <h1>Merci de sélectionner une conversation.</h1>
-                </c:when>
-                <c:otherwise>
-
-                    <h3>Conversation avec <span id="messageReceiver"></span></h3>
-                    <hr>
-                    <div id="bubbles">
-                        <img class="spinner" width="100%" height="32" src="/SupMessaging/static/img/loading-cylon-red.svg" />
-
-                        <c:forEach items="${messagesList}" var="message">
-                            <div class="bubble <c:choose><c:when test="${message.getIdUserAuthor() == userid}">me</c:when><c:otherwise>you</c:otherwise></c:choose>">
-                                        <p>
-                                    ${message.getCorpus()}
-                                </p>
-                                <div class="informations">
-                                    <div class="author">
-                                        <b>Par <c:choose><c:when test="${message.getIdUserAuthor() == userid}">vous</c:when><c:otherwise>${message.getAuthorName()}</c:otherwise></c:choose></b>
-                                            </div>
-                                            <div class="date">
-                                        ${message.getDateMessage()}
+            <h3 class='<c:if test="${messagesList.isEmpty()}">noMsg</c:if>'>Conversation avec <span id="messageReceiver"></span></h3>
+            <hr>
+            <div id="bubbles">
+                <c:if test="${!messagesList.isEmpty()}">
+                <c:forEach items="${messagesList}" var="message">
+                    <div class="bubble <c:choose><c:when test="${message.getIdUserAuthor() == userid}">me</c:when><c:otherwise>you</c:otherwise></c:choose>">
+                                <p>
+                            ${message.getCorpus()}
+                        </p>
+                        <div class="informations">
+                            <div class="author">
+                                <b>Par <c:choose><c:when test="${message.getIdUserAuthor() == userid}">vous</c:when><c:otherwise>${message.getAuthorName()}</c:otherwise></c:choose></b>
                                     </div>
-                                </div>
-                                <div class="clear"></div>
+                                    <div class="date">
+                                ${message.getDateMessage()}
                             </div>
-                            <div class="spacer"></div>
-                        </c:forEach>
-                        <div id="bubbleTemplate">
-                            <div class="bubble me">
-                                <p></p>
-                                <div class="informations">
-                                    <div class="author">
-                                        <b>Par vous</b>
-                                    </div>
-                                    <div class="date"></div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="spacer"></div>
                         </div>
-                        <div class="spacer"></div>
+                        <div class="clear"></div>
                     </div>
-                    <div class="clear"></div>
-                    <div id="input">
-                        <form>
-                            <textarea id="message" placeholder="Enter your message then press Enter..."></textarea>
-                        </form>
+                    <div class="spacer"></div>
+                </c:forEach>
+                </c:if>
+                <div id="bubbleTemplate">
+                    <div class="bubble me">
+                        <p></p>
+                        <div class="informations">
+                            <div class="author">
+                                <b>Par vous</b>
+                            </div>
+                            <div class="date"></div>
+                        </div>
+                        <div class="clear"></div>
                     </div>
-                    <div class="clear"></div>
-                </c:otherwise>
-            </c:choose>
+                    <div class="spacer"></div>
+                </div>
+                <div class="spacer"></div>
+            </div>
+            <div class="clear"></div>
+            <div id="input">
+                <form>
+                    <textarea id="message" placeholder="Enter your message then press Enter..."></textarea>
+                </form>
+            </div>
+            <div class="clear"></div>
         </div>
     </div>
 </div>

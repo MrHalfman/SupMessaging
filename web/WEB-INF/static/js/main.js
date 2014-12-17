@@ -45,6 +45,7 @@ function createConversation(id, nickname) {
             msgItem = template.find(".messageItem");
     
         $(".selected").removeClass("selected");
+        $(".noMsg").removeClass("noMsg");
         msgItem.data("uid", id);
         msgItem.find(".nickname").html(nickname);
         msgItem.addClass("selected");

@@ -157,3 +157,7 @@ body {
 #messageItemTemplate {
     display: none;
 }
+
+.noMsg {
+    display: none;
+}
