@@ -11,28 +11,25 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 public class MyFriends extends HttpServlet {
-    
+
     private final ActionToolbar myBeautifulToolbar = new ActionToolbar();
     public static final String jspView = "/WEB-INF/friends.jsp";
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         SessionCreator sessionCreator = new SessionCreator(request);
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
         List<Users> users = new ArrayList<>();
-        
-        
-        if(sessionCreator.checkSessionExist()) {
+
+        if (sessionCreator.checkSessionExist()) {
             ComplexRequest queryFriends = new ComplexRequest();
-            users = queryFriends.getFriends(sessionCreator.getUsername());            
+            users = queryFriends.getFriends(sessionCreator.getUsername());
             request.setAttribute("users", users);
-            this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );
-        }
-        else {
+            this.getServletContext().getRequestDispatcher(jspView).forward(request, response);
+        } else {
             response.sendRedirect("/SupMessaging");
         }
     }

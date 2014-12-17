@@ -13,11 +13,10 @@ public class LogOut extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         SessionCreator sessionCreator = new SessionCreator(request);
-        
-        if(sessionCreator.checkSessionExist()) {
+
+        if (sessionCreator.checkSessionExist()) {
             sessionCreator.destroySession(response, "/SupMessaging");
-        }
-        else {
+        } else {
             response.sendRedirect("/SupMessaging");
         }
     }

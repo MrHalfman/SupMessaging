@@ -22,7 +22,7 @@ public class UserSearch extends HttpServlet {
 
     private final ActionToolbar myBeautifulToolbar = new ActionToolbar();
     private static final String jspView = "/WEB-INF/userSearch.jsp";
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -30,15 +30,13 @@ public class UserSearch extends HttpServlet {
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
         HttpSession session = request.getSession();
 
-        
-        if(sessionCreator.checkSessionExist()) {
-            if(session.getAttribute("popup") == "popup!") {
+        if (sessionCreator.checkSessionExist()) {
+            if (session.getAttribute("popup") == "popup!") {
                 session.removeAttribute("popup");
                 request.setAttribute("popup", true);
-            }        
-            this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );
-        }
-        else {
+            }
+            this.getServletContext().getRequestDispatcher(jspView).forward(request, response);
+        } else {
             response.sendRedirect("/SupMessaging");
         }
     }
@@ -52,35 +50,33 @@ public class UserSearch extends HttpServlet {
         List<Users> users = new ArrayList<>();
         Map<String, String> errors = new HashMap<>();
         CheckForm checkData = new CheckForm(request, errors);
-        
-        
+
         String username = sessionCreator.getUsername();
         String friend = request.getParameter("friend");
-        
+
         request.setAttribute("friend", friend);
         checkData.nonEmpty(friend, "friend", false);
-        
-        if(!errors.isEmpty()) {
+
+        if (!errors.isEmpty()) {
             request.setAttribute("error", errors);
             this.getServletContext().getRequestDispatcher(jspView).forward(request, response);
             errors.clear();
-        }
-        else {           
+        } else {
             ComplexRequest searchUser = new ComplexRequest();
             SecureRandom random = new SecureRandom();
             users = searchUser.contactSearch(friend, username);
-            
+
             /* Concernant la génération du nombre aléatoire
-                 * Ce dernier est envoyé en GET et passé en session
-                 * Lors de l'ajout d'une amitié, on vérifie que le nombre est identique
-                   Afin d'éviter les ajouts hasardeux en passant des paramères GET sur l'URL
-            */
+             * Ce dernier est envoyé en GET et passé en session
+             * Lors de l'ajout d'une amitié, on vérifie que le nombre est identique
+               Afin d'éviter les ajouts hasardeux en passant des paramères GET sur l'URL
+             */
             String security = new BigInteger(130, random).toString(32);
-            
+
             request.setAttribute("users", users);
             session.setAttribute("security", security);
             request.setAttribute("security", security);
-            
+
             this.getServletContext().getRequestDispatcher(jspView).forward(request, response);
         }
     }

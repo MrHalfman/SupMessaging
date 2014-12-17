@@ -20,19 +20,18 @@ public class AddFriend extends HttpServlet {
         String username = (String) session.getAttribute("username");
         int userId = -1;
         String security = null;
-        
-        if(sessionCreator.checkSessionExist() && request.getParameter("userId") != null && request.getParameter("security") != null) {
+
+        if (sessionCreator.checkSessionExist() && request.getParameter("userId") != null && request.getParameter("security") != null) {
             userId = Integer.parseInt(request.getParameter("userId"));
             security = request.getParameter("security");
-            
+
             if (userId > -1 && security.equals(session.getAttribute("security"))) {
                 addFriend.createRelationship(username, userId);
             }
             session.setAttribute("security", null);
             session.setAttribute("popup", "popup!");
             response.sendRedirect("/SupMessaging/search");
-        }
-        else {
+        } else {
             response.sendRedirect("/SupMessaging");
         }
     }

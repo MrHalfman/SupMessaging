@@ -14,24 +14,24 @@ import javax.servlet.http.HttpSession;
 
 public class Home extends HttpServlet {
 
-    public static final String connectedView    = "/WEB-INF/dashboard.jsp";
-    public static final String guestView        = "/WEB-INF/home.jsp";
-    
+    public static final String connectedView = "/WEB-INF/dashboard.jsp";
+    public static final String guestView = "/WEB-INF/home.jsp";
+
     @Override
-    public void doGet( HttpServletRequest request, HttpServletResponse response )	
-            throws ServletException, IOException {            
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         SessionCreator sessionCreator = new SessionCreator(request);
         HttpSession session = request.getSession();
         ActionToolbar myBeautifulToolbar = new ActionToolbar();
-        
+
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
         ComplexRequest stats = new ComplexRequest();
         int statUsers = stats.getStatsUser();
         int statMessages = stats.getStatsMessages();
-        
+
         request.setAttribute("nbUsers", statUsers);
         request.setAttribute("nbMessages", statMessages);
-        
+
         if (sessionCreator.checkSessionExist()) {
             List<Messages> messages = stats.getTenLastMessages((int) session.getAttribute("userid"));
             request.setAttribute("lastMessages", messages);
@@ -40,5 +40,5 @@ public class Home extends HttpServlet {
             this.getServletContext().getRequestDispatcher(guestView).forward(request, response);
         }
     }
-    
+
 }

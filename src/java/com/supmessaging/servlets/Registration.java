@@ -18,62 +18,60 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class Registration extends HttpServlet {
+
     public static final String jspView = "/WEB-INF/registration.jsp";
     Encryption encryption = new Encryption();
 
     @Override
-    public void doGet( HttpServletRequest request, HttpServletResponse response )	throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         SessionCreator sessionCreator = new SessionCreator(request);
         ActionToolbar myBeautifulToolbar = new ActionToolbar();
-        
+
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
-        
-        if(!sessionCreator.checkSessionExist()) {
-            this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );
-        }
-        else {
+
+        if (!sessionCreator.checkSessionExist()) {
+            this.getServletContext().getRequestDispatcher(jspView).forward(request, response);
+        } else {
             response.sendRedirect("/SupMessaging");
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, UnsupportedEncodingException {
-        
+
         SessionCreator sessionCreator = new SessionCreator(request);
         ActionToolbar myBeautifulToolbar = new ActionToolbar();
         ComplexRequest complexRequest = new ComplexRequest();
-        
+
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
         Map<String, String> errors = new HashMap<>();
         CheckForm checkInput = new CheckForm(request, errors);
-        
+
         String username = request.getParameter("username");
         String firstname = request.getParameter("firstName");
         String lastname = request.getParameter("lastName");
         String email = request.getParameter("email");
         String passwordOne = request.getParameter("passwordOne");
         String passwordTwo = request.getParameter("passwordTwo");
-        
+
         request.setAttribute("username", username);
         request.setAttribute("firstName", firstname);
         request.setAttribute("lastName", lastname);
         request.setAttribute("email", email);
-        
+
         checkInput.validateUsername(username, "username", true);
         checkInput.nonEmpty(firstname, "firstName", false);
         checkInput.nonEmpty(firstname, "lastName", false);
         checkInput.validateMail(email, "email", false);
         checkInput.equalizationPassword(passwordOne, passwordTwo, "password");
- 
-        if(!errors.isEmpty()) {
+
+        if (!errors.isEmpty()) {
             request.setAttribute("error", errors);
-            this.getServletContext().getRequestDispatcher(jspView).forward( request, response );
+            this.getServletContext().getRequestDispatcher(jspView).forward(request, response);
             errors.clear();
-        }
-        else {
+        } else {
             String encryptedPassword = null;
-            
-            
+
             try {
                 encryptedPassword = encryption.encryptionPassword(passwordTwo);
             } catch (NoSuchAlgorithmException ex) {
@@ -82,11 +80,11 @@ public class Registration extends HttpServlet {
 
             firstname = checkInput.formatName(firstname);
             lastname = checkInput.formatName(lastname);
-            
+
             complexRequest.registerAnUser(firstname, email, lastname, username, encryptedPassword);
             int idUser = complexRequest.getIdOfUser(username);
-            sessionCreator.createSession(idUser, username, 1); 
+            sessionCreator.createSession(idUser, username, 1);
             response.sendRedirect("/SupMessaging");
         }
-    }   
+    }
 }
