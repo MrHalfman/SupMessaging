@@ -33,6 +33,7 @@ public class Registration extends HttpServlet {
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
         
         if(!sessionCreator.checkSessionExist()) {
+            request.setAttribute("popup", true);
             this.getServletContext().getRequestDispatcher( jspView ).forward( request, response );
         }
         else {
