@@ -355,4 +355,24 @@ public class ComplexRequest {
         
         return idSpecificUser;
     }
+
+    public void registerAnUser(String firstname, String email, String lastname, String username, String encryptedPassword) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session sessionHibernate = sessionFactory.openSession();
+        Users secretary = new Users();
+
+        secretary.setFirstname(firstname);
+        secretary.setMail(email);
+        secretary.setName(lastname);
+        secretary.setPseudo(username);
+        secretary.setPassword(encryptedPassword);
+        secretary.setRoleUser(1);
+
+        Transaction tx = sessionHibernate.beginTransaction();
+        sessionHibernate.saveOrUpdate(secretary);
+        tx.commit();
+
+        sessionHibernate.flush();
+        sessionHibernate.close();
+    }
 }

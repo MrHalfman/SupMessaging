@@ -1,9 +1,8 @@
 package com.supmessaging.servlets;
 
-import com.supmessaging.persistence.HibernateUtil;
-import com.supmessaging.persistence.Users;
 import com.supmessaging.tools.ActionToolbar;
 import com.supmessaging.tools.CheckForm;
+import com.supmessaging.tools.ComplexRequest;
 import com.supmessaging.tools.Encryption;
 import com.supmessaging.tools.SessionCreator;
 import java.io.IOException;
@@ -17,9 +16,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
 public class Registration extends HttpServlet {
     public static final String jspView = "/WEB-INF/registration.jsp";
@@ -46,25 +42,27 @@ public class Registration extends HttpServlet {
         
         SessionCreator sessionCreator = new SessionCreator(request);
         ActionToolbar myBeautifulToolbar = new ActionToolbar();
+        ComplexRequest complexRequest = new ComplexRequest();
+        
         myBeautifulToolbar.getAdaptedToolbar(sessionCreator, request);
         Map<String, String> errors = new HashMap<>();
         CheckForm checkInput = new CheckForm(request, errors);
         
-        String userName = request.getParameter("username");
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
+        String username = request.getParameter("username");
+        String firstname = request.getParameter("firstName");
+        String lastname = request.getParameter("lastName");
         String email = request.getParameter("email");
         String passwordOne = request.getParameter("passwordOne");
         String passwordTwo = request.getParameter("passwordTwo");
         
-        request.setAttribute("username", userName);
-        request.setAttribute("firstName", firstName);
-        request.setAttribute("lastName", lastName);
+        request.setAttribute("username", username);
+        request.setAttribute("firstName", firstname);
+        request.setAttribute("lastName", lastname);
         request.setAttribute("email", email);
         
-        checkInput.validateUsername(userName, "username", true);
-        checkInput.nonEmpty(firstName, "firstName", false);
-        checkInput.nonEmpty(firstName, "lastName", false);
+        checkInput.validateUsername(username, "username", true);
+        checkInput.nonEmpty(firstname, "firstName", false);
+        checkInput.nonEmpty(firstname, "lastName", false);
         checkInput.validateMail(email, "email", false);
         checkInput.equalizationPassword(passwordOne, passwordTwo, "password");
  
@@ -75,7 +73,7 @@ public class Registration extends HttpServlet {
         }
         else {
             String encryptedPassword = null;
-            Users secretary = new Users();
+            
             
             try {
                 encryptedPassword = encryption.encryptionPassword(passwordTwo);
@@ -83,28 +81,11 @@ public class Registration extends HttpServlet {
                 Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            firstName = checkInput.formatName(firstName);
-            lastName = checkInput.formatName(lastName);
+            firstname = checkInput.formatName(firstname);
+            lastname = checkInput.formatName(lastname);
             
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-            Session sessionHibernate = sessionFactory.openSession();
-            
-            secretary.setFirstname(firstName);
-            secretary.setMail(email);
-            secretary.setName(lastName);
-            secretary.setPseudo(userName);
-            secretary.setPassword(encryptedPassword);
-            secretary.setRoleUser(1);
-
-            Transaction tx = sessionHibernate.beginTransaction();
-            sessionHibernate.saveOrUpdate(secretary);
-
-            tx.commit();
-
-            sessionHibernate.flush();
-            sessionHibernate.close();
-            
-            sessionCreator.createSession(0, userName, 1);  // TODO : Add real uid
+            complexRequest.registerAnUser(firstname, email, lastname, username, encryptedPassword);
+            sessionCreator.createSession(0, username, 1);  // TODO : Add real uid
             response.sendRedirect("/SupMessaging");
         }
     }   
