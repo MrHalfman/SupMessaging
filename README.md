@@ -1,7 +1,6 @@
-SupMessaging (Supinfo JEE Project)
-============
+#SupMessaging (Supinfo JEE Project)
 
-Group : 
+Le groupe est constitué de : 
  * BILLARD Martin : 160651
  * ANGELINI Adrien  : 158113
  * CHAPALAIN Mathieu : 76563

@@ -191,7 +191,10 @@ public class ComplexRequest {
         List<Users> allUsers;
         List<Users> usersOfInterest = new ArrayList<>();
         List<Integer> idFriends = getIDRelations(username);
+        
         int idCurrentUser = getIdOfUser(username);
+        int anonymUser = getSpecificUser(0);
+        
         Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = sessionHibernate.beginTransaction();
 
@@ -201,7 +204,9 @@ public class ComplexRequest {
         allUsers = queryTest.list();
         
         for (Users user : allUsers){
-            if (!idFriends.contains(user.getId()) && user.getId() != idCurrentUser) {
+            if (!idFriends.contains(user.getId()) 
+                    && user.getId() != idCurrentUser
+                    && user.getId() != anonymUser) {
                 usersOfInterest.add(user);
             }
         }
